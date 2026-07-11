@@ -12,7 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
   if (toggle && nav) {
     toggle.addEventListener('click', () => {
       nav.classList.toggle('nav--open');
-      toggle.setAttribute('aria-expanded', String(nav.classList.contains('nav--open')));
+      const isOpen = nav.classList.contains('nav--open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+
+      // Staggered link reveal khi mở menu mobile
+      if (isOpen && typeof window.gsap !== 'undefined') {
+        const mobileLinks = nav.querySelectorAll('.nav__links li');
+        gsap.fromTo(mobileLinks,
+          { y: 32, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power3.out',
+            stagger: 0.06,
+            delay: 0.1
+          }
+        );
+      }
     });
 
     links?.forEach((link) => {
@@ -103,11 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const cards = document.querySelectorAll('.card--reveal');
       cards.forEach((card) => {
         gsap.fromTo(card,
-          { y: 28, opacity: 0.35 },
+          { y: 28, opacity: 0.35, filter: 'blur(6px)' },
           {
             y: 0,
             opacity: 1,
-            duration: 0.9,
+            filter: 'blur(0px)',
+            duration: 1.1,
             ease: 'power2.out',
             scrollTrigger: {
               trigger: card,

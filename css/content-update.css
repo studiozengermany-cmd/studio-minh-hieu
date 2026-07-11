@@ -250,19 +250,8 @@
   padding: var(--space-8) !important;
 }
 
-/* Khắc phục low contrast cho kicker, label và footer text */
-.content-detail__kicker,
-.contact__method-label,
-.collab-text-team,
-.footer__brand-tagline,
-.footer__links a,
-.footer__bottom {
-  color: rgba(255, 255, 255, 0.75) !important;
-}
-
-.content-detail__action {
-  color: rgba(255, 255, 255, 0.8) !important;
-}
+/* Khắc phục low contrast — đã chuyển sang global tokens (styles.css)
+   --color-muted: 70%, --color-muted-light: 85% */
 
 .footer__links a:hover {
   color: #fff !important;

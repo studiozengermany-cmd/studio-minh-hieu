@@ -23,6 +23,8 @@
   --white-alpha-20: rgba(255, 255, 255, 0.20);
   --white-alpha-50: rgba(255, 255, 255, 0.50);
   --white-alpha-60: rgba(255, 255, 255, 0.60);
+  --white-alpha-70: rgba(255, 255, 255, 0.70);
+  --white-alpha-85: rgba(255, 255, 255, 0.85);
 
   /* Semantic tokens */
   --color-bg: var(--brand-dark);
@@ -30,8 +32,8 @@
   --color-card-bg: var(--white-alpha-02);
   --color-card-border: var(--white-alpha-06);
   --color-card-hover-border: var(--white-alpha-10);
-  --color-muted: var(--white-alpha-50);
-  --color-muted-light: var(--white-alpha-60);
+  --color-muted: var(--white-alpha-70);
+  --color-muted-light: var(--white-alpha-85);
   --color-border: var(--white-alpha-10);
   --color-focus-ring: var(--brand-light);
 
@@ -54,9 +56,9 @@
 
   /* Radii */
   --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  --radius-md: 12px;
+  --radius-lg: 1.25rem;
+  --radius-xl: 2rem;
   --radius-full: 9999px;
 
   /* Motion */
@@ -239,14 +241,16 @@ img {
   .nav__links {
     position: fixed;
     inset: 0;
-    background: var(--color-bg);
+    background: rgba(3, 3, 4, 0.88);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2.5rem;
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--duration-normal) ease;
+    transition: opacity var(--duration-normal) var(--ease-out-power);
     z-index: 50;
   }
 
@@ -292,6 +296,7 @@ img {
   max-width: 48ch;
   line-height: 1.6;
   margin-bottom: var(--space-8);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 0, 0, 0.4);
 }
 
 @media (max-width: 768px) {
@@ -383,9 +388,10 @@ img {
   font-family: var(--font-display);
   font-size: clamp(1.125rem, 1.5vw, 1.5rem);
   font-style: italic;
-  color: var(--color-muted-light);
+  color: #fff;
   max-width: 48ch;
   line-height: 1.6;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
 .hero__actions {
@@ -561,6 +567,35 @@ img {
 
 .btn:hover .btn__arrow {
   transform: translateX(4px);
+}
+
+/* Button-in-Button trailing icon island */
+.btn__arrow-island {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.08);
+  margin-left: 0.25rem;
+  margin-right: -0.5rem;
+  transition: transform var(--duration-normal) var(--ease-out-expo),
+              background-color var(--duration-normal) var(--ease-out-expo);
+}
+
+.btn:hover .btn__arrow-island {
+  transform: translateX(2px) translateY(-1px) scale(1.08);
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.btn__arrow-island .btn__arrow {
+  font-size: 0.875rem;
+  transition: transform var(--duration-normal) var(--ease-out-expo);
+}
+
+.btn:hover .btn__arrow-island .btn__arrow {
+  transform: translateX(2px);
 }
 
 /* ── Card ────────────────────────────────────────────────── */
@@ -951,8 +986,8 @@ img {
   z-index: -10;
   background: radial-gradient(
     circle at 50% 50%, 
-    rgba(0, 0, 0, 0.2) 0%, 
-    rgba(0, 0, 0, 0.8) 100%
+    rgba(0, 0, 0, 0.45) 0%, 
+    rgba(0, 0, 0, 0.88) 100%
   );
   pointer-events: none;
 }
@@ -1439,6 +1474,25 @@ img {
   overflow: hidden;
 }
 
+/* ── Double-Bezel (Doppelrand) Shell ────────────────────── */
+.doppelrand {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-xl);
+  padding: 5px;
+  transition: border-color var(--duration-normal) var(--ease-out-power);
+}
+
+.doppelrand:hover {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.doppelrand > .content-detail,
+.doppelrand > .project-detail {
+  border-radius: calc(var(--radius-xl) - 5px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
+}
+
 .content-detail[open],
 .project-detail[open] {
   border-color: var(--color-card-hover-border);
@@ -1509,6 +1563,7 @@ img {
   color: var(--color-muted-light);
   line-height: 1.75;
   margin-top: var(--space-5);
+  max-width: 65ch;
 }
 
 .content-detail__body p + p {
