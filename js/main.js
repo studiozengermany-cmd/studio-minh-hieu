@@ -158,6 +158,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     }
+
+    // Hiệu ứng nền 3D Parallax di chuyển nhẹ theo chuột
+    const bgContainer = document.querySelector('.bg-video-container');
+    if (bgContainer && motionAllowed) {
+      window.addEventListener('mousemove', (event) => {
+        const x = (event.clientX / window.innerWidth) - 0.5;
+        const y = (event.clientY / window.innerHeight) - 0.5;
+        
+        gsap.to(bgContainer, {
+          x: x * -25,
+          y: y * -25,
+          rotationY: x * 3,
+          rotationX: -y * 3,
+          transformPerspective: 1000,
+          duration: 1.2,
+          ease: 'power2.out'
+        });
+      });
+    }
   }
 
   const reviewEnabled = ['localhost', '127.0.0.1'].includes(window.location.hostname)
