@@ -643,6 +643,7 @@ img {
   font-size: 0.9375rem;
   color: var(--color-muted);
   line-height: 1.6;
+  max-width: 52ch;
 }
 
 .card__meta {
@@ -1258,11 +1259,11 @@ img {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
   box-sizing: border-box;
   z-index: 1;
-  transition: padding 0.5s ease;
+  transition: box-shadow 0.5s ease;
 }
 
 .bento-card-wrapper:hover .bento-card-led {
-  padding: 2.2px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
 }
 
 .bento-card-led::before {
@@ -1393,10 +1394,11 @@ img {
   letter-spacing: -0.05em;
   margin: 0;
   line-height: 1.1;
-  background: linear-gradient(180deg, #ffffff 30%, #b0b0b8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              -webkit-text-fill-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .collab-text-team {
@@ -1408,8 +1410,10 @@ img {
   margin: 0;
   line-height: 1;
   padding-left: 0.45em;
-  color: var(--color-muted);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  color: rgba(255, 255, 255, 0.72);
+  transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              -webkit-text-fill-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Hover effects for Collab text */
