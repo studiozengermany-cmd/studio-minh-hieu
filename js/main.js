@@ -159,22 +159,24 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Hiệu ứng nền 3D Parallax di chuyển nhẹ theo chuột
-    const bgContainer = document.querySelector('.bg-video-container');
-    if (bgContainer && motionAllowed) {
+    // Hiệu ứng quầng sáng Gemini di chuyển mượt mà theo chuột
+    const glow = document.getElementById('gemini-glow');
+    if (glow && motionAllowed) {
       window.addEventListener('mousemove', (event) => {
-        const x = (event.clientX / window.innerWidth) - 0.5;
-        const y = (event.clientY / window.innerHeight) - 0.5;
-        
-        gsap.to(bgContainer, {
-          x: x * -25,
-          y: y * -25,
-          rotationY: x * 3,
-          rotationX: -y * 3,
-          transformPerspective: 1000,
-          duration: 1.2,
-          ease: 'power2.out'
+        gsap.to(glow, {
+          x: event.clientX,
+          y: event.clientY,
+          duration: 0.8,
+          ease: 'power2.out',
+          overwrite: 'auto'
         });
+        if (glow.style.opacity !== '1') {
+          gsap.to(glow, { opacity: 1, duration: 0.4 });
+        }
+      });
+
+      document.addEventListener('mouseleave', () => {
+        gsap.to(glow, { opacity: 0, duration: 0.6 });
       });
     }
   }
