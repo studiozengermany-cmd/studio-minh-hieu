@@ -1,5 +1,13 @@
 ---
+import type { SiteCopy } from '../../i18n';
+
+interface Props {
+  copy: SiteCopy['hero'];
+}
+
+const { copy } = Astro.props;
 ---
+
 <section id="home" class="hero" aria-labelledby="hero-heading">
   <div class="hero__shell">
     <div class="hero__content">
@@ -11,24 +19,20 @@
       </div>
 
       <div class="hero__subtitle-spec">
-        <span class="spec-title">Collab spec</span>
+        <span class="spec-title">{copy.collabLabel}</span>
         <h2 class="gemini-static-text">MinhLyTeam</h2>
       </div>
 
-      <p class="hero__tagline">
-        Studio cá nhân về âm nhạc &amp; thử nghiệm công cụ. Nơi lưu trữ
-        hành trình làm nhạc, ảnh archive, ghi chú workflow, và các dự án
-        kết hợp AI, tools &amp; music.
-      </p>
+      <p class="hero__tagline">{copy.tagline}</p>
 
       <div class="hero__actions">
         <a href="#projects" class="btn btn--primary">
-          Xem dự án
+          {copy.primaryCta}
           <span class="btn__arrow-island">
             <span class="btn__arrow">→</span>
           </span>
         </a>
-        <a href="#contact" class="btn btn--ghost">Liên hệ</a>
+        <a href="#contact" class="btn btn--ghost">{copy.contactCta}</a>
       </div>
     </div>
   </div>

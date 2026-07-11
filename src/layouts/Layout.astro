@@ -1,48 +1,51 @@
 ---
 import '../styles/global.css';
+import type { SiteCopy } from '../i18n';
 
 interface Props {
-  title: string;
-  description: string;
+  meta: SiteCopy['meta'];
 }
 
-const { title, description } = Astro.props;
+const { meta } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'MINH HIEU STUDIO',
+  url: meta.url,
+  inLanguage: meta.inLanguage,
+  description: meta.schemaDescription
+};
 ---
 
 <!DOCTYPE html>
-<html lang="vi" translate="no">
+<html lang={meta.lang}>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>{title}</title>
-  <meta name="description" content={description}>
+  <title>{meta.title}</title>
+  <meta name="description" content={meta.description}>
 
-  <meta property="og:title" content="MINH HIEU STUDIO — DJ & Producer">
-  <meta property="og:description" content="Âm nhạc, Vinahouse, FL Studio, hình ảnh biểu diễn thật và những dự án đang được xây dựng.">
+  <meta property="og:title" content={meta.ogTitle}>
+  <meta property="og:description" content={meta.ogDescription}>
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://studiominhhieu.com/assets/og-image.webp">
-  <meta property="og:url" content="https://studiominhhieu.com/">
-  <meta property="og:locale" content="vi_VN">
+  <meta property="og:url" content={meta.url}>
+  <meta property="og:locale" content={meta.locale}>
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="canonical" href="https://studiominhhieu.com/">
+  <link rel="canonical" href={meta.canonical}>
+  <link rel="alternate" hreflang="vi" href={meta.alternateVi}>
+  <link rel="alternate" hreflang="en" href={meta.alternateEn}>
+  <link rel="alternate" hreflang="x-default" href={meta.alternateVi}>
   <link rel="icon" href="/assets/mh-logo-scene.webp" type="image/webp">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet">
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "MINH HIEU STUDIO",
-    "url": "https://studiominhhieu.com/",
-    "inLanguage": "vi-VN",
-    "description": "Trang cá nhân về DJ, sản xuất âm nhạc, FL Studio và các dự án thực tế."
-  }
-  </script>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
 </head>
 
 <body>

@@ -1,85 +1,57 @@
 ---
----
-<section id="projects" class="section" aria-labelledby="projects-heading">
-  <h2 id="projects-heading" class="section__heading">Dự án đang làm</h2>
+import type { SiteCopy } from '../../i18n';
 
-  <p class="section__intro">
-    Những công cụ được hình thành từ vấn đề thật trong quá trình làm nhạc. Trạng thái của từng dự án được ghi rõ.
-  </p>
+interface Props {
+  copy: SiteCopy['projects'];
+}
+
+const { copy } = Astro.props;
+---
+
+<section id="projects" class="section" aria-labelledby="projects-heading">
+  <h2 id="projects-heading" class="section__heading">{copy.heading}</h2>
+
+  <p class="section__intro">{copy.intro}</p>
 
   <div class="doppelrand">
   <details class="project-detail card--reveal" open>
     <summary>
       <span>
-        <span class="content-detail__kicker">Đang thử nghiệm</span>
-        <strong>SampleGuard FL</strong>
+        <span class="content-detail__kicker">{copy.status}</span>
+        <strong>{copy.title}</strong>
       </span>
-      <span class="content-detail__action" data-closed="Xem chi tiết">Xem chi tiết</span>
+      <span class="content-detail__action" data-closed={copy.closedLabel}>{copy.closedLabel}</span>
     </summary>
 
     <div class="project-detail__body">
-      <p class="project-detail__lead">
-        SampleGuard FL được phát triển để tìm sample nhanh hơn, ghi nhớ sample đã dùng theo từng project
-        và kiểm tra rủi ro trước khi xử lý file trùng.
-      </p>
+      <p class="project-detail__lead">{copy.lead}</p>
 
       <div class="project-feature-grid">
-        <article class="project-feature">
-          <div class="card__media">
-            <img src="/assets/sampleguard-drag-drop.webp"
-                 alt="Giao diện tìm kiếm, nghe thử và kéo thả sample của SampleGuard FL"
-                 loading="lazy" width="1200" height="750">
-          </div>
-          <div class="card__body">
-            <h3 class="card__title">Tìm, nghe thử và kéo thả</h3>
-            <p class="card__desc">
-              Tìm sample trong thư viện cục bộ, nghe preview và kéo thả vào FL Studio
-              mà không phải mở nhiều thư mục trong lúc đang làm nhạc.
-            </p>
-          </div>
-        </article>
-
-        <article class="project-feature">
-          <div class="card__media">
-            <img src="/assets/sampleguard-safe-lab.webp"
-                 alt="Giao diện Project-Safe Lab của SampleGuard FL"
-                 loading="lazy" width="1200" height="750">
-          </div>
-          <div class="card__body">
-            <h3 class="card__title">Project-Safe Lab</h3>
-            <p class="card__desc">
-              Mô phỏng việc xử lý sample trùng trước khi áp dụng thật,
-              giúp nhận diện file có nguy cơ đang được project cũ tham chiếu.
-            </p>
-          </div>
-        </article>
-
-        <article class="project-feature">
-          <div class="card__media">
-            <img src="/assets/sampleguard-memory.webp"
-                 alt="Giao diện Find and Remember của SampleGuard FL"
-                 loading="lazy" width="1200" height="750">
-          </div>
-          <div class="card__body">
-            <h3 class="card__title">Find &amp; Remember</h3>
-            <p class="card__desc">
-              Ghi nhớ mối liên hệ giữa sample và project để hỗ trợ tìm lại đúng file,
-              đúng vị trí và đúng ngữ cảnh khi mở lại dự án cũ.
-            </p>
-          </div>
-        </article>
+        {copy.features.map((feature) => (
+          <article class="project-feature">
+            <div class="card__media">
+              <img src={feature.image}
+                   alt={feature.alt}
+                   loading="lazy" width="1200" height="750">
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">{feature.title}</h3>
+              <p class="card__desc">{feature.body}</p>
+            </div>
+          </article>
+        ))}
       </div>
 
-      <div class="project-facts" aria-label="Trạng thái dự án">
-        <span class="badge badge--type">Windows / FL Studio</span>
-        <span class="badge badge--prototype">Prototype</span>
-        <span class="badge badge--draft">Chưa phát hành công khai</span>
+      <div class="project-facts" aria-label={copy.factsLabel}>
+        <span class="badge badge--type">{copy.facts[0]}</span>
+        <span class="badge badge--prototype">{copy.facts[1]}</span>
+        <span class="badge badge--draft">{copy.facts[2]}</span>
       </div>
     </div>
   </details>
   </div>
 
-  <div class="bento-card-wrapper wrapper-collab card--reveal" aria-label="Studio Minh Hieu và MinhLyTeam">
+  <div class="bento-card-wrapper wrapper-collab card--reveal" aria-label={copy.collabLabel}>
     <div class="led-glow-backdrop glow-collab"></div>
     <div class="bento-card-led card-collab">
       <div class="card-content content-collab">

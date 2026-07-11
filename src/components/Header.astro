@@ -1,18 +1,22 @@
 ---
+import type { SiteCopy } from '../i18n';
+
+interface Props {
+  copy: SiteCopy['nav'];
+}
+
+const { copy } = Astro.props;
 ---
-<nav class="nav" aria-label="Điều hướng chính">
+
+<nav class="nav" aria-label={copy.ariaLabel}>
   <div class="nav__inner">
-    <button class="nav__toggle" aria-label="Mở hoặc đóng menu" aria-expanded="false">
+    <button class="nav__toggle" aria-label={copy.toggleLabel} aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
 
     <ul class="nav__links">
-      <li><a href="#home">Trang chủ</a></li>
-      <li><a href="#music">Âm nhạc</a></li>
-      <li><a href="#archive">Tư liệu</a></li>
-      <li><a href="#projects">Dự án</a></li>
-      <li><a href="#notes">Ghi chú</a></li>
-      <li><a href="#contact">Liên hệ</a></li>
+      {copy.items.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      <li><a href={copy.switchHref} aria-label={copy.switchAriaLabel}>{copy.switchLabel}</a></li>
     </ul>
   </div>
 </nav>

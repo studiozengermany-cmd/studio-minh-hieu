@@ -1,81 +1,63 @@
 ---
----
-<section id="music" class="section" aria-labelledby="music-heading">
-  <h2 id="music-heading" class="section__heading">Âm nhạc</h2>
+import type { SiteCopy } from '../../i18n';
 
-  <p class="section__intro">
-    Bản nghe thử được lấy trực tiếp từ file master do Minh Hiếu cung cấp và chỉ phát hành dưới dạng preview trên website.
-  </p>
+interface Props {
+  copy: SiteCopy['music'];
+}
+
+const { copy } = Astro.props;
+---
+
+<section id="music" class="section" aria-labelledby="music-heading">
+  <h2 id="music-heading" class="section__heading">{copy.heading}</h2>
+
+  <p class="section__intro">{copy.intro}</p>
 
   <article class="featured-track card--reveal">
     <div class="featured-track__cover">
       <img src="/assets/images/lieu-thanh-yen-remix-cover.webp"
-           alt="Minh Hiếu biểu diễn DJ — ảnh bìa bản remix"
+           alt={copy.coverAlt}
            loading="lazy" width="1200" height="1200">
     </div>
 
     <div class="featured-track__body">
-      <span class="content-detail__kicker">Bản nghe thử · 2026</span>
-      <h3>Liễu Thanh Yên x J97</h3>
-      <p class="featured-track__version">Minh Hieu Remix 2K26</p>
+      <span class="content-detail__kicker">{copy.kicker}</span>
+      <h3>{copy.trackTitle}</h3>
+      <p class="featured-track__version">{copy.version}</p>
 
-      <p>
-        Một bản remix đang được lưu trong archive cá nhân. Website sử dụng đoạn preview
-        60 giây để giới thiệu màu sắc âm nhạc mà không công khai toàn bộ file master.
-      </p>
+      <p>{copy.description}</p>
 
       <audio class="track-player"
              controls
              preload="metadata"
              controlsList="nodownload"
-             aria-label="Nghe preview Liễu Thanh Yên x J97 — Minh Hieu Remix 2K26">
+             aria-label={copy.audioLabel}>
         <source src="/assets/audio/lieu-thanh-yen-j97-minh-hieu-remix-2k26-preview.mp3" type="audio/mpeg">
-        Trình duyệt của bạn không hỗ trợ phát âm thanh.
+        {copy.audioFallback}
       </audio>
 
-      <div class="track-meta" aria-label="Thông tin bản nhạc">
-        <span>Preview 01:00</span>
-        <span>Minh Hieu Remix</span>
-        <span>2026</span>
+      <div class="track-meta" aria-label={copy.metaLabel}>
+        {copy.meta.map((item) => <span>{item}</span>)}
       </div>
     </div>
   </article>
 
   <div class="content-grid music-workflow-grid">
-    <div class="doppelrand">
-    <details class="content-detail card--reveal" open>
-      <summary>
-        <span>
-          <span class="content-detail__kicker">Hướng âm nhạc</span>
-          <strong>Vinahouse &amp; DJ</strong>
-        </span>
-        <span class="content-detail__action" data-closed="Mở nội dung">Mở nội dung</span>
-      </summary>
-      <div class="content-detail__body">
-        <p>
-          Hướng làm việc tập trung vào lựa chọn âm sắc, arrangement, xử lý vocal,
-          đoạn chuyển và cách hoàn thiện phiên bản phù hợp cho việc nghe hoặc biểu diễn.
-        </p>
+    {copy.details.map((detail, index) => (
+      <div class="doppelrand">
+        <details class="content-detail card--reveal" open={index === 0}>
+          <summary>
+            <span>
+              <span class="content-detail__kicker">{detail.kicker}</span>
+              <strong>{detail.title}</strong>
+            </span>
+            <span class="content-detail__action" data-closed={detail.closedLabel}>{detail.closedLabel}</span>
+          </summary>
+          <div class="content-detail__body">
+            <p>{detail.body}</p>
+          </div>
+        </details>
       </div>
-    </details>
-    </div>
-
-    <div class="doppelrand">
-    <details class="content-detail card--reveal">
-      <summary>
-        <span>
-          <span class="content-detail__kicker">Quy trình</span>
-          <strong>FL Studio</strong>
-        </span>
-        <span class="content-detail__action" data-closed="Mở nội dung">Mở nội dung</span>
-      </summary>
-      <div class="content-detail__body">
-        <p>
-          Project, sample, preset và plugin được tổ chức để giảm thời gian tìm kiếm,
-          hạn chế mất đường dẫn và giữ cho những project cũ có thể mở lại sau thời gian dài.
-        </p>
-      </div>
-    </details>
-    </div>
+    ))}
   </div>
 </section>

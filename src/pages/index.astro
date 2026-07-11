@@ -3,25 +3,25 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Hero from '../components/sections/Hero.astro';
-import About from '../components/sections/About.astro';
 import Music from '../components/sections/Music.astro';
 import Projects from '../components/sections/Projects.astro';
 import Archive from '../components/sections/Archive.astro';
 import Notes from '../components/sections/Notes.astro';
 import Contact from '../components/sections/Contact.astro';
+import { copy } from '../i18n';
 
-const title = "MINH HIEU STUDIO — DJ, Producer, FL Studio và dự án âm nhạc";
-const description = "MINH HIEU STUDIO — hành trình DJ/producer, Vinahouse, bản remix, kinh nghiệm FL Studio và các công cụ được phát triển từ nhu cầu làm việc thực tế.";
+const t = copy.vi;
 ---
 
-<Layout title={title} description={description}>
-  <Header />
+<Layout meta={t.meta}>
+  <Header copy={t.nav} />
   <main>
-    <Hero />
-    <Music />
-    <Archive />
-    <Projects />
-    <Notes />
+    <Hero copy={t.hero} />
+    <Music copy={t.music} />
+    <Archive copy={t.archive} />
+    <Projects copy={t.projects} />
+    <Notes copy={t.notes} />
+    <Contact copy={t.contact} />
   </main>
-  <Footer />
+  <Footer copy={t.footer} />
 </Layout>
