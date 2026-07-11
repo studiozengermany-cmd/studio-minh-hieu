@@ -1,0 +1,87 @@
+---
+---
+<nav class="nav" aria-label="Điều hướng chính">
+  <div class="nav__inner">
+    <button class="nav__toggle" aria-label="Mở hoặc đóng menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav__links">
+      <li><a href="#home">Trang chủ</a></li>
+      <li><a href="#music">Âm nhạc</a></li>
+      <li><a href="#archive">Tư liệu</a></li>
+      <li><a href="#projects">Dự án</a></li>
+      <li><a href="#notes">Ghi chú</a></li>
+      <li><a href="#contact">Liên hệ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  import { gsap } from 'gsap';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('.nav');
+    const toggle = nav?.querySelector('.nav__toggle');
+    const links = nav?.querySelectorAll('.nav__links a');
+
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        nav.classList.toggle('nav--open');
+        const isOpen = nav.classList.contains('nav--open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+
+        // Staggered link reveal khi mở menu mobile
+        if (isOpen) {
+          const mobileLinks = nav.querySelectorAll('.nav__links li');
+          gsap.fromTo(mobileLinks,
+            { y: 32, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.6,
+              ease: 'power3.out',
+              stagger: 0.06,
+              delay: 0.1
+            }
+          );
+        }
+      });
+
+      links?.forEach((link) => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('nav--open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    const sections = document.querySelectorAll('section[id]') as NodeListOf<HTMLElement>;
+
+    function updateActiveLink() {
+      if (!links?.length) return;
+
+      let current = '';
+      const scrollY = window.scrollY + 120;
+
+      sections.forEach((section) => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        if (scrollY >= top && scrollY < top + height) {
+          current = section.id;
+        }
+      });
+
+      links.forEach((link) => {
+        if (link instanceof HTMLElement) {
+          link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+        }
+      });
+    }
+
+    if (links?.length) {
+      window.addEventListener('scroll', updateActiveLink, { passive: true });
+      updateActiveLink();
+    }
+  });
+</script>

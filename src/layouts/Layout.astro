@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="vi" translate="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{title}</title>
+  <meta name="description" content={description}>
+
+  <meta property="og:title" content="MINH HIEU STUDIO — DJ & Producer">
+  <meta property="og:description" content="Âm nhạc, Vinahouse, FL Studio, hình ảnh biểu diễn thật và những dự án đang được xây dựng.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://studiominhhieu.com/assets/og-image.webp">
+  <meta property="og:url" content="https://studiominhhieu.com/">
+  <meta property="og:locale" content="vi_VN">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="canonical" href="https://studiominhhieu.com/">
+  <link rel="icon" href="/assets/mh-logo-scene.webp" type="image/webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "MINH HIEU STUDIO",
+    "url": "https://studiominhhieu.com/",
+    "inLanguage": "vi-VN",
+    "description": "Trang cá nhân về DJ, sản xuất âm nhạc, FL Studio và các dự án thực tế."
+  }
+  </script>
+</head>
+
+<body>
+  <div class="bg-video-container">
+    <video class="bg-video" autoplay loop muted playsinline>
+      <source src="/assets/rain_bg.webm" type="video/webm">
+      <source src="/assets/rain_bg.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="bg-overlay"></div>
+  <div class="gemini-glow" id="gemini-glow"></div>
+
+  <slot />
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.card--reveal').forEach(card => {
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>
