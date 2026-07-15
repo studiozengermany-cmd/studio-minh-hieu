@@ -1,84 +1,75 @@
-# MINH HIEU STUDIO — Music, Archive & Experiments
+# MINH HIEU STUDIO
 
-[![GitHub Pages Deployment](https://img.shields.io/github/deployments/studiozengermany-cmd/studio-minh-hieu/github-pages?label=status&logo=github&color=31c754)](https://studiominhhieu.com)
-[![Custom Domain](https://img.shields.io/badge/domain-studiominhhieu.com-0052ff?logo=google-chrome&logoColor=white)](https://studiominhhieu.com)
-[![Tech Stack](https://img.shields.io/badge/tech-HTML5%20%7C%20CSS3%20%7C%20JS-orange?logo=javascript)](https://studiominhhieu.com)
-[![Animation](https://img.shields.io/badge/animation-GSAP%20%26%20ScrollTrigger-green?logo=greensock&logoColor=white)](https://greensock.com/gsap/)
+Website cá nhân và không gian lưu trữ dự án của Minh Hiếu.
 
-A premium, interactive personal portfolio website designed for **Minh Hieu** — showcasing music production, DJ archives, technical workflows, and creative web/AI experiments. 
+Trang web được xây dựng trước hết để phục vụ nhu cầu cá nhân: giới thiệu âm nhạc, lưu lại quá trình làm việc, ghi chú kỹ thuật và các dự án đang thử nghiệm. Một số dự án có thể được chia sẻ cho cộng đồng khi đã đủ ổn định, nhưng website hiện không tuyên bố mọi nội dung là sản phẩm thương mại hoặc dịch vụ đã hoàn thiện.
 
-Live Website: [https://studiominhhieu.com](https://studiominhhieu.com)
+- Website: https://studiominhhieu.com/
+- Email liên hệ chính thức: support@studiominhhieu.com
+- GitHub: https://github.com/studiozengermany-cmd
 
----
+## Nội dung chính
 
-## 🌟 Key Features
+- Thông tin và hoạt động âm nhạc của Minh Hiếu.
+- Kho lưu trữ ghi chú, quy trình và thử nghiệm cá nhân.
+- Giới thiệu các dự án phần mềm đang phát triển.
+- Liên kết tới source code hoặc bằng chứng kỹ thuật khi có.
 
-- **Immersive Dark Theme**: Premium aesthetic styled with customized dark themes, gradients, and micro-interactions.
-- **Cinematic Hero Background**: An atmospheric, loop-playing video background (`rain_bg.mp4`) with smooth overlay transitions.
-- **GSAP Animations**: Fluid scrolling animations, scroll-triggered text-reveals, and element transitions powered by GreenSock Animation Platform and ScrollTrigger.
-- **Project Showcase**: Displays experimental tools such as *SampleGuard* (Drag-and-drop secure file loading, memory inspector, safe lab).
-- **Archive & Notes Hub**: Categorized storage sections for music files, project notes, and production workflows.
-- **SEO & Performance Optimized**: Fully configured with unique titles, meta descriptions, canonical links, Open Graph tags, sitemap, and robots configuration.
+## Cách mô tả dự án trên website
 
----
+Các dự án phải được mô tả đúng trạng thái thực tế:
 
-## 🛠️ Tech Stack & Dependencies
+- Dùng từ **ý tưởng**, **thử nghiệm**, **alpha** hoặc **đang phát triển** khi phù hợp.
+- Không gọi một dự án là production-ready, thương mại hoặc hoàn thiện nếu chưa có bằng chứng.
+- Không dùng mockup, placeholder hoặc dữ liệu giả để tạo cảm giác tính năng đã hoạt động.
+- Build thành công không đồng nghĩa đã nghiệm thu đầy đủ trên máy người dùng.
+- Các file `.exe`, installer hoặc artifact phải ghi rõ đó là build thử nghiệm nếu chưa phát hành chính thức.
+- Ưu tiên tiếng Việt rõ ràng; tiếng Anh chỉ dùng khi cần thiết hoặc có bản dịch đi kèm.
 
-- **HTML5**: Semantically structured layout with translation-protection (`translate="no"`).
-- **CSS3**: Built with vanilla CSS using modern CSS Grid, Flexbox layouts, and standard CSS Custom Properties (Variables) for easy theme adjustment.
-- **JavaScript (ES6+)**: Custom application logic for menu toggling, loading animations, and dynamic transitions.
-- **GSAP (GreenSock)**: Used for robust and highly performant scrolling animations and effects.
-- **Google Fonts**: Curated typography using **Outfit**, **Playfair Display**, **Plus Jakarta Sans**, and **JetBrains Mono**.
+Tên sản phẩm quản lý sample hiện tại là **MH Sample FL**. Không tiếp tục dùng tên cũ “SampleGuard FL” như tên sản phẩm chính thức.
 
----
+## Công nghệ website
 
-## 📂 Directory Structure
+- HTML5
+- CSS3
+- JavaScript
+- GSAP và ScrollTrigger cho một số hiệu ứng giao diện
+- GitHub Pages và custom domain
+
+## Chạy website ở máy local
+
+```bash
+git clone https://github.com/studiozengermany-cmd/studio-minh-hieu.git
+cd studio-minh-hieu
+python -m http.server 8000
+```
+
+Sau đó mở `http://localhost:8000` trong trình duyệt.
+
+## Cấu trúc repository
 
 ```text
 ├── assets/
-│   ├── images/                # App illustrations & project screenshots
-│   ├── mh-logo-scene.webp     # Favicon & brand asset
-│   ├── og-image.webp          # Open Graph metadata image
-│   └── rain_bg.mp4            # Cinematic background video loop
 ├── css/
-│   └── styles.css             # Main styling, typography, variables & layout
 ├── js/
-│   └── main.js                # Core JS logic & GSAP ScrollTrigger timeline configs
-├── 404.html                   # Custom 404 error page
-├── index.html                 # Main landing page
-├── CNAME                      # Custom domain configuration for GitHub Pages
-├── robots.txt                 # Search engine crawler configuration
-├── sitemap.xml                # XML sitemap for SEO discovery
-└── README.md                  # Project documentation
+├── 404.html
+├── index.html
+├── CNAME
+├── robots.txt
+├── sitemap.xml
+└── README.md
 ```
 
----
+## Triển khai
 
-## 🚀 Local Development
+Website được triển khai bằng GitHub Pages từ nhánh `main` và sử dụng tên miền `studiominhhieu.com`.
 
-To run this project locally, follow these simple steps:
+## Lưu ý
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/studiozengermany-cmd/studio-minh-hieu.git
-   cd studio-minh-hieu
-   ```
+Repository này là phần website công khai của Minh Hiếu. Việc một dự án xuất hiện trên website không có nghĩa dự án đó đã được phát hành, có hỗ trợ thương mại hoặc phù hợp cho mọi người sử dụng.
 
-2. **Open index.html:**
-   - Double-click `index.html` to open it directly in your browser.
-   - Alternatively, serve it using **Live Server** (VS Code extension) or any lightweight static server:
-     ```bash
-     # Using Python
-     python -m http.server 8000
-     ```
+## Liên hệ
 
----
+Mọi liên hệ chính thức liên quan đến website và các dự án công khai sử dụng:
 
-## 🌐 Production Deployment
-
-The project is automatically built and deployed via **GitHub Pages** on every push to the `main` branch.
-
-### Custom Domain Configuration:
-- **DNS setup**: A records are pointed to GitHub Pages IP addresses (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`).
-- **CNAME**: Configured to map `studiominhhieu.com` directly to the repository.
-- **HTTPS**: Fully enforced with Let's Encrypt SSL encryption.
+**support@studiominhhieu.com**
