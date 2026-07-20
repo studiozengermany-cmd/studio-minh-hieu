@@ -1,0 +1,219 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * MINH HIEU STUDIO — Basedash-inspired design system.
+ * Dark canvas, near-black cards (recessed wells, no shadow),
+ * Inter for UI at -0.03em tracking, Cormorant for display.
+ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-void-black: #000000;
+  --color-carbon-card: #050607;
+  --color-ghost-white: #ffffff;
+  --color-bone-white: #e8eaee;
+  --color-ash-gray: #b3b3b3;
+  --color-steel-gray: #808080;
+  --color-graphite: #333333;
+  --color-lavender-pulse: #9984d8;
+  --color-mint-signal: #3fcb7f;
+
+  --font-inter:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Instrument Serif", "Source Serif 4", "EB Garamond", Georgia, serif;
+  --font-quote: "Source Serif 4", "Source Serif Pro", "Lora", Georgia, serif;
+
+
+
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 6px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 999px;
+}
+
+:root {
+  --radius: 6px;
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #050607;
+  --card-foreground: #ffffff;
+  --popover: #050607;
+  --popover-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #0a0b0c;
+  --secondary-foreground: #ffffff;
+  --muted: #0a0b0c;
+  --muted-foreground: #b3b3b3;
+  --accent: #9984d8;
+  --accent-foreground: #ffffff;
+  --destructive: #e5484d;
+  --destructive-foreground: #ffffff;
+  --border: #1a1c1e;
+  --input: #1a1c1e;
+  --ring: #9984d8;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Cinematic scroll snap-in feel on modern browsers. */
+    scroll-padding-top: 96px;
+  }
+
+  html,
+  body {
+    background-color: var(--color-void-black);
+    color: var(--color-ghost-white);
+    font-family: var(--font-inter);
+    letter-spacing: -0.03em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Universal micro-transition — buttons, links, inputs feel weighty. */
+  a,
+  button,
+  [role="button"],
+  input,
+  textarea,
+  select {
+    transition:
+      color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 380ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Custom scrollbar — subtle, matches the dark canvas. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-void-black);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1a1c1e, #0a0b0c);
+    border-radius: 999px;
+    border: 2px solid var(--color-void-black);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--color-lavender-pulse), #6a5aa3);
+  }
+
+  ::selection {
+    background: var(--color-lavender-pulse);
+    color: var(--color-void-black);
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+
+@utility font-quote {
+  font-family: var(--font-quote);
+  font-weight: 300;
+  letter-spacing: -0.025em;
+}
+
+@utility text-display {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+@utility text-eyebrow {
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-steel-gray);
+  font-weight: 500;
+}
+
+@utility text-body-muted {
+  color: var(--color-ash-gray);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+@utility surface-card {
+  background-color: var(--color-carbon-card);
+  border-radius: 16px;
+  border: 1px solid #101214;
+}
+
+@utility ring-lavender-glow {
+  box-shadow:
+    0 0 0 1px rgba(153, 132, 216, 0.18),
+    0 0 40px -8px rgba(153, 132, 216, 0.25);
+}
+
+@utility anim-in {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: anim-in-kf 620ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes anim-in-kf {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Custom cursor: hide native cursor on desktop when reactive cursor mounts. */
+@media (hover: hover) and (pointer: fine) {
+  html.cursor-none,
+  html.cursor-none * {
+    cursor: none !important;
+  }
+}

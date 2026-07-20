@@ -1,0 +1,218 @@
+@keyframes rotate-led {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.bento-card-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  z-index: 1;
+}
+
+.led-glow-backdrop {
+  position: absolute;
+  inset: -12px;
+  border-radius: 26px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(0, 242, 254, 0.4) 0%,
+    rgba(255, 0, 127, 0.4) 30%,
+    transparent 50%,
+    transparent 100%
+  );
+  filter: blur(24px);
+  animation: rotate-led 6s linear infinite;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.bento-card-wrapper:hover .led-glow-backdrop {
+  opacity: 1;
+}
+
+.bento-card-led {
+  position: relative;
+  width: 100%;
+  padding: 1.8px;
+  border-radius: 24px;
+  background: rgba(20, 20, 25, 0.8);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.bento-card-led::before {
+  content: '';
+  position: absolute;
+  inset: -100%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.2) 20%,
+    #00f2fe 40%,
+    #ff007f 80%,
+    #00f2fe 100%
+  );
+  animation: rotate-led 6s linear infinite;
+  transform-origin: center center;
+  z-index: -1;
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+}
+
+.bento-card-wrapper:hover .bento-card-led::before {
+  opacity: 1;
+}
+
+.card-content {
+  position: relative;
+  width: 100%;
+  background: rgba(11, 11, 14, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 22px;
+  box-sizing: border-box;
+  color: #E4E4E7;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.5s ease;
+}
+
+.card-content::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%, 
+    rgba(0, 242, 254, 0.08) 0%, 
+    rgba(139, 92, 246, 0.05) 45%,
+    rgba(255, 0, 127, 0.03) 70%,
+    transparent 100%
+  );
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.bento-card-wrapper:hover .card-content {
+  background: rgba(11, 11, 14, 0.95);
+}
+
+.bento-card-wrapper:hover .card-content::after {
+  opacity: 1;
+}
+
+.wrapper-collab {
+  /* Removed min-height so it wraps tightly like original */
+}
+
+.glow-collab {
+  inset: -12px;
+  filter: blur(20px);
+  opacity: 0.18;
+}
+
+.bento-card-wrapper:hover .glow-collab {
+  opacity: 0.55;
+  filter: blur(32px);
+  transform: scale(1.05);
+}
+
+.card-collab {
+  background: rgba(13, 13, 16, 0.6);
+}
+
+.content-collab {
+  padding: 32px;
+  background: rgba(11, 11, 14, 0.94);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-collab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.1) 0%, transparent 65%),
+    radial-gradient(circle at 85% 85%, rgba(255, 0, 127, 0.08) 0%, transparent 65%);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.collab-brand-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.collab-text-studio {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  margin: 0;
+  line-height: 1.1;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              -webkit-text-fill-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.collab-text-team {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.45em;
+  margin: 0;
+  line-height: 1;
+  padding-left: 0.45em;
+  color: rgba(255, 255, 255, 0.72);
+  transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              -webkit-text-fill-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card-wrapper:hover .collab-text-studio {
+  background: linear-gradient(90deg, #ffffff 0%, #00f2fe 50%, #3b82f6 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: flow-text-gradient 5s linear infinite;
+  filter: drop-shadow(0 2px 12px rgba(0, 242, 254, 0.35));
+}
+
+.bento-card-wrapper:hover .collab-text-team {
+  background: linear-gradient(90deg, #a1a1aa 0%, #d946ef 50%, #ff007f 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: flow-text-gradient 5s linear infinite;
+  filter: drop-shadow(0 2px 10px rgba(255, 0, 127, 0.25));
+}
+
+@keyframes flow-text-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
