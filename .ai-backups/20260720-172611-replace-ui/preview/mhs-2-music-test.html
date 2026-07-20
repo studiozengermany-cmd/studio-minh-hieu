@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MINH HIEU STUDIO — Music Player Test</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:#030304; --paper:#e4e4e7;
+      --a02:rgba(255,255,255,.02); --a04:rgba(255,255,255,.04);
+      --a06:rgba(255,255,255,.06); --a10:rgba(255,255,255,.10);
+      --a20:rgba(255,255,255,.20); --a55:rgba(255,255,255,.55);
+      --a70:rgba(255,255,255,.70); --a85:rgba(255,255,255,.85);
+      --cyan:#22d3ee; --violet:#8b5cf6; --magenta:#ff2d7e;
+      --signal:linear-gradient(135deg,var(--cyan),var(--violet) 50%,var(--magenta));
+      --display:"Playfair Display",serif; --body:Outfit,sans-serif;
+      --mono:"JetBrains Mono",monospace; --ease:cubic-bezier(.16,1,.3,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{color-scheme:dark;scroll-behavior:smooth}
+    body{min-height:100vh;background:var(--ink);color:var(--paper);font-family:var(--body);line-height:1.65;overflow-x:hidden}
+    button{font:inherit}
+    :focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+    ::selection{background:rgba(139,92,246,.4);color:#fff}
+    .ambient{position:fixed;inset:0;z-index:-2;background:radial-gradient(65% 50% at 18% 5%,rgba(139,92,246,.09),transparent 70%),radial-gradient(45% 35% at 90% 80%,rgba(34,211,238,.055),transparent 75%)}
+    .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+    .wrap{width:min(1180px,calc(100% - 32px));margin:auto}
+    .testbar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--a06);font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--a55)}
+    .status{display:inline-flex;align-items:center;gap:8px;color:#67e8f9}.status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px rgba(34,211,238,.65)}
+    header{padding:96px 0 70px;max-width:840px}
+    .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--a55)}
+    .kicker--signal{color:#67e8f9}
+    h1{font:600 clamp(3.3rem,8vw,7.4rem)/.88 var(--body);letter-spacing:-.065em;color:#fff;margin-top:22px}
+    .grad{font-family:var(--display);font-weight:400;font-style:italic;letter-spacing:-.045em;background:var(--signal);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{font:italic clamp(1.15rem,2vw,1.45rem)/1.6 var(--display);color:var(--a85);max-width:620px;margin-top:34px}
+    .rule{display:flex;gap:14px;align-items:center;margin-top:32px;color:var(--a55);font-size:14px}.rule::before{content:"90 / 8 / 2";font:500 10px var(--mono);letter-spacing:.12em;color:#c4b5fd;border:1px solid rgba(139,92,246,.3);border-radius:999px;padding:7px 10px}
+    main{padding-bottom:110px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;padding:38px 0 24px;border-top:1px solid var(--a06)}
+    h2{font:400 clamp(2rem,5vw,3.4rem)/1.05 var(--display);color:#fff}.section-note{max-width:44ch;color:var(--a55);font-size:14px}
+    .track{display:grid;grid-template-columns:minmax(280px,.9fr) minmax(0,1.15fr);background:var(--a02);border:1px solid var(--a06);border-radius:24px;overflow:hidden;position:relative;transition:transform .6s var(--ease),box-shadow .6s var(--ease)}
+    .track::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:var(--signal);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .45s;pointer-events:none;z-index:3}
+    .track:hover,.track:focus-within{transform:translateY(-4px);box-shadow:0 30px 90px rgba(0,0,0,.55)}.track:hover::before,.track:focus-within::before{opacity:.9}
+    .cover{position:relative;min-height:540px;background:#09090a;overflow:hidden}.cover img{width:100%;height:100%;object-fit:cover}.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 65%,rgba(3,3,4,.24)),linear-gradient(0deg,rgba(3,3,4,.45),transparent 40%)}
+    .body{display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,5vw,68px);background:linear-gradient(145deg,rgba(255,255,255,.035),transparent 45%)}
+    h3{font:600 clamp(2rem,4.3vw,4.4rem)/.98 var(--body);letter-spacing:-.045em;color:#fff;margin-top:12px}.version{font:500 11px var(--mono);letter-spacing:.11em;text-transform:uppercase;color:#c4b5fd;margin-top:12px}.desc{color:var(--a70);max-width:52ch;margin-top:24px}
+    .player{margin-top:32px}.player-main{display:grid;grid-template-columns:58px 1fr;gap:16px;align-items:center}.toggle{width:58px;height:58px;border:0;border-radius:50%;color:#08080a;background:#fff;display:grid;place-items:center;cursor:pointer;transition:transform .45s var(--ease),box-shadow .45s}.toggle:hover{transform:scale(.96);box-shadow:0 0 34px rgba(139,92,246,.25)}.toggle svg{width:21px;height:21px}.icon-pause{display:none}.is-playing .icon-play{display:none}.is-playing .icon-pause{display:block}
+    .wave{height:62px;display:flex;align-items:center;gap:3px;cursor:pointer;touch-action:none;border-radius:10px;padding:8px 2px}.bar{flex:1;height:calc(var(--h)*1%);min-width:2px;max-width:6px;border-radius:5px;background:rgba(255,255,255,.16);transition:background .12s,transform .25s}.bar.played{background:linear-gradient(180deg,var(--cyan),var(--violet),var(--magenta));box-shadow:0 0 9px rgba(139,92,246,.18)}.wave:hover .bar{transform:scaleY(1.04)}
+    .times{display:flex;justify-content:space-between;padding-left:74px;margin-top:3px;font:10px var(--mono);color:var(--a55)}.player-note{margin:11px 0 0 74px;font:10px var(--mono);letter-spacing:.08em;color:var(--a55);text-transform:uppercase}.player-error{color:#ff6aa5}
+    .meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:24px}.meta span{padding:6px 10px;border:1px solid var(--a10);border-radius:999px;font:10px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--a70)}
+    .workflow{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:18px}.card{position:relative;padding:34px;border:1px solid var(--a06);border-radius:20px;background:var(--a02);transition:transform .55s var(--ease)}.card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:var(--signal);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .4s;pointer-events:none}.card:hover,.card:focus-within{transform:translateY(-3px)}.card:hover::before,.card:focus-within::before{opacity:.75}.card h4{font:600 23px var(--body);color:#fff;margin-top:8px}.card p{color:var(--a70);margin-top:12px;max-width:54ch}
+    footer{padding:36px 0 70px;border-top:1px solid var(--a06);display:flex;justify-content:space-between;gap:16px;color:var(--a55);font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+    @media(max-width:800px){header{padding-top:66px}.track{grid-template-columns:1fr}.cover{min-height:0;aspect-ratio:1}.workflow{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.body{padding:30px 22px}.wave{gap:2px}.player-main{grid-template-columns:52px 1fr}.toggle{width:52px;height:52px}.times{padding-left:68px}.player-note{margin-left:68px}.testbar{align-items:flex-start;flex-direction:column}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="testbar"><span>MINH HIEU STUDIO · Experimental preview</span><span class="status">Không thuộc production</span></div>
+    <header>
+      <p class="kicker kicker--signal">MHS 2.0 · Music section test</p>
+      <h1>Tối là sân khấu.<br><span class="grad">Neon là tín hiệu.</span></h1>
+      <p class="lead">Giữ lại chất archive tối và điện ảnh của website hiện tại, nhưng gom toàn bộ neon thành một khoảnh khắc có chủ đích.</p>
+      <p class="rule">Neon chỉ xuất hiện ở điểm cần chú ý: tiêu đề, tiến trình phát và trạng thái tương tác.</p>
+    </header>
+    <main>
+      <div class="section-head"><div><p class="kicker">Bản nghe thử · 2026</p><h2>Âm nhạc</h2></div><p class="section-note">Custom player chạy trên file audio thật của dự án. Nếu JavaScript không hoạt động, trình duyệt vẫn hiện native audio fallback.</p></div>
+      <article class="track">
+        <div class="cover"><img src="../public/assets/images/lieu-thanh-yen-remix-cover.webp" alt="Ảnh bìa Liễu Thanh Yên remix" width="1200" height="1200"></div>
+        <div class="body">
+          <span class="kicker kicker--signal">Featured preview</span>
+          <h3>Liễu Thanh Yên <span class="grad">×</span> J97</h3>
+          <p class="version">Minh Hieu Remix 2K26</p>
+          <p class="desc">Một bản remix đang được lưu trong archive cá nhân. Website chỉ sử dụng đoạn preview để giới thiệu màu sắc âm nhạc mà không công khai toàn bộ file master.</p>
+          <div class="player" data-player data-title="Liễu Thanh Yên x J97 — Minh Hieu Remix 2K26">
+            <audio controls preload="metadata" src="../public/assets/audio/lieu-thanh-yen-j97-minh-hieu-remix-2k26-preview.mp3">Trình duyệt không hỗ trợ audio.</audio>
+          </div>
+          <div class="meta"><span>Preview 01:00</span><span>Minh Hieu Remix</span><span>2026</span><span>Vinahouse</span></div>
+        </div>
+      </article>
+      <div class="workflow">
+        <article class="card" tabindex="0"><span class="kicker">Hướng âm nhạc</span><h4>Vinahouse &amp; DJ</h4><p>Tập trung vào lựa chọn âm sắc, arrangement, xử lý vocal, đoạn chuyển và phiên bản phù hợp cho nghe hoặc biểu diễn.</p></article>
+        <article class="card" tabindex="0"><span class="kicker">Quy trình</span><h4>FL Studio</h4><p>Project, sample, preset và plugin được tổ chức để giảm thời gian tìm kiếm và giữ project cũ có thể mở lại lâu dài.</p></article>
+      </div>
+    </main>
+    <footer><span>MHS 2.0 visual test</span><span>Astro production không bị thay đổi</span></footer>
+  </div>
+  <script>
+    (() => {
+      const players = new Set();
+      const fmt = value => { const sec = Math.max(0, Math.floor(value || 0)); return `${String(Math.floor(sec / 60)).padStart(2,'0')}:${String(sec % 60).padStart(2,'0')}`; };
+      document.querySelectorAll('[data-player]').forEach(root => {
+        const audio = root.querySelector('audio');
+        const title = root.dataset.title || 'bản nhạc';
+        const count = matchMedia('(max-width:640px)').matches ? 34 : 54;
+        const ui = document.createElement('div');
+        ui.innerHTML = `<div class="player-main"><button class="toggle" type="button" aria-label="Phát ${title}"><svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72c0 .8.87 1.3 1.56.88l11.02-6.86a1.03 1.03 0 0 0 0-1.76L9.56 4.26A1.03 1.03 0 0 0 8 5.14z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4h3.5v16H7zM13.5 4H17v16h-3.5z"/></svg></button><div class="wave" role="slider" tabindex="0" aria-label="Thanh tiến trình ${title}" aria-valuemin="0" aria-valuenow="0"></div></div><div class="times"><span data-current>00:00</span><span data-total>--:--</span></div><p class="player-note">Preview · Master không công khai</p>`;
+        const wave=ui.querySelector('.wave'), toggle=ui.querySelector('.toggle'), cur=ui.querySelector('[data-current]'), total=ui.querySelector('[data-total]'), note=ui.querySelector('.player-note');
+        let seed=2166136261; for(const c of audio.src) seed=Math.imul(seed^c.charCodeAt(0),16777619); const rand=()=>((seed=Math.imul(seed^seed>>>15,1|seed))>>>0)/4294967296;
+        const bars=Array.from({length:count},(_,i)=>{const b=document.createElement('span');b.className='bar';const env=.55+.45*Math.sin(Math.PI*i/(count-1));b.style.setProperty('--h',Math.round((.3+rand()*.65)*env*100));wave.append(b);return b;});
+        audio.removeAttribute('controls'); root.append(ui); players.add(audio);
+        const duration=()=>Number.isFinite(audio.duration)&&audio.duration>0?audio.duration:60;
+        const render=()=>{const d=duration(),ratio=Math.min(1,(audio.currentTime||0)/d);bars.forEach((b,i)=>b.classList.toggle('played',i/count<ratio));cur.textContent=fmt(audio.currentTime);total.textContent=fmt(d);wave.setAttribute('aria-valuemax',Math.floor(d));wave.setAttribute('aria-valuenow',Math.floor(audio.currentTime||0));wave.setAttribute('aria-valuetext',`${fmt(audio.currentTime)} trên ${fmt(d)}`);};
+        const seek=ratio=>{if(Number.isFinite(audio.duration))audio.currentTime=Math.max(0,Math.min(1,ratio))*audio.duration;render();};
+        toggle.addEventListener('click',()=>audio.paused?audio.play().catch(()=>{}):audio.pause());
+        wave.addEventListener('pointerdown',e=>{const move=x=>{const r=wave.getBoundingClientRect();seek((x-r.left)/r.width)};move(e.clientX);wave.setPointerCapture(e.pointerId);wave.onpointermove=x=>move(x.clientX);wave.onpointerup=()=>{wave.onpointermove=null;wave.onpointerup=null;};});
+        wave.addEventListener('keydown',e=>{const step=e.shiftKey?10:5;if(['ArrowRight','ArrowUp'].includes(e.key)){e.preventDefault();audio.currentTime=Math.min(duration(),audio.currentTime+step)}if(['ArrowLeft','ArrowDown'].includes(e.key)){e.preventDefault();audio.currentTime=Math.max(0,audio.currentTime-step)}if(e.key==='Home'){e.preventDefault();audio.currentTime=0}if(e.key==='End'){e.preventDefault();audio.currentTime=duration()}if(e.key===' '||e.key==='Enter'){e.preventDefault();toggle.click()}render();});
+        audio.addEventListener('play',()=>{players.forEach(a=>{if(a!==audio)a.pause()});ui.classList.add('is-playing');toggle.setAttribute('aria-label',`Tạm dừng ${title}`)});
+        audio.addEventListener('pause',()=>{ui.classList.remove('is-playing');toggle.setAttribute('aria-label',`Phát ${title}`);render()});
+        audio.addEventListener('loadedmetadata',render);audio.addEventListener('timeupdate',render);audio.addEventListener('ended',render);
+        audio.addEventListener('error',()=>{note.textContent='Không thể tải bản preview';note.classList.add('player-error');toggle.disabled=true});
+        render();
+      });
+    })();
+  </script>
+</body>
+</html>

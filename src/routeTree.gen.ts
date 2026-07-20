@@ -9,51 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TuLieuRouteImport } from './routes/tu-lieu'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as LienHeRouteImport } from './routes/lien-he'
-import { Route as GioiThieuRouteImport } from './routes/gioi-thieu'
-import { Route as GhiChuRouteImport } from './routes/ghi-chu'
-import { Route as DuAnRouteImport } from './routes/du-an'
-import { Route as DangNhapRouteImport } from './routes/dang-nhap'
-import { Route as AmNhacRouteImport } from './routes/am-nhac'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AmNhacRouteImport } from './routes/am-nhac'
+import { Route as DangNhapRouteImport } from './routes/dang-nhap'
+import { Route as DuAnRouteImport } from './routes/du-an'
+import { Route as GhiChuRouteImport } from './routes/ghi-chu'
+import { Route as GioiThieuRouteImport } from './routes/gioi-thieu'
+import { Route as LienHeRouteImport } from './routes/lien-he'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TuLieuRouteImport } from './routes/tu-lieu'
 import { Route as DuAnIndexRouteImport } from './routes/du-an.index'
 import { Route as DuAnSlugRouteImport } from './routes/du-an.$slug'
 
-const TuLieuRoute = TuLieuRouteImport.update({
-  id: '/tu-lieu',
-  path: '/tu-lieu',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LienHeRoute = LienHeRouteImport.update({
-  id: '/lien-he',
-  path: '/lien-he',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GioiThieuRoute = GioiThieuRouteImport.update({
-  id: '/gioi-thieu',
-  path: '/gioi-thieu',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GhiChuRoute = GhiChuRouteImport.update({
-  id: '/ghi-chu',
-  path: '/ghi-chu',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DuAnRoute = DuAnRouteImport.update({
-  id: '/du-an',
-  path: '/du-an',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DangNhapRoute = DangNhapRouteImport.update({
-  id: '/dang-nhap',
-  path: '/dang-nhap',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AmNhacRoute = AmNhacRouteImport.update({
@@ -61,9 +31,39 @@ const AmNhacRoute = AmNhacRouteImport.update({
   path: '/am-nhac',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const DangNhapRoute = DangNhapRouteImport.update({
+  id: '/dang-nhap',
+  path: '/dang-nhap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DuAnRoute = DuAnRouteImport.update({
+  id: '/du-an',
+  path: '/du-an',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GhiChuRoute = GhiChuRouteImport.update({
+  id: '/ghi-chu',
+  path: '/ghi-chu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GioiThieuRoute = GioiThieuRouteImport.update({
+  id: '/gioi-thieu',
+  path: '/gioi-thieu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LienHeRoute = LienHeRouteImport.update({
+  id: '/lien-he',
+  path: '/lien-he',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TuLieuRoute = TuLieuRouteImport.update({
+  id: '/tu-lieu',
+  path: '/tu-lieu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DuAnIndexRoute = DuAnIndexRouteImport.update({
@@ -171,53 +171,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/tu-lieu': {
-      id: '/tu-lieu'
-      path: '/tu-lieu'
-      fullPath: '/tu-lieu'
-      preLoaderRoute: typeof TuLieuRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lien-he': {
-      id: '/lien-he'
-      path: '/lien-he'
-      fullPath: '/lien-he'
-      preLoaderRoute: typeof LienHeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gioi-thieu': {
-      id: '/gioi-thieu'
-      path: '/gioi-thieu'
-      fullPath: '/gioi-thieu'
-      preLoaderRoute: typeof GioiThieuRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ghi-chu': {
-      id: '/ghi-chu'
-      path: '/ghi-chu'
-      fullPath: '/ghi-chu'
-      preLoaderRoute: typeof GhiChuRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/du-an': {
-      id: '/du-an'
-      path: '/du-an'
-      fullPath: '/du-an'
-      preLoaderRoute: typeof DuAnRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dang-nhap': {
-      id: '/dang-nhap'
-      path: '/dang-nhap'
-      fullPath: '/dang-nhap'
-      preLoaderRoute: typeof DangNhapRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/am-nhac': {
@@ -227,11 +185,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AmNhacRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/dang-nhap': {
+      id: '/dang-nhap'
+      path: '/dang-nhap'
+      fullPath: '/dang-nhap'
+      preLoaderRoute: typeof DangNhapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/du-an': {
+      id: '/du-an'
+      path: '/du-an'
+      fullPath: '/du-an'
+      preLoaderRoute: typeof DuAnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ghi-chu': {
+      id: '/ghi-chu'
+      path: '/ghi-chu'
+      fullPath: '/ghi-chu'
+      preLoaderRoute: typeof GhiChuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gioi-thieu': {
+      id: '/gioi-thieu'
+      path: '/gioi-thieu'
+      fullPath: '/gioi-thieu'
+      preLoaderRoute: typeof GioiThieuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lien-he': {
+      id: '/lien-he'
+      path: '/lien-he'
+      fullPath: '/lien-he'
+      preLoaderRoute: typeof LienHeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tu-lieu': {
+      id: '/tu-lieu'
+      path: '/tu-lieu'
+      fullPath: '/tu-lieu'
+      preLoaderRoute: typeof TuLieuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/du-an/': {
@@ -277,3 +277,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

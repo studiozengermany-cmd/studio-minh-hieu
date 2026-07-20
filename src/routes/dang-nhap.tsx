@@ -158,12 +158,12 @@ function SignInPage() {
               {mode === "signup" ? "Tạo tài khoản" : t("signIn.welcome")}
             </h2>
             <p className="mt-3 text-[14px] text-ash-gray">
-              Tuỳ chọn — ai muốn thì đăng ký, không thì{" "}
+              {t("signIn.optionalText")}{" "}
               <Link
                 to="/"
                 className="text-ghost-white underline underline-offset-4 hover:text-lavender-pulse"
               >
-                quay lại trang chủ
+                {t("signIn.backToHome")}
               </Link>
               .
             </p>
@@ -215,8 +215,8 @@ function SignInPage() {
                   className="block w-full text-center text-[12px] text-steel-gray hover:text-ghost-white"
                 >
                   {mode === "signin"
-                    ? "Chưa có tài khoản? Đăng ký"
-                    : "Đã có tài khoản? Đăng nhập"}
+                    ? t("signIn.switchSignup")
+                    : t("signIn.switchSignin")}
                 </button>
               </form>
             ) : (

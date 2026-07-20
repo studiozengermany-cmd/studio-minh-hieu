@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Hero from '../../components/sections/Hero.astro';
+import Music from '../../components/sections/Music.astro';
+import Projects from '../../components/sections/Projects.astro';
+import Archive from '../../components/sections/Archive.astro';
+import Notes from '../../components/sections/Notes.astro';
+import Contact from '../../components/sections/Contact.astro';
+import { copy } from '../../i18n';
+
+const t = copy.en;
+---
+
+<Layout meta={t.meta}>
+  <Header copy={t.nav} />
+  <main>
+    <Hero copy={t.hero} />
+    <Music copy={t.music} />
+    <Archive copy={t.archive} />
+    <Projects copy={t.projects} />
+    <Notes copy={t.notes} />
+    <Contact copy={t.contact} />
+  </main>
+  <Footer copy={t.footer} />
+</Layout>

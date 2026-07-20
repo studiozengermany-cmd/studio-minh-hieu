@@ -10,6 +10,10 @@ const en = {
       signIn: "Sign in",
       contact: "Contact",
       cta: "Listen",
+      optionalText: "Optional — sign up if you want, or",
+      backToHome: "return to home",
+      switchSignup: "Don't have an account? Sign up",
+      switchSignin: "Already have an account? Sign in"
     },
     footer: {
       brand: "Minh Hieu Studio",
@@ -17,6 +21,7 @@ const en = {
         "A personal studio for music and tools. No commercial assumptions. Evidence before claims.",
       navLabel: "Navigate",
       channelsLabel: "Channels",
+      legalLabel: "Legal",
       copyright: "© 2026 MINH HIEU STUDIO.",
       motto: "Evidence before claims · No overselling",
     },

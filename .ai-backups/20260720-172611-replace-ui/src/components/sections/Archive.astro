@@ -1,0 +1,28 @@
+---
+import type { SiteCopy } from '../../i18n';
+
+interface Props {
+  copy: SiteCopy['archive'];
+}
+
+const { copy } = Astro.props;
+---
+
+<section id="archive" class="section" aria-labelledby="archive-heading">
+  <h2 id="archive-heading" class="section__heading">{copy.heading}</h2>
+
+  <p class="section__intro">{copy.intro}</p>
+
+  <div class="show-gallery">
+    {copy.figures.map((figure) => (
+      <figure class={`show-card ${figure.className} card--reveal`}>
+        <a href={figure.src} target="_blank" rel="noopener">
+          <img src={figure.src}
+               alt={figure.alt}
+               loading="lazy" width={figure.width} height={figure.height}>
+        </a>
+        <figcaption>{figure.caption}</figcaption>
+      </figure>
+    ))}
+  </div>
+</section>

@@ -10,6 +10,10 @@ const vi = {
       signIn: "Đăng nhập",
       contact: "Liên hệ",
       cta: "Nghe thử",
+      optionalText: "Tuỳ chọn — ai muốn thì đăng ký, không thì",
+      backToHome: "quay lại trang chủ",
+      switchSignup: "Chưa có tài khoản? Đăng ký",
+      switchSignin: "Đã có tài khoản? Đăng nhập"
     },
     footer: {
       brand: "Minh Hieu Studio",
@@ -17,6 +21,7 @@ const vi = {
         "Studio cá nhân về âm nhạc và công cụ. Không giả định thương mại. Bằng chứng trước tuyên bố.",
       navLabel: "Điều hướng",
       channelsLabel: "Kênh",
+      legalLabel: "Pháp lý",
       copyright: "© 2026 MINH HIEU STUDIO.",
       motto: "Bằng chứng trước tuyên bố · Không phóng đại",
     },

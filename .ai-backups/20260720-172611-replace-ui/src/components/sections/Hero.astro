@@ -1,0 +1,80 @@
+---
+import type { SiteCopy } from '../../i18n';
+
+interface Props {
+  copy: SiteCopy['hero'];
+}
+
+const { copy } = Astro.props;
+---
+
+<section id="home" class="hero" aria-labelledby="hero-heading">
+  <div class="hero__shell">
+    <div class="hero__content">
+
+      <div class="hero__3d">
+        <div class="hero__title">
+          <h1 id="hero-heading">MINH HIEU<br>STUDIO</h1>
+        </div>
+      </div>
+
+      <div class="hero__subtitle-spec">
+        <span class="spec-title">{copy.collabLabel}</span>
+        <h2 class="gemini-static-text">MinhLyTeam</h2>
+      </div>
+
+      <p class="hero__tagline">{copy.tagline}</p>
+
+      <div class="hero__actions">
+        <a href="#projects" class="btn btn--primary">
+          {copy.primaryCta}
+          <span class="btn__arrow-island">
+            <span class="btn__arrow">→</span>
+          </span>
+        </a>
+        <a href="#contact" class="btn btn--ghost">{copy.contactCta}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const mm = gsap.matchMedia();
+
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const heroTl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+      heroTl.fromTo('.hero__title h1', {
+        rotationX: -15,
+        y: 40,
+        z: -80,
+        opacity: 0,
+        transformPerspective: 1200,
+        transformOrigin: '0% 100%',
+        filter: 'blur(6px)'
+      }, {
+        rotationX: 0,
+        y: 0,
+        z: 0,
+        opacity: 1,
+        filter: 'blur(0px)',
+        duration: 1.6,
+        ease: 'power3.out'
+      }, 0.3);
+
+      heroTl.fromTo('.hero__tagline',
+        { y: 30, opacity: 0, filter: 'blur(5px)' },
+        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.5 },
+        '-=1.0'
+      );
+
+      heroTl.fromTo('.hero__actions',
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.0 },
+        '-=1.2'
+      );
+    });
+  });
+</script>

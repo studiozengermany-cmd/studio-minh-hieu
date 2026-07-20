@@ -1,0 +1,65 @@
+---
+import type { SiteCopy } from '../../i18n';
+
+interface Props {
+  copy: SiteCopy['projects'];
+}
+
+const { copy } = Astro.props;
+---
+
+<section id="projects" class="section" aria-labelledby="projects-heading">
+  <h2 id="projects-heading" class="section__heading">{copy.heading}</h2>
+
+  <p class="section__intro">{copy.intro}</p>
+
+  <div class="doppelrand">
+  <details class="project-detail card--reveal" open>
+    <summary>
+      <span>
+        <span class="content-detail__kicker">{copy.status}</span>
+        <strong>{copy.title}</strong>
+      </span>
+      <span class="content-detail__action" data-closed={copy.closedLabel}>{copy.closedLabel}</span>
+    </summary>
+
+    <div class="project-detail__body">
+      <p class="project-detail__lead">{copy.lead}</p>
+
+      <div class="project-feature-grid">
+        {copy.features.map((feature) => (
+          <article class="project-feature">
+            <div class="card__media">
+              <img src={feature.image}
+                   alt={feature.alt}
+                   loading="lazy" width="1200" height="750">
+            </div>
+            <div class="card__body">
+              <h3 class="card__title">{feature.title}</h3>
+              <p class="card__desc">{feature.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="project-facts" aria-label={copy.factsLabel}>
+        <span class="badge badge--type">{copy.facts[0]}</span>
+        <span class="badge badge--prototype">{copy.facts[1]}</span>
+        <span class="badge badge--draft">{copy.facts[2]}</span>
+      </div>
+    </div>
+  </details>
+  </div>
+
+  <div class="bento-card-wrapper wrapper-collab card--reveal" aria-label={copy.collabLabel}>
+    <div class="led-glow-backdrop glow-collab"></div>
+    <div class="bento-card-led card-collab">
+      <div class="card-content content-collab">
+        <div class="collab-brand-stack">
+          <h2 class="collab-text-studio">Studio Minh Hieu</h2>
+          <h2 class="collab-text-team">MinhLyTeam</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
