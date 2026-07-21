@@ -5,7 +5,6 @@ import { PillBadge } from "@/components/pill-badge";
 import { Reveal, StaggerGroup, staggerItem, EASE_OUT_EXPO } from "@/components/reveal";
 import { Magnetic } from "@/components/magnetic";
 import { Button } from "@/components/ui/button";
-import i18n from "@/i18n";
 
 export const Route = createFileRoute("/he-sinh-thai")({
   head: () => ({
@@ -22,50 +21,34 @@ export const Route = createFileRoute("/he-sinh-thai")({
 });
 
 /* ------------------------------------------------------------------ */
-/* CONSTANTS                                                           */
+/* DATA                                                                */
 /* ------------------------------------------------------------------ */
 
 const LAYERS = [
   {
-    id: "memory",
+    n: "01",
     label: "Memory",
-    color: "text-lavender-pulse",
-    border: "border-lavender-pulse/20",
-    bg: "bg-lavender-pulse/5",
-    glow: "rgba(153,132,216,0.15)",
     title: "Bộ nhớ xuyên phiên",
     body:
       "Lưu bối cảnh, lỗi và bài học qua từng phiên làm việc. AI nào tham gia cũng bắt đầu từ đúng chỗ — không cần giải thích lại từ đầu.",
   },
   {
-    id: "decision",
+    n: "02",
     label: "Decision",
-    color: "text-amber-400",
-    border: "border-amber-400/20",
-    bg: "bg-amber-400/5",
-    glow: "rgba(251,191,36,0.12)",
     title: "Lưu quyết định và lý do",
     body:
       "Mọi quyết định quan trọng đều có lý do, rủi ro và người phê duyệt rõ ràng. Không có quyết định nào chỉ do AI tự làm mà không có dấu vết.",
   },
   {
-    id: "evidence",
+    n: "03",
     label: "Evidence",
-    color: "text-emerald-400",
-    border: "border-emerald-400/20",
-    bg: "bg-emerald-400/5",
-    glow: "rgba(52,211,153,0.12)",
     title: "Bằng chứng kiểm thử",
     body:
       "Phân biệt rõ Tested và Untested. Mọi tính năng được label trạng thái thật — không gọi demo là sản phẩm xong.",
   },
   {
-    id: "governance",
+    n: "04",
     label: "Governance",
-    color: "text-sky-400",
-    border: "border-sky-400/20",
-    bg: "bg-sky-400/5",
-    glow: "rgba(56,189,248,0.12)",
     title: "Phạm vi và quyền AI",
     body:
       "Xác định rõ từng AI được làm gì, trong phạm vi nào, với tài sản nào. Không có vùng xám về quyền truy cập.",
@@ -88,30 +71,34 @@ const ECOSYSTEM = [
     desc: "Trích xuất DOM/CSS — giúp AI hiểu đúng vị trí vấn đề trên giao diện.",
     status: "Experiment",
     lang: "TypeScript",
+    slug: "quantum-inspector",
   },
   {
     step: "02",
-    name: "MH-Dowsample",
+    name: "MH-Dowsampl.Extension",
     role: "Thu thập",
-    desc: "Kiểm tra, phân loại và chuẩn hóa sample thành thư viện gọn.",
+    desc: "Dán link → tìm audio công khai → tải về local. Không ghi đè, không mở dịch vụ ra ngoài.",
     status: "Alpha · v4.1.0",
     lang: "Python 3.11+",
+    slug: "dowsample-extension",
   },
   {
     step: "03",
     name: "MH FileOS",
     role: "Tổ chức",
-    desc: "Sắp xếp lại file an toàn, có phục hồi, không mất dữ liệu.",
+    desc: "Chỉ mục file local-first. Không mất dữ liệu là ưu tiên số một.",
     status: "Experiment · M6",
     lang: "Rust",
+    slug: "fileos",
   },
   {
     step: "04",
     name: "MH Sample FL",
     role: "Sử dụng",
-    desc: "Tìm, nghe, ghi nhớ và kéo sample vào FL Studio trong workflow.",
+    desc: "Duyệt, preview và ghi nhớ sample trong FL Studio — không rời cửa sổ.",
     status: "Alpha · v0.1.0",
     lang: "TypeScript · Electron",
+    slug: "sample-fl",
   },
   {
     step: "05",
@@ -120,65 +107,40 @@ const ECOSYSTEM = [
     desc: "Website công khai — ghi lại hành trình, kiểm chứng và chia sẻ.",
     status: "Beta",
     lang: "TypeScript · TanStack",
+    slug: "studio-site",
   },
 ];
 
 /* ------------------------------------------------------------------ */
-/* ANIMATED BACKGROUND                                                 */
+/* AMBIENT BACKGROUND                                                  */
 /* ------------------------------------------------------------------ */
 
-const OrbitBackground = memo(function OrbitBackground() {
+const AmbientBackground = memo(function AmbientBackground() {
   const reduce = useReducedMotion();
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
-      {/* Deep void gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(153,132,216,0.12)_0%,transparent_60%)]" />
-
-      {/* Orbit ring 1 */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-5%,rgba(153,132,216,0.10)_0%,transparent_65%)]" />
       <motion.div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-lavender-pulse/8"
-        style={{ width: 600, height: 600 }}
-        animate={reduce ? {} : { rotate: 360 }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        className="absolute left-[10%] top-[15%] h-[500px] w-[500px] rounded-full blur-[120px]"
+        style={{ background: "rgba(153,132,216,0.07)" }}
+        animate={reduce ? {} : { y: [-30, 30, -30], opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* Orbit ring 2 */}
       <motion.div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-lavender-pulse/5"
-        style={{ width: 900, height: 900 }}
-        animate={reduce ? {} : { rotate: -360 }}
-        transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
-      />
-      {/* Orbit ring 3 */}
-      <motion.div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/3"
-        style={{ width: 1200, height: 1200 }}
-        animate={reduce ? {} : { rotate: 360 }}
-        transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-      />
-
-      {/* Floating orb A */}
-      <motion.div
-        className="absolute left-[15%] top-[20%] h-[320px] w-[320px] rounded-full blur-[80px]"
-        style={{ background: "rgba(153,132,216,0.1)" }}
-        animate={reduce ? {} : { y: [-20, 20, -20], opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
-      {/* Floating orb B */}
-      <motion.div
-        className="absolute right-[10%] top-[40%] h-[280px] w-[280px] rounded-full blur-[80px]"
-        style={{ background: "rgba(56,189,248,0.07)" }}
-        animate={reduce ? {} : { y: [20, -20, 20], opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute right-[5%] top-[50%] h-[400px] w-[400px] rounded-full blur-[100px]"
+        style={{ background: "rgba(56,189,248,0.05)" }}
+        animate={reduce ? {} : { y: [30, -30, 30], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
       />
     </div>
   );
 });
 
 /* ------------------------------------------------------------------ */
-/* HERO — MH MASTER MEMORY                                            */
+/* HERO                                                                */
 /* ------------------------------------------------------------------ */
 
-const MasterMemoryHero = memo(function MasterMemoryHero() {
+const Hero = memo(function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -191,7 +153,6 @@ const MasterMemoryHero = memo(function MasterMemoryHero() {
         className="relative z-10 mx-auto max-w-[860px] flex flex-col items-center text-center"
         style={{ y, opacity }}
       >
-        {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -200,9 +161,8 @@ const MasterMemoryHero = memo(function MasterMemoryHero() {
           <PillBadge tone="lavender">HỆ SINH THÁI MH · BỘ NÃO TRUNG TÂM</PillBadge>
         </motion.div>
 
-        {/* Main title */}
         <motion.h1
-          className="font-display mt-8 text-[56px] md:text-[80px] leading-[0.95] tracking-[-0.03em] text-ghost-white"
+          className="font-display mt-8 text-[64px] md:text-[96px] leading-[0.92] tracking-[-0.04em] text-ghost-white"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.15, ease: EASE_OUT_EXPO }}
@@ -213,9 +173,8 @@ const MasterMemoryHero = memo(function MasterMemoryHero() {
           Memory
         </motion.h1>
 
-        {/* Subtitle */}
         <motion.p
-          className="mt-8 max-w-[580px] text-[17px] md:text-[18px] leading-[1.65] text-ash-gray"
+          className="mt-10 max-w-[600px] text-[18px] md:text-[20px] leading-[1.6] text-ash-gray"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35, ease: EASE_OUT_EXPO }}
@@ -224,9 +183,8 @@ const MasterMemoryHero = memo(function MasterMemoryHero() {
           Không phải một ứng dụng — là cấu trúc giúp mọi AI tham gia đúng vai trò trong đúng phạm vi.
         </motion.p>
 
-        {/* CTA */}
         <motion.div
-          className="mt-10 flex flex-wrap gap-4 justify-center"
+          className="mt-12 flex flex-wrap gap-4 justify-center"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.55, ease: EASE_OUT_EXPO }}
@@ -241,9 +199,8 @@ const MasterMemoryHero = memo(function MasterMemoryHero() {
           </Button>
         </motion.div>
 
-        {/* 4 layer badges */}
         <motion.div
-          className="mt-14 flex flex-wrap justify-center gap-2"
+          className="mt-16 flex flex-wrap justify-center gap-3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.7 }}
@@ -251,7 +208,7 @@ const MasterMemoryHero = memo(function MasterMemoryHero() {
           {["Memory", "Decision", "Evidence", "Governance"].map((label) => (
             <span
               key={label}
-              className="rounded-full border border-lavender-pulse/25 bg-lavender-pulse/8 px-4 py-1.5 text-[12px] font-mono tracking-wider text-lavender-pulse/90 uppercase"
+              className="px-4 py-1.5 text-[11px] font-mono tracking-widest text-lavender-pulse/70 uppercase border-b border-lavender-pulse/25"
             >
               {label}
             </span>
@@ -263,159 +220,46 @@ const MasterMemoryHero = memo(function MasterMemoryHero() {
 });
 
 /* ------------------------------------------------------------------ */
-/* 4 LAYERS SECTION                                                    */
+/* 4 LAYERS — editorial list, no cards                                */
 /* ------------------------------------------------------------------ */
 
 const LayersSection = memo(function LayersSection() {
   return (
-    <section className="px-6 pt-8 pb-24">
-      <div className="mx-auto max-w-[1100px]">
-        <Reveal className="mb-14 flex flex-col items-center text-center">
+    <section className="px-6 pt-4 pb-28">
+      <div className="mx-auto max-w-[900px]">
+        <Reveal className="mb-16">
           <span className="text-eyebrow">Cấu trúc 4 lớp</span>
-          <h2 className="font-display mt-6 text-[40px] md:text-[52px] leading-none text-ghost-white">
+          <h2 className="font-display mt-6 text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
             Bộ não điều hành chung
           </h2>
-          <p className="mt-5 max-w-[560px] text-[16px] text-ash-gray">
+          <p className="mt-5 max-w-[520px] text-[16px] text-ash-gray leading-relaxed">
             Bốn lớp tạo nên một hệ thống mà bất kỳ AI nào tham gia cũng có thể hiểu bối cảnh và hành động đúng vai trò.
           </p>
         </Reveal>
 
-        <StaggerGroup className="grid gap-5 md:grid-cols-2" stagger={0.1}>
-          {LAYERS.map((layer) => (
-            <motion.div
-              key={layer.id}
-              variants={staggerItem}
-              whileHover={{ y: -6, scale: 1.01 }}
-              transition={{ type: "spring", stiffness: 200, damping: 22 }}
-              className={`relative overflow-hidden rounded-2xl border ${layer.border} ${layer.bg} p-7 will-change-transform`}
-            >
-              {/* Glow */}
-              <div
-                className="pointer-events-none absolute inset-0 opacity-60"
-                style={{
-                  background: `radial-gradient(ellipse at 30% 30%, ${layer.glow} 0%, transparent 60%)`,
-                }}
-              />
-              <div className="relative">
-                <span className={`text-[11px] font-mono tracking-widest uppercase ${layer.color}`}>
-                  {layer.label}
-                </span>
-                <h3 className="mt-3 text-[20px] font-semibold text-ghost-white">{layer.title}</h3>
-                <p className="mt-3 text-[14px] leading-relaxed text-ash-gray">{layer.body}</p>
-              </div>
-            </motion.div>
-          ))}
-        </StaggerGroup>
-      </div>
-    </section>
-  );
-});
-
-/* ------------------------------------------------------------------ */
-/* MULTI-AI COORDINATION                                               */
-/* ------------------------------------------------------------------ */
-
-const AgentsSection = memo(function AgentsSection() {
-  const reduce = useReducedMotion();
-  return (
-    <section className="px-6 py-24 border-y border-graphite/40">
-      <div className="mx-auto max-w-[1000px]">
-        <Reveal className="mb-14 flex flex-col items-center text-center">
-          <span className="text-eyebrow">Multi-AI Coordination</span>
-          <h2 className="font-display mt-6 text-[40px] md:text-[52px] leading-none text-ghost-white">
-            Mỗi AI đúng vai trò
-          </h2>
-          <p className="mt-5 max-w-[520px] text-[16px] text-ash-gray">
-            MH Master Memory định nghĩa phạm vi cụ thể cho từng AI Agent. Không có vùng xám, không tự quyết định ngoài scope.
-          </p>
-        </Reveal>
-
-        {/* Center node */}
-        <div className="relative flex flex-col items-center">
-          <motion.div
-            className="relative z-10 flex h-24 w-24 items-center justify-center rounded-full border-2 border-lavender-pulse/50 bg-lavender-pulse/10 shadow-[0_0_40px_rgba(153,132,216,0.2)]"
-            animate={reduce ? {} : { boxShadow: ["0 0 20px rgba(153,132,216,0.15)", "0 0 50px rgba(153,132,216,0.35)", "0 0 20px rgba(153,132,216,0.15)"] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <span className="text-[11px] font-mono font-bold tracking-widest text-lavender-pulse uppercase text-center leading-tight">
-              MH<br />Memory
-            </span>
-          </motion.div>
-
-          {/* Agents around */}
-          <StaggerGroup className="mt-10 flex flex-wrap justify-center gap-4" stagger={0.08}>
-            {AGENTS.map((agent) => (
+        <div className="border-t border-white/8">
+          {LAYERS.map((layer, idx) => (
+            <Reveal key={layer.n}>
               <motion.div
-                key={agent.name}
-                variants={staggerItem}
-                whileHover={{ y: -4, borderColor: "rgba(153,132,216,0.4)" }}
-                className="flex flex-col items-center rounded-xl border border-white/10 bg-white/[0.025] px-5 py-4 text-center min-w-[150px] will-change-transform transition-colors"
+                className="grid grid-cols-[64px_1fr] md:grid-cols-[80px_1fr_280px] gap-x-8 gap-y-3 py-10 border-b border-white/8"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
-                <span className="text-[14px] font-medium text-ghost-white">{agent.name}</span>
-                <span className="mt-1.5 text-[12px] text-ash-gray leading-snug">{agent.role}</span>
-              </motion.div>
-            ))}
-          </StaggerGroup>
-        </div>
-      </div>
-    </section>
-  );
-});
-
-/* ------------------------------------------------------------------ */
-/* ECOSYSTEM CHAIN                                                     */
-/* ------------------------------------------------------------------ */
-
-const EcosystemSection = memo(function EcosystemSection() {
-  return (
-    <section id="ecosystem" className="px-6 py-24">
-      <div className="mx-auto max-w-[1100px]">
-        <Reveal className="mb-14 flex flex-col items-center text-center">
-          <span className="text-eyebrow">Chuỗi hệ sinh thái</span>
-          <h2 className="font-display mt-6 text-[40px] md:text-[52px] leading-none text-ghost-white">
-            Năm công cụ, một quy trình
-          </h2>
-          <p className="mt-5 max-w-[580px] text-[16px] text-ash-gray">
-            Từng công cụ giải quyết một công đoạn riêng. Kết nối lại thành một pipeline hoàn chỉnh — hoặc dùng độc lập tùy nào cần.
-          </p>
-        </Reveal>
-
-        <div className="flex flex-col gap-4">
-          {ECOSYSTEM.map((item, idx) => (
-            <Reveal key={item.step}>
-              <motion.div
-                whileHover={{ x: 6 }}
-                transition={{ type: "spring", stiffness: 240, damping: 24 }}
-                className="group flex flex-col md:flex-row md:items-center gap-5 rounded-2xl border border-white/8 bg-white/[0.02] p-6 hover:border-lavender-pulse/25 hover:bg-lavender-pulse/[0.03] transition-colors will-change-transform"
-              >
-                {/* Step number */}
-                <div className="flex-shrink-0 flex h-12 w-12 items-center justify-center rounded-xl border border-lavender-pulse/20 bg-lavender-pulse/8">
-                  <span className="text-[13px] font-mono font-bold text-lavender-pulse">{item.step}</span>
-                </div>
-
-                {/* Content */}
-                <div className="flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-[18px] font-semibold text-ghost-white">{item.name}</h3>
-                    <span className="text-[11px] font-mono uppercase text-ash-gray/60">· {item.role}</span>
-                  </div>
-                  <p className="mt-1.5 text-[14px] leading-relaxed text-ash-gray">{item.desc}</p>
-                </div>
-
-                {/* Meta badges */}
-                <div className="flex flex-shrink-0 flex-col gap-1.5 items-start md:items-end">
-                  <span className="rounded bg-white/5 px-2.5 py-1 text-[11px] font-mono text-ash-gray border border-white/8">
-                    {item.status}
+                <span className="font-mono text-[13px] text-lavender-pulse/60 pt-1">{layer.n}</span>
+                <div>
+                  <span className="text-[11px] font-mono tracking-widest uppercase text-lavender-pulse">
+                    {layer.label}
                   </span>
-                  <span className="rounded bg-lavender-pulse/5 px-2.5 py-1 text-[11px] font-mono text-lavender-pulse/70 border border-lavender-pulse/10">
-                    {item.lang}
-                  </span>
+                  <h3 className="mt-2 text-[24px] md:text-[28px] font-medium text-ghost-white leading-tight">
+                    {layer.title}
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-ash-gray md:hidden">
+                    {layer.body}
+                  </p>
                 </div>
-
-                {/* Arrow */}
-                {idx < ECOSYSTEM.length - 1 && (
-                  <div className="hidden md:block absolute -bottom-6 left-10 text-steel-gray text-[20px]">↓</div>
-                )}
+                <p className="hidden md:block text-[15px] leading-relaxed text-ash-gray self-center">
+                  {layer.body}
+                </p>
               </motion.div>
             </Reveal>
           ))}
@@ -426,75 +270,144 @@ const EcosystemSection = memo(function EcosystemSection() {
 });
 
 /* ------------------------------------------------------------------ */
-/* VISION SECTION                                                      */
+/* AGENTS — inline text list, no cards                                */
 /* ------------------------------------------------------------------ */
 
-const VisionSection = memo(function VisionSection() {
+const AgentsSection = memo(function AgentsSection() {
+  const reduce = useReducedMotion();
   return (
-    <section className="px-6 py-24 border-t border-graphite/40">
+    <section className="px-6 py-28 border-y border-white/8">
       <div className="mx-auto max-w-[900px]">
-        <Reveal className="mb-14 flex flex-col items-center text-center">
-          <span className="text-eyebrow">Tầm nhìn sản phẩm</span>
-          <h2 className="font-display mt-6 text-[40px] md:text-[52px] leading-none text-ghost-white">
-            Tích hợp hoặc bán lẻ
+        <Reveal className="mb-16">
+          <span className="text-eyebrow">Multi-AI Coordination</span>
+          <h2 className="font-display mt-6 text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
+            Mỗi AI đúng vai trò
           </h2>
-          <p className="mt-5 max-w-[600px] text-[16px] text-ash-gray">
-            Mỗi công cụ có thể đứng độc lập hoặc được đóng gói thành một sản phẩm tích hợp đầy đủ.
+          <p className="mt-5 max-w-[520px] text-[16px] text-ash-gray leading-relaxed">
+            MH Master Memory định nghĩa phạm vi cụ thể cho từng AI Agent. Không có vùng xám, không tự quyết định ngoài scope.
           </p>
         </Reveal>
 
-        <StaggerGroup className="grid md:grid-cols-2 gap-6" stagger={0.1}>
+        {/* Central node */}
+        <div className="flex flex-col items-center mb-16">
           <motion.div
-            variants={staggerItem}
-            whileHover={{ y: -5 }}
-            transition={{ type: "spring", stiffness: 200, damping: 22 }}
-            className="rounded-2xl border border-lavender-pulse/20 bg-lavender-pulse/5 p-8 will-change-transform"
+            className="flex h-20 w-20 items-center justify-center"
+            animate={
+              reduce
+                ? {}
+                : {
+                    textShadow: [
+                      "0 0 20px rgba(153,132,216,0.3)",
+                      "0 0 50px rgba(153,132,216,0.7)",
+                      "0 0 20px rgba(153,132,216,0.3)",
+                    ],
+                  }
+            }
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            <span className="text-[12px] font-mono tracking-widest text-lavender-pulse uppercase">GÓI TÍCH HỢP</span>
-            <h3 className="mt-4 text-[22px] font-semibold text-ghost-white">
-              MH Sample FL All-in-One
-            </h3>
-            <p className="mt-3 text-[14px] leading-relaxed text-ash-gray">
-              Tích hợp sẵn Dowsample · FileOS · Sample FL vào một ứng dụng duy nhất.
-              Tải về → sắp xếp → dùng ngay trong FL Studio.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {["Dowsample", "FileOS", "Sample FL"].map((t) => (
-                <span key={t} className="rounded bg-lavender-pulse/10 px-2.5 py-1 text-[11px] font-mono text-lavender-pulse/80 border border-lavender-pulse/15">
-                  {t}
-                </span>
-              ))}
-            </div>
+            <span className="font-mono text-[13px] font-bold tracking-widest text-lavender-pulse uppercase text-center leading-snug">
+              MH<br />Memory
+            </span>
           </motion.div>
+          <div className="w-px h-8 bg-gradient-to-b from-lavender-pulse/40 to-transparent" />
+        </div>
 
-          <motion.div
-            variants={staggerItem}
-            whileHover={{ y: -5 }}
-            transition={{ type: "spring", stiffness: 200, damping: 22 }}
-            className="rounded-2xl border border-white/10 bg-white/[0.025] p-8 will-change-transform"
-          >
-            <span className="text-[12px] font-mono tracking-widest text-ash-gray uppercase">BÁN Lẻ TỮNG CÔNG CỤ</span>
-            <h3 className="mt-4 text-[22px] font-semibold text-ghost-white">
-              Chọn theo nhu cầu
-            </h3>
-            <p className="mt-3 text-[14px] leading-relaxed text-ash-gray">
-              Ai cần công cụ nào thì mua công cụ đó. Không cần mua trọn bộ nếu chỉ dùng một bước trong chuỗi.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {["Quantum Inspector", "Dowsample", "FileOS", "Sample FL"].map((t) => (
-                <span key={t} className="rounded bg-white/5 px-2.5 py-1 text-[11px] font-mono text-ash-gray border border-white/10">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        </StaggerGroup>
+        {/* Agent list */}
+        <div className="border-t border-white/8">
+          {AGENTS.map((agent) => (
+            <Reveal key={agent.name}>
+              <div className="flex items-baseline justify-between py-5 border-b border-white/8">
+                <span className="text-[18px] font-medium text-ghost-white">{agent.name}</span>
+                <span className="text-[13px] text-ash-gray ml-8 text-right">{agent.role}</span>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+});
 
-        {/* Note */}
-        <Reveal className="mt-12 text-center">
-          <p className="text-[13px] text-steel-gray">
-            Tầm nhìn dài hạn — hiện tại các công cụ đang ở giai đoạn Experiment / Alpha. Chưa có phát hành thương mại.
+/* ------------------------------------------------------------------ */
+/* ECOSYSTEM CHAIN — editorial numbered list                          */
+/* ------------------------------------------------------------------ */
+
+const EcosystemSection = memo(function EcosystemSection() {
+  return (
+    <section id="ecosystem" className="px-6 py-28">
+      <div className="mx-auto max-w-[900px]">
+        <Reveal className="mb-16">
+          <span className="text-eyebrow">Chuỗi hệ sinh thái</span>
+          <h2 className="font-display mt-6 text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
+            Năm công cụ,<br />một quy trình
+          </h2>
+          <p className="mt-5 max-w-[520px] text-[16px] text-ash-gray leading-relaxed">
+            Từng công cụ giải quyết một công đoạn riêng. Kết nối lại thành một pipeline hoàn chỉnh — hoặc dùng độc lập tùy nào cần.
           </p>
+        </Reveal>
+
+        <div className="border-t border-white/8">
+          {ECOSYSTEM.map((item) => (
+            <Reveal key={item.step}>
+              <Link to="/du-an/$slug" params={{ slug: item.slug }}>
+                <motion.div
+                  className="group grid grid-cols-[48px_1fr] md:grid-cols-[48px_1fr_auto] gap-x-8 gap-y-2 py-9 border-b border-white/8 cursor-pointer"
+                  whileHover={{ x: 6 }}
+                  transition={{ type: "spring", stiffness: 280, damping: 28 }}
+                >
+                  <span className="font-mono text-[13px] text-lavender-pulse/50 pt-1">{item.step}</span>
+                  <div>
+                    <div className="flex flex-wrap items-baseline gap-3">
+                      <h3 className="text-[22px] md:text-[26px] font-medium text-ghost-white group-hover:text-lavender-pulse transition-colors">
+                        {item.name}
+                      </h3>
+                      <span className="text-[12px] font-mono uppercase text-ash-gray/50">
+                        {item.role}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-[15px] leading-relaxed text-ash-gray">{item.desc}</p>
+                  </div>
+                  <div className="hidden md:flex flex-col gap-1.5 items-end self-center">
+                    <span className="text-[11px] font-mono text-ash-gray/60">{item.status}</span>
+                    <span className="text-[11px] font-mono text-lavender-pulse/50">{item.lang}</span>
+                    <span className="text-[12px] text-lavender-pulse/40 group-hover:text-lavender-pulse transition-colors">→</span>
+                  </div>
+                </motion.div>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+});
+
+/* ------------------------------------------------------------------ */
+/* CLOSING CTA                                                         */
+/* ------------------------------------------------------------------ */
+
+const ClosingCta = memo(function ClosingCta() {
+  return (
+    <section className="px-6 py-28 border-t border-white/8">
+      <div className="mx-auto max-w-[900px]">
+        <Reveal>
+          <p className="text-eyebrow mb-6">Bằng chứng trước tuyên bố</p>
+          <h2 className="font-display text-[48px] md:text-[72px] leading-none tracking-[-0.03em] text-ghost-white">
+            Xem dự án thật
+          </h2>
+          <p className="mt-8 max-w-[520px] text-[17px] text-ash-gray leading-relaxed">
+            Tất cả công cụ đều có trạng thái công khai, rõ ràng và có bằng chứng. Không hứa những gì chưa có.
+          </p>
+          <div className="mt-10 flex gap-5 flex-wrap">
+            <Magnetic as="div" strength={12} radius={130}>
+              <Button asChild variant="hero">
+                <Link to="/du-an">Xem hệ sinh thái MH →</Link>
+              </Button>
+            </Magnetic>
+            <Button asChild variant="ghost-link">
+              <Link to="/lien-he">Liên hệ collab</Link>
+            </Button>
+          </div>
         </Reveal>
       </div>
     </section>
@@ -508,36 +421,13 @@ const VisionSection = memo(function VisionSection() {
 function HeSinhThai() {
   return (
     <div className="relative">
-      <OrbitBackground />
+      <AmbientBackground />
       <div className="relative z-10">
-        <MasterMemoryHero />
+        <Hero />
         <LayersSection />
         <AgentsSection />
         <EcosystemSection />
-        <VisionSection />
-
-        {/* Footer CTA */}
-        <section className="px-6 py-24 text-center">
-          <Reveal>
-            <p className="text-eyebrow mb-4">Bằng chứng trước tuyên bố</p>
-            <h2 className="font-display text-[40px] md:text-[56px] leading-none text-ghost-white">
-              Xem dự án thật
-            </h2>
-            <p className="mt-5 max-w-[480px] mx-auto text-[16px] text-ash-gray">
-              Tất cả công cụ đều có trạng thái công khai, rõ ràng và có bằng chứng.
-            </p>
-            <div className="mt-8 flex justify-center gap-4 flex-wrap">
-              <Magnetic as="div" strength={12} radius={130}>
-                <Button asChild variant="hero">
-                  <Link to="/du-an">Xem hệ sinh thái MH →</Link>
-                </Button>
-              </Magnetic>
-              <Button asChild variant="ghost-link">
-                <Link to="/lien-he">Liên hệ collab</Link>
-              </Button>
-            </div>
-          </Reveal>
-        </section>
+        <ClosingCta />
       </div>
     </div>
   );
