@@ -308,7 +308,7 @@ function Home() {
       <Hero />
       <MinhLyTeamBlock />
       <ProjectsGrid />
-      
+      <PrinciplesSection />
       <ToolsSection />
     </>
   );
