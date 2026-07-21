@@ -156,6 +156,88 @@ const MinhLyTeamBlock = memo(function MinhLyTeamBlock() {
   );
 });
 
+/* --------------------------- ECOSYSTEM PIPELINE --------------------------- */
+
+const ecosystemSteps = [
+  { name: "MH Quantum Inspector", role: "Quan sát và làm rõ vấn đề" },
+  { name: "MH-Dowsample", role: "Thu thập và chuẩn hóa sample" },
+  { name: "MH FileOS", role: "Tổ chức và bảo vệ dữ liệu" },
+  { name: "MH Sample FL", role: "Tìm, nghe và sử dụng trong FL Studio" },
+  { name: "MINH HIEU STUDIO", role: "Ghi lại, kiểm chứng và chia sẻ" },
+];
+
+const EcosystemPipeline = memo(function EcosystemPipeline() {
+  return (
+    <Reveal className="mt-10">
+      <p className="text-center text-[15px] leading-relaxed text-ash-gray max-w-[680px] mx-auto mb-10">
+        Các dự án được xây dựng từ những vấn đề thật trong quá trình làm nhạc, quản lý sample,
+        tổ chức dữ liệu và làm việc với AI. Mỗi công cụ giải quyết một công đoạn riêng nhưng
+        được thiết kế để có thể kết nối thành một quy trình thống nhất.
+      </p>
+      <div className="flex flex-col md:flex-row items-center justify-center flex-wrap gap-0">
+        {ecosystemSteps.map((step, idx) => (
+          <div key={step.name} className="flex flex-col md:flex-row items-center">
+            <div className="flex flex-col items-center text-center px-5 py-4 rounded-xl border border-white/8 bg-white/[0.025] min-w-[148px] max-w-[180px]">
+              <span className="text-[10px] font-mono tracking-wider text-lavender-pulse uppercase leading-tight">
+                {step.name}
+              </span>
+              <span className="mt-1.5 text-[12px] text-ash-gray leading-snug">{step.role}</span>
+            </div>
+            {idx < ecosystemSteps.length - 1 && (
+              <span className="text-steel-gray text-[16px] mx-2 my-2 md:my-0 select-none">→</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </Reveal>
+  );
+});
+
+/* --------------------------- MH MASTER MEMORY CARD --------------------------- */
+
+const MhMasterMemoryCard = memo(function MhMasterMemoryCard() {
+  const badges = [
+    "Memory",
+    "Decision",
+    "Evidence",
+    "Governance",
+    "Multi-AI Coordination",
+    "Internal / Private",
+  ];
+  return (
+    <Reveal className="w-full">
+      <div className="surface-card relative overflow-hidden rounded-2xl border border-white/10 bg-[#050607] p-6 md:p-10">
+        <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+          <div>
+            <span className="text-[12px] font-mono font-medium tracking-wider uppercase text-steel-gray">
+              NỘI BỘ · KHÔNG PHÁT HÀNH
+            </span>
+            <h3 className="font-display mt-1 text-[28px] md:text-[36px] font-medium leading-tight text-ghost-white">
+              MH Master Memory
+            </h3>
+          </div>
+        </div>
+        <p className="mt-4 max-w-[720px] text-[15px] leading-relaxed text-ash-gray">
+          Lớp điều hành nội bộ giúp các AI Agent dùng chung bối cảnh, quyết định, bằng chứng
+          kiểm thử và nguyên tắc an toàn khi tham gia các dự án trong hệ sinh thái Minh Hiếu.
+          Điều phối giữa Codex, Claude, AntiGravity và Lovable theo từng phạm vi dự án —
+          không phải một ứng dụng, mà là hệ điều hành trí nhớ chung.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center gap-2 pt-2 text-[11px] font-mono uppercase">
+          {badges.map((b) => (
+            <span
+              key={b}
+              className="rounded bg-lavender-pulse/8 px-2.5 py-1 text-lavender-pulse/80 border border-lavender-pulse/15"
+            >
+              {b}
+            </span>
+          ))}
+        </div>
+      </div>
+    </Reveal>
+  );
+});
+
 interface ProjectItem {
   slug: string;
   status: string;
@@ -209,7 +291,8 @@ const ProjectsGrid = memo(function ProjectsGrid() {
   return (
     <section className="px-6 pt-32">
       <div className="mx-auto max-w-[1200px]">
-        <Reveal className="mb-14 flex flex-col items-center text-center">
+        {/* Section header */}
+        <Reveal className="mb-6 flex flex-col items-center text-center">
           <span className="text-eyebrow">{t("home.projects.eyebrow")}</span>
           <h2 className="font-display mt-6 text-[40px] leading-none text-ghost-white md:text-[48px]">
             {t("home.projects.title")}
@@ -219,13 +302,19 @@ const ProjectsGrid = memo(function ProjectsGrid() {
           </p>
         </Reveal>
 
-        <div className="flex flex-col gap-6">
+        {/* Ecosystem pipeline diagram */}
+        <EcosystemPipeline />
+
+        {/* Featured cards */}
+        <div className="mt-16 flex flex-col gap-6">
+          <MhMasterMemoryCard />
           <SampleGuardCard />
           <StudioMinhHieuCard />
         </div>
 
+        {/* All projects grid */}
         <StaggerGroup
-          className="mt-24 grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+          className="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-3"
           stagger={0.09}
         >
           {items.map((p) => (
