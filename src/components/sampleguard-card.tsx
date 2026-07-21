@@ -38,7 +38,7 @@ export const SampleGuardCard = memo(function SampleGuardCard() {
               ĐANG THỬ NGHIỆM
             </span>
             <h3 className="font-display mt-1 text-[28px] md:text-[36px] font-medium leading-tight text-ghost-white">
-              SampleGuard FL
+              MH Sample FL
             </h3>
           </div>
           <a
@@ -47,13 +47,13 @@ export const SampleGuardCard = memo(function SampleGuardCard() {
             rel="noopener noreferrer"
             className="text-[13px] font-mono text-ash-gray transition-colors hover:text-ghost-white"
           >
-            Xem chi tiết -
+            Xem chi tiết →
           </a>
         </div>
 
         {/* Lead Subtitle */}
         <p className="mt-4 max-w-[720px] text-[15px] leading-relaxed text-ash-gray">
-          SampleGuard FL được phát triển để tìm sample nhanh hơn, ghi nhớ sample đã dùng theo từng project và kiểm tra rủi ro trước khi xử lý file trùng.
+          MH Sample FL được phát triển để tìm sample nhanh hơn, ghi nhớ sample đã dùng theo từng project và kiểm tra rủi ro trước khi xử lý file trùng.
         </p>
 
         {/* 3 Sub-Cards Grid */}
