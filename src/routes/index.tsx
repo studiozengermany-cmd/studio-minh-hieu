@@ -1,18 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { memo, useMemo, useRef } from "react";
+import { memo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { PillBadge } from "@/components/pill-badge";
-import { MetricCard } from "@/components/metric-card";
-import { StatusBadge } from "@/components/status-badge";
 import { Reveal, StaggerGroup, staggerItem, EASE_OUT_EXPO } from "@/components/reveal";
 import { Magnetic } from "@/components/magnetic";
 import { SplitText } from "@/components/split-text";
-import { SampleGuardCard } from "@/components/sampleguard-card";
-import { StudioMinhHieuCard } from "@/components/studio-minh-hieu-card";
-import { projects } from "@/content/projects";
-import { tools } from "@/content/principles";
 import i18n from "@/i18n";
 
 export const Route = createFileRoute("/")({
@@ -26,6 +20,22 @@ export const Route = createFileRoute("/")({
   }),
   component: Home,
 });
+
+/* ------------------------------------------------------------------ */
+/* DATA                                                                */
+/* ------------------------------------------------------------------ */
+
+const ECOSYSTEM = [
+  { step: "01", name: "MH Quantum Inspector", role: "Quan sát", slug: "quantum-inspector" },
+  { step: "02", name: "MH-Dowsampl.Extension", role: "Thu thập", slug: "dowsample-extension" },
+  { step: "03", name: "MH FileOS", role: "Tổ chức", slug: "fileos" },
+  { step: "04", name: "MH Sample FL", role: "Sử dụng", slug: "sample-fl" },
+  { step: "05", name: "MINH HIEU STUDIO", role: "Chia sẻ", slug: "studio-site" },
+];
+
+/* ------------------------------------------------------------------ */
+/* HERO BLOOM                                                          */
+/* ------------------------------------------------------------------ */
 
 const HeroBloom = memo(function HeroBloom() {
   const reduce = useReducedMotion();
@@ -45,32 +55,27 @@ const HeroBloom = memo(function HeroBloom() {
           : { opacity: [0.35, 0.55, 0.35], scale: [1, 1.06, 1] }
       }
       transition={
-        reduce
-          ? { duration: 0.8 }
-          : { duration: 9, repeat: Infinity, ease: "easeInOut" }
+        reduce ? { duration: 0.8 } : { duration: 9, repeat: Infinity, ease: "easeInOut" }
       }
     />
   );
 });
 
+/* ------------------------------------------------------------------ */
+/* HERO                                                                */
+/* ------------------------------------------------------------------ */
+
 const Hero = memo(function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { t } = useTranslation();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -80]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, reduce ? 1 : 0.2]);
 
   return (
-    <section
-      ref={ref}
-      className="relative overflow-hidden px-6 pt-24 pb-20 md:pt-32 md:pb-28"
-    >
+    <section ref={ref} className="relative overflow-hidden px-6 pt-24 pb-20 md:pt-32 md:pb-28">
       <HeroBloom />
-
       <motion.div
         className="relative mx-auto flex max-w-[880px] flex-col items-center text-center"
         style={{ y, opacity, willChange: "transform, opacity" }}
@@ -128,203 +133,65 @@ const Hero = memo(function Hero() {
   );
 });
 
-/* --------------------------- MINHLYTEAM (KHÔNG ĐỔI NỘI DUNG) --------------------------- */
+/* ------------------------------------------------------------------ */
+/* ECOSYSTEM — numbered text list, no cards                           */
+/* ------------------------------------------------------------------ */
 
-const MinhLyTeamBlock = memo(function MinhLyTeamBlock() {
-  return (
-    <section className="px-6 pt-24">
-      <div className="mx-auto max-w-[1120px]">
-        <Reveal>
-          <div className="surface-card p-8 md:p-10">
-            <div className="flex flex-wrap items-center gap-2">
-              <PillBadge tone="lavender">MinhLyTeam</PillBadge>
-              <PillBadge>Windows / FL Studio</PillBadge>
-              <PillBadge>Prototype</PillBadge>
-              <PillBadge tone="mint">Chưa phát hành công khai</PillBadge>
-            </div>
-            <h2 className="font-display mt-6 text-[40px] leading-none text-ghost-white md:text-[48px]">
-              Studio Minh Hieu
-            </h2>
-            <p className="mt-4 max-w-[640px] text-[15px] leading-relaxed text-ash-gray">
-              Bản prototype nội bộ chạy trên Windows với FL Studio. Chưa phát hành công khai —
-              được ghi lại ở đây như một bằng chứng về trạng thái đang phát triển của dự án.
-            </p>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-});
-
-/* --------------------------- ECOSYSTEM PIPELINE --------------------------- */
-
-const ecosystemSteps = [
-  { name: "MH Quantum Inspector", role: "Quan sát và làm rõ vấn đề" },
-  { name: "MH-Dowsample", role: "Thu thập và chuẩn hóa sample" },
-  { name: "MH FileOS", role: "Tổ chức và bảo vệ dữ liệu" },
-  { name: "MH Sample FL", role: "Tìm, nghe và sử dụng trong FL Studio" },
-  { name: "MINH HIEU STUDIO", role: "Ghi lại, kiểm chứng và chia sẻ" },
-];
-
-const EcosystemPipeline = memo(function EcosystemPipeline() {
-  return (
-    <Reveal className="mt-10">
-      <p className="text-center text-[15px] leading-relaxed text-ash-gray max-w-[680px] mx-auto mb-10">
-        Các dự án được xây dựng từ những vấn đề thật trong quá trình làm nhạc, quản lý sample,
-        tổ chức dữ liệu và làm việc với AI. Mỗi công cụ giải quyết một công đoạn riêng nhưng
-        được thiết kế để có thể kết nối thành một quy trình thống nhất.
-      </p>
-      <div className="flex flex-col md:flex-row items-center justify-center flex-wrap gap-0">
-        {ecosystemSteps.map((step, idx) => (
-          <div key={step.name} className="flex flex-col md:flex-row items-center">
-            <div className="flex flex-col items-center text-center px-5 py-4 rounded-xl border border-white/8 bg-white/[0.025] min-w-[148px] max-w-[180px]">
-              <span className="text-[10px] font-mono tracking-wider text-lavender-pulse uppercase leading-tight">
-                {step.name}
-              </span>
-              <span className="mt-1.5 text-[12px] text-ash-gray leading-snug">{step.role}</span>
-            </div>
-            {idx < ecosystemSteps.length - 1 && (
-              <span className="text-steel-gray text-[16px] mx-2 my-2 md:my-0 select-none">→</span>
-            )}
-          </div>
-        ))}
-      </div>
-    </Reveal>
-  );
-});
-
-/* --------------------------- MH MASTER MEMORY CARD --------------------------- */
-
-const MhMasterMemoryCard = memo(function MhMasterMemoryCard() {
-  const badges = [
-    "Memory",
-    "Decision",
-    "Evidence",
-    "Governance",
-    "Multi-AI Coordination",
-    "Internal / Private",
-  ];
-  return (
-    <Reveal className="w-full">
-      <div className="surface-card relative overflow-hidden rounded-2xl border border-white/10 bg-[#050607] p-6 md:p-10">
-        <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
-          <div>
-            <span className="text-[12px] font-mono font-medium tracking-wider uppercase text-steel-gray">
-              NỘI BỘ · KHÔNG PHÁT HÀNH
-            </span>
-            <h3 className="font-display mt-1 text-[28px] md:text-[36px] font-medium leading-tight text-ghost-white">
-              MH Master Memory
-            </h3>
-          </div>
-        </div>
-        <p className="mt-4 max-w-[720px] text-[15px] leading-relaxed text-ash-gray">
-          Lớp điều hành nội bộ giúp các AI Agent dùng chung bối cảnh, quyết định, bằng chứng
-          kiểm thử và nguyên tắc an toàn khi tham gia các dự án trong hệ sinh thái Minh Hiếu.
-          Điều phối giữa Codex, Claude, AntiGravity và Lovable theo từng phạm vi dự án —
-          không phải một ứng dụng, mà là hệ điều hành trí nhớ chung.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center gap-2 pt-2 text-[11px] font-mono uppercase">
-          {badges.map((b) => (
-            <span
-              key={b}
-              className="rounded bg-lavender-pulse/8 px-2.5 py-1 text-lavender-pulse/80 border border-lavender-pulse/15"
-            >
-              {b}
-            </span>
-          ))}
-        </div>
-      </div>
-    </Reveal>
-  );
-});
-
-interface ProjectItem {
-  slug: string;
-  status: string;
-}
-
-const ProjectCard = memo(function ProjectCard({ p }: { p: ProjectItem }) {
+const EcosystemSection = memo(function EcosystemSection() {
   const { t } = useTranslation();
   return (
-    <motion.div
-      variants={staggerItem}
-      whileHover={{ y: -6 }}
-      transition={{ type: "spring", stiffness: 220, damping: 24, mass: 0.6 }}
-      className="group will-change-transform"
-    >
-      <MetricCard className="flex h-full flex-col justify-between gap-6 transition-colors duration-300 group-hover:border-lavender-pulse/40">
-        <div>
-          <div className="flex items-start justify-between gap-3">
-            <span className="text-eyebrow">{t(`projectsData.${p.slug}.role`)}</span>
-            <StatusBadge status={p.status as never} />
-          </div>
-          <h3 className="mt-5 text-[20px] font-medium leading-tight text-ghost-white">
-            {t(`projectsData.${p.slug}.title`)}
-          </h3>
-          <p className="mt-3 text-[14px] leading-relaxed text-ash-gray">
-            {t(`projectsData.${p.slug}.oneLine`)}
-          </p>
-        </div>
-        <Link
-          to="/du-an/$slug"
-          params={{ slug: p.slug }}
-          data-cursor="hover"
-          data-cursor-label={t("home.projects.hoverLabel")}
-          className="inline-flex items-center gap-1 text-[14px] font-medium text-ghost-white transition-all group-hover:gap-2 group-hover:text-lavender-pulse"
-        >
-          {t("home.projects.detail")}
-          <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-            →
-          </span>
-        </Link>
-      </MetricCard>
-    </motion.div>
-  );
-});
-
-const ProjectsGrid = memo(function ProjectsGrid() {
-  const { t } = useTranslation();
-  const items = useMemo(
-    () => projects.map((p) => ({ slug: p.slug, status: p.status })),
-    [],
-  );
-  return (
-    <section className="px-6 pt-32">
-      <div className="mx-auto max-w-[1200px]">
-        {/* Section header */}
-        <Reveal className="mb-6 flex flex-col items-center text-center">
+    <section className="px-6 py-28 border-t border-white/8">
+      <div className="mx-auto max-w-[900px]">
+        <Reveal className="mb-16">
           <span className="text-eyebrow">{t("home.projects.eyebrow")}</span>
-          <h2 className="font-display mt-6 text-[40px] leading-none text-ghost-white md:text-[48px]">
+          <h2 className="font-display mt-6 text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
             {t("home.projects.title")}
           </h2>
-          <p className="mt-5 max-w-[600px] text-[16px] text-ash-gray">
+          <p className="mt-5 max-w-[520px] text-[16px] text-ash-gray leading-relaxed">
             {t("home.projects.subtitle")}
           </p>
         </Reveal>
 
-        {/* Ecosystem pipeline diagram */}
-        <EcosystemPipeline />
-
-        {/* Featured cards */}
-        <div className="mt-16 flex flex-col gap-6">
-          <MhMasterMemoryCard />
-          <SampleGuardCard />
-          <StudioMinhHieuCard />
+        <div className="border-t border-white/8">
+          {ECOSYSTEM.map((item) => (
+            <Reveal key={item.step}>
+              <Link to="/du-an/$slug" params={{ slug: item.slug }}>
+                <motion.div
+                  className="group flex items-baseline justify-between gap-8 py-7 border-b border-white/8"
+                  whileHover={{ x: 6 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                >
+                  <div className="flex items-baseline gap-6">
+                    <span className="font-mono text-[12px] text-lavender-pulse/50 flex-shrink-0">
+                      {item.step}
+                    </span>
+                    <span className="text-[20px] md:text-[24px] font-medium text-ghost-white group-hover:text-lavender-pulse transition-colors">
+                      {item.name}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="hidden md:block text-[13px] text-ash-gray/60">{item.role}</span>
+                    <span className="text-[14px] text-lavender-pulse/40 group-hover:text-lavender-pulse transition-colors">→</span>
+                  </div>
+                </motion.div>
+              </Link>
+            </Reveal>
+          ))}
         </div>
 
-        {/* All projects grid */}
-        <StaggerGroup
-          className="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-3"
-          stagger={0.09}
-        >
-          {items.map((p) => (
-            <ProjectCard key={p.slug} p={p} />
-          ))}
-        </StaggerGroup>
+        <Reveal className="mt-10">
+          <Button asChild variant="ghost-link">
+            <Link to="/du-an">Xem đầy đủ hệ sinh thái MH →</Link>
+          </Button>
+        </Reveal>
       </div>
     </section>
   );
 });
+
+/* ------------------------------------------------------------------ */
+/* PRINCIPLES — editorial numbered list                               */
+/* ------------------------------------------------------------------ */
 
 const PrinciplesSection = memo(function PrinciplesSection() {
   const { t } = useTranslation();
@@ -334,71 +201,83 @@ const PrinciplesSection = memo(function PrinciplesSection() {
     body: string;
   }>;
   return (
-    <section className="px-6 pt-32">
-      <div className="mx-auto max-w-[1000px]">
-        <Reveal className="mb-14 flex flex-col items-center text-center">
+    <section className="px-6 py-28 border-t border-white/8">
+      <div className="mx-auto max-w-[900px]">
+        <Reveal className="mb-16">
           <span className="text-eyebrow">{t("home.principles.eyebrow")}</span>
-          <h2 className="font-display mt-6 text-[40px] leading-none text-ghost-white md:text-[48px]">
+          <h2 className="font-display mt-6 text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
             {t("home.principles.title")}
           </h2>
         </Reveal>
 
-        <StaggerGroup
-          className="grid gap-x-16 gap-y-10 md:grid-cols-2"
-          stagger={0.05}
-        >
+        <div className="border-t border-white/8">
           {principles.map((p) => (
-            <motion.div key={p.n} variants={staggerItem} className="flex gap-5">
-              <span className="text-[12px] font-mono text-steel-gray pt-1">{p.n}</span>
-              <div>
-                <h3 className="text-[16px] font-semibold text-ghost-white">{p.title}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-ash-gray">{p.body}</p>
-              </div>
-            </motion.div>
+            <Reveal key={p.n}>
+              <motion.div
+                className="grid grid-cols-[48px_1fr] md:grid-cols-[48px_1fr_320px] gap-x-8 gap-y-2 py-8 border-b border-white/8"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                <span className="font-mono text-[12px] text-lavender-pulse/50 pt-1">{p.n}</span>
+                <h3 className="text-[18px] md:text-[20px] font-medium text-ghost-white">
+                  {p.title}
+                </h3>
+                <p className="col-start-2 md:col-start-3 text-[14px] leading-relaxed text-ash-gray md:row-start-1">
+                  {p.body}
+                </p>
+              </motion.div>
+            </Reveal>
           ))}
-        </StaggerGroup>
+        </div>
       </div>
     </section>
   );
 });
 
-const ToolsSection = memo(function ToolsSection() {
-  const { t } = useTranslation();
+/* ------------------------------------------------------------------ */
+/* CLOSING CTA                                                         */
+/* ------------------------------------------------------------------ */
+
+const ClosingCta = memo(function ClosingCta() {
   return (
-    <section className="px-6 pt-32">
-      <div className="mx-auto max-w-[1000px] text-center">
+    <section className="px-6 py-28 border-t border-white/8">
+      <div className="mx-auto max-w-[900px]">
         <Reveal>
-          <span className="text-eyebrow">{t("home.tools.eyebrow")}</span>
+          <p className="text-eyebrow mb-6">Studio cá nhân · Sài Gòn</p>
+          <h2 className="font-display text-[48px] md:text-[80px] leading-none tracking-[-0.03em] text-ghost-white">
+            Minh Hieu<br />
+            <span className="text-lavender-pulse italic">Studio.</span>
+          </h2>
+          <p className="mt-8 max-w-[520px] text-[17px] text-ash-gray leading-relaxed">
+            Âm nhạc và công cụ làm từ nhu cầu thật. Bằng chứng trước tuyên bố.
+          </p>
+          <div className="mt-10 flex gap-5 flex-wrap">
+            <Magnetic as="div" strength={12} radius={130}>
+              <Button asChild variant="hero">
+                <Link to="/am-nhac">Nghe nhạc →</Link>
+              </Button>
+            </Magnetic>
+            <Button asChild variant="ghost-link">
+              <Link to="/lien-he">Liên hệ</Link>
+            </Button>
+          </div>
         </Reveal>
-        <StaggerGroup
-          className="mt-10 flex flex-wrap justify-center gap-3"
-          stagger={0.035}
-        >
-          {tools.map((tool) => (
-            <motion.span
-              key={tool}
-              variants={staggerItem}
-              whileHover={{ y: -3, borderColor: "rgba(153,132,216,0.5)" }}
-              transition={{ type: "spring", stiffness: 220, damping: 22 }}
-              className="rounded-md border border-graphite bg-carbon-card px-4 py-2.5 text-[13px] text-ash-gray will-change-transform"
-            >
-              {tool}
-            </motion.span>
-          ))}
-        </StaggerGroup>
       </div>
     </section>
   );
 });
+
+/* ------------------------------------------------------------------ */
+/* PAGE                                                                */
+/* ------------------------------------------------------------------ */
 
 function Home() {
   return (
     <>
       <Hero />
-      <MinhLyTeamBlock />
-      <ProjectsGrid />
+      <EcosystemSection />
       <PrinciplesSection />
-      <ToolsSection />
+      <ClosingCta />
     </>
   );
 }
