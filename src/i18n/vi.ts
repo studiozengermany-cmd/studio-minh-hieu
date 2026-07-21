@@ -17,8 +17,7 @@ const vi = {
     },
     footer: {
       brand: "Minh Hieu Studio",
-      tagline:
-        "Studio cá nhân về âm nhạc và công cụ. Không giả định thương mại. Bằng chứng trước tuyên bố.",
+      tagline: "Sài Gòn. Âm nhạc. Công cụ nội bộ. Bằng chứng trước tuyên bố.",
       navLabel: "Điều hướng",
       channelsLabel: "Kênh",
       legalLabel: "Pháp lý",
@@ -47,64 +46,62 @@ const vi = {
 
   meta: {
     root: {
-      title: "MINH HIEU STUDIO — Studio âm nhạc & hệ sinh thái công cụ MH",
+      title: "MINH HIEU STUDIO — Âm nhạc & hệ sinh thái công cụ MH",
       description:
-        "Studio cá nhân của Minh Hiếu: lưu trữ hành trình làm nhạc, ghi chú workflow và các dự án MH kết hợp AI, tools và music.",
+        "Studio cá nhân của Minh Hiếu tại Sài Gòn. Bản remix Vinahouse, ghi chú workflow FL Studio và hệ sinh thái công cụ MH.",
       ogTitle: "MINH HIEU STUDIO",
       ogDescription:
-        "Studio cá nhân về âm nhạc và công cụ. Hệ sinh thái MH: Quantum Inspector, Dowsample, FileOS, Sample FL.",
+        "Sài Gòn. Âm nhạc. Công cụ nội bộ. Hệ sinh thái MH: Quantum Inspector, Dowsample, FileOS, Sample FL.",
     },
     home: {
       title: "MINH HIEU STUDIO — Âm nhạc, workflow & hệ sinh thái công cụ MH",
       description:
-        "Studio cá nhân của Minh Hiếu. Bản remix Vinahouse, ghi chú FL Studio, và các dự án MH: Quantum Inspector, Dowsample, FileOS, Sample FL.",
+        "Studio cá nhân của Minh Hiếu tại Sài Gòn. Remix Vinahouse, ghi chú FL Studio và chuỗi 5 công cụ MH.",
       ogTitle: "MINH HIEU STUDIO",
       ogDescription:
-        "Studio cá nhân về âm nhạc và công cụ. Hệ sinh thái MH: 5 dự án kết hợp AI, tools và music.",
+        "Sài Gòn. Âm nhạc. Công cụ. Hệ sinh thái MH: 5 dự án xây từ nhu cầu thật.",
     },
     music: {
       title: "Âm nhạc — MINH HIEU STUDIO",
       description:
-        "Bản remix Vinahouse, hướng làm việc trong FL Studio và các preview 60s từ archive cá nhân của Minh Hiếu.",
+        "Bản remix Vinahouse từ Sài Gòn. Preview 60s và hướng workflow FL Studio của Minh Hiếu.",
       ogTitle: "Âm nhạc — MINH HIEU STUDIO",
-      ogDescription:
-        "Preview 60s bản remix Liễu Thanh Yên x J97 và hướng workflow FL Studio.",
+      ogDescription: "Preview 60s bản remix và hướng làm việc trong FL Studio.",
     },
     archive: {
       title: "Tư liệu biểu diễn — MINH HIEU STUDIO",
       description:
-        "Hình ảnh thật từ những lần đứng tại booth, poster và không gian sự kiện của Minh Hiếu.",
+        "Ảnh gốc từ booth, poster và không gian sự kiện của Minh Hiếu — đang được số hoá từ archive.",
       ogTitle: "Tư liệu biểu diễn — MINH HIEU STUDIO",
       ogDescription: "Ảnh archive booth, poster và không gian sự kiện.",
     },
     projects: {
       title: "Hệ sinh thái MH — MINH HIEU STUDIO",
       description:
-        "Năm dự án MH: Quantum Inspector, Dowsample, FileOS, Sample FL và Studio Site. Trạng thái công khai và rõ ràng.",
+        "Năm công cụ MH: Quantum Inspector, Dowsample, FileOS, Sample FL và Studio Site. Trạng thái minh bạch, bằng chứng thật.",
       ogTitle: "Hệ sinh thái MH",
-      ogDescription: "Chuỗi 5 dự án MH: quan sát → chuẩn hóa → tổ chức → sử dụng → chia sẻ.",
+      ogDescription: "Một chuỗi. Năm công cụ. Quan sát → Thu thập → Tổ chức → Sử dụng → Chia sẻ.",
     },
     notes: {
       title: "Ghi chú & nguyên tắc — MINH HIEU STUDIO",
       description:
-        "Tám nguyên tắc xây dựng của Minh Hieu Studio và quy ước mô tả trạng thái dự án.",
+        "Tám nguyên tắc xây dựng của Minh Hieu Studio. Nhu cầu thật trước. Bằng chứng trước tuyên bố.",
       ogTitle: "Ghi chú & nguyên tắc — MINH HIEU STUDIO",
       ogDescription: "Nhu cầu thật trước · Bằng chứng trước tuyên bố.",
     },
     about: {
       title: "Giới thiệu — MINH HIEU STUDIO",
       description:
-        "Minh Hieu Studio là studio cá nhân về âm nhạc và công cụ. Bằng chứng trước tuyên bố, không giả định thương mại.",
+        "Một người. Một studio. Sài Gòn. Nhạc Vinahouse và công cụ nội bộ xây từ vấn đề thật.",
       ogTitle: "Giới thiệu — MINH HIEU STUDIO",
-      ogDescription:
-        "Studio cá nhân về âm nhạc và công cụ. Hệ sinh thái MH: Quantum Inspector, Dowsample, FileOS, Sample FL.",
+      ogDescription: "Sài Gòn. Âm nhạc. Công cụ. Không thương mại, không phóng đại.",
     },
     contact: {
       title: "Liên hệ — MINH HIEU STUDIO",
       description:
-        "Kênh liên hệ chính thức của Minh Hieu Studio: email support@studiominhhieu.com, GitHub và website. Trả lời trong 24–72h.",
+        "Liên hệ trực tiếp qua email: support@studiominhhieu.com. Collab âm nhạc và phản hồi công cụ MH. Phản hồi trong 24–72h.",
       ogTitle: "Liên hệ — MINH HIEU STUDIO",
-      ogDescription: "Trao đổi về collab âm nhạc và phản hồi công cụ MH. Trả lời trong 24–72h.",
+      ogDescription: "Gõ email. Không form. Collab nhạc và phản hồi công cụ MH.",
     },
     signIn: {
       title: "Đăng nhập — MINH HIEU STUDIO",
@@ -117,25 +114,25 @@ const vi = {
 
   home: {
     hero: {
-      pill: "Đang cập nhật bản remix 2026",
-      titleA: "Minh Hieu",
-      titleB: "Studio.",
+      pill: "Sài Gòn · 2026",
+      titleA: "Âm nhạc.",
+      titleB: "Công cụ.",
       subtitle:
-        "Âm nhạc và công cụ, làm bởi Minh Hiếu. Lưu trữ bản mix, ghi chú workflow và trạng thái các dự án MH.",
+        "Một studio cá nhân tại Sài Gòn. Bản remix Vinahouse được làm từ FL Studio, công cụ tự xây từ nhu cầu thật, hệ sinh thái đang phát triển theo từng bước.",
       ctaPrimary: "Nghe bản mới nhất",
-      ctaSecondary: "Xem hệ sinh thái MH →",
+      ctaSecondary: "Hệ sinh thái MH →",
     },
     projects: {
       eyebrow: "Hệ sinh thái MH",
-      title: "Năm dự án, một chuỗi",
+      title: "Một chuỗi. Năm công cụ.",
       subtitle:
-        "Các dự án MH được xây dựng như một chuỗi liên kết: quan sát → chuẩn hóa → tổ chức → sử dụng → chia sẻ.",
+        "Không phải app rời rạc. Quan sát → Thu thập → Tổ chức → Sử dụng → Chia sẻ — mỗi công cụ giải quyết một công đoạn, cùng chung một logic.",
       detail: "Chi tiết",
       hoverLabel: "Xem →",
     },
     principles: {
       eyebrow: "Nguyên tắc xây dựng",
-      title: "Tám điểm không đổi",
+      title: "Tám điều không đổi.",
     },
     tools: { eyebrow: "Công cụ đang dùng" },
   },
@@ -165,7 +162,7 @@ const vi = {
     eyebrow: "Tư liệu",
     title: "Ảnh archive từ booth & sự kiện",
     subtitle:
-      "Hình ảnh thật từ những lần đứng booth, poster và không gian sự kiện. Đang được số hoá dần từ archive gốc.",
+      "Hình ảnh gốc từ những lần đứng booth, poster và không gian sự kiện. Đang được số hoá dần từ archive gốc.",
     statusPreparing: "Trạng thái · Đang chuẩn bị",
     emptyTitle: "Archive đang được số hoá.",
     emptyBody:
@@ -177,7 +174,7 @@ const vi = {
     eyebrow: "Dự án",
     title: "Hệ sinh thái MH",
     subtitle:
-      "Các dự án có tiền tố MH được xây dựng như một chuỗi có liên kết, không phải các repository rời rạc.",
+      "Năm công cụ, một chuỗi có logic. Không phải repository rời rạc — mỗi dự án MH là một lớp trong quy trình làm nhạc.",
     step: "Bước {{n}}",
     detail: "Chi tiết →",
     github: "GitHub ↗",
@@ -206,16 +203,15 @@ const vi = {
       retry: "Thử lại",
       backToList: "Về danh sách",
     },
-
   },
 
   projectsData: {
     "quantum-inspector": {
       title: "MH Quantum Inspector",
       role: "Quan sát và làm rõ",
-      oneLine: "Lấy ngữ cảnh DOM/CSS để mô tả vấn đề rõ hơn cho AI.",
+      oneLine: "Bắt DOM context. Mô tả lỗi UI cho AI chính xác hơn.",
       description: [
-        "Công cụ phát triển cá nhân giúp trích xuất ngữ cảnh giao diện — cấu trúc DOM, class, style tính toán — để mô tả lỗi giao diện cho AI chính xác hơn.",
+        "Công cụ phát triển cá nhân trích xuất ngữ cảnh giao diện — cấu trúc DOM, class, style tính toán — để mô tả lỗi giao diện cho AI chính xác hơn.",
         "Đang ở giai đoạn thử nghiệm nội bộ, chưa qua kiểm tra bảo mật đầy đủ.",
       ],
       features: [
@@ -230,54 +226,45 @@ const vi = {
       donts: ["Không cài trên trình duyệt dùng cho công việc nhạy cảm", "Chưa có security audit"],
     },
     dowsample: {
-      title: "MH-Dowsample",
-      role: "Thu thập và chuẩn hóa",
-      oneLine: "Kiểm tra, phân loại và sắp xếp sample thành thư viện gọn cho DAW.",
+      title: "MH-Dowsampl.Extension",
+      role: "Thu thập âm thanh",
+      oneLine: "Dán link → tìm audio công khai → tải về local. Không ghi đè.",
       description: [
-        "MH-Dowsample biến những folder audio hỗn tạp thành một thư viện dễ duyệt từ DAW. Pipeline kiểm tra từng file, ước lượng metadata âm nhạc, chuyển audio hợp lệ sang WAV 16-bit PCM có tag, phát hiện trùng bằng SHA-256 và ghi kết quả vào SQLite.",
-        "Ứng dụng chạy hoàn toàn cục bộ. Audio, session trình duyệt, database, credential, log và thư viện tạo ra đều nằm ngoài Git, giữ trên máy người dùng.",
+        "Chrome Extension + Python backend chạy local. Người dùng dán link, extension tìm đường dẫn audio công khai trên trang và tải file về máy qua local API tại 127.0.0.1:8765.",
+        "Local-first. Không mở dịch vụ ra ngoài. Chưa phát hành Chrome Web Store.",
       ],
       features: [
-        { name: "Kiểm tra chất lượng", desc: "Đo duration, bitrate, tỉ lệ silence và khả năng đọc audio trước khi nhận file." },
-        { name: "Phân loại nội dung", desc: "Phân biệt loop, one-shot, FX; ước lượng BPM, key và gợi ý genre thực dụng." },
-        { name: "Chuẩn hóa đầu ra", desc: "Normalize và export WAV 44.1 kHz, 16-bit PCM có tag đầy đủ." },
-        { name: "Bố cục thư viện sạch", desc: "Tên file dễ đọc, ưu tiên nội dung; folder thân thiện với DAW." },
-        { name: "Chống trùng lặp", desc: "Vân tay SHA-256 và inventory SQLite đảm bảo không import trùng." },
-        { name: "Xử lý song song", desc: "Batch có thể cấu hình số worker và kích thước." },
-        { name: "Web discovery có kiểm soát", desc: "Tìm audio công khai qua URL, tài nguyên trang, JSON và media control." },
-        { name: "Telegram có duyệt", desc: "Người dùng được mời có thể gửi link audio công khai sau khi admin phê duyệt." },
+        { name: "Nhập nguồn", desc: "Nhận một liên kết HTTP/HTTPS do người dùng dán vào popup." },
+        { name: "Tìm audio", desc: "Đọc Splice public sample page hoặc trang có đường dẫn audio công khai." },
+        { name: "Tải file", desc: "Tải file gốc/preview về máy local, đồng thời tối đa 4 file." },
+        { name: "Không ghi đè", desc: "Tự thêm (2), (3) khi tên file đã tồn tại." },
+        { name: "An toàn khi tải", desc: "Ghi .part trước, chỉ đổi thành file chính sau khi tải xong." },
+        { name: "Theo dõi job", desc: "Lưu job gần nhất — đóng popup rồi mở lại vẫn xem được tiến trình." },
       ],
-      pipeline: [
-        "Folder cục bộ hoặc URL đã duyệt",
-        "Cổng kiểm tra chất lượng",
-        "Phân loại và phân tích",
-        "Normalize + tag WAV",
-        "Kiểm trùng SHA-256",
-        "Thư viện có tổ chức + inventory SQLite",
-      ],
+      pipeline: ["Dán link", "Extension gửi yêu cầu", "Local API 8765", "Scan audio public", "Tải về local"],
       evidence: [
-        "CI matrix Python 3.11 và 3.12 với test, coverage ≥68%, ruff, mypy, bandit",
-        "Bot Telegram vận hành theo mã mời + phê duyệt admin",
-        "Đầu ra chuẩn 44.1 kHz / 16-bit PCM WAV có metadata",
+        "Backend lắng nghe tại 127.0.0.1:8765, không mở ra mạng ngoài",
+        "File đang tải dùng đuôi .part, chống xem file chưa hoàn chỉnh",
+        "Extension chỉ có quyền local storage và local API",
       ],
       notReady: [
-        "Chưa có GUI người dùng cuối",
-        "Không tự động chạy trên thư viện production khi chưa backup",
-        "Chưa được kiểm định pháp lý cho từng nguồn web",
+        "Chưa kiểm thử trên mọi website",
+        "Chưa phát hành Chrome Web Store",
+        "Chưa có security audit độc lập",
       ],
-      dos: ["Chạy dry-run trước", "Backup trước khi apply", "Kiểm tra log sau mỗi lần chạy"],
-      donts: ["Không chạy trên thư viện production khi chưa backup", "Không auto-apply trên batch lớn"],
+      dos: ["Dùng với Splice public sample pages", "Kiểm tra quyền sử dụng âm thanh trước khi phân phối"],
+      donts: ["Không dán link chứa token hoặc thông tin đăng nhập", "Không vượt paywall hoặc DRM"],
     },
     fileos: {
       title: "MH FileOS",
       role: "Tổ chức và bảo vệ",
-      oneLine: "Hệ thống nghiên cứu quản lý file local-first, ưu tiên an toàn và khả năng phục hồi.",
+      oneLine: "Chỉ mục file local-first. Không mất dữ liệu là ưu tiên số một.",
       description: [
-        "MH FileOS là dự án nghiên cứu cá nhân về mô hình chỉ mục file cục bộ có khả năng phục hồi, log thao tác và rollback. Lát cắt hiện tại chỉ chạy read-only trên dữ liệu synthetic do testkit tạo.",
-        "Thứ tự ưu tiên không đảo ngược: không mất dữ liệu → đúng → giải thích được → kiểm chứng và phục hồi → hiệu năng → giao diện → tự động hóa (sau cùng).",
+        "Dự án nghiên cứu về mô hình chỉ mục file cục bộ có khả năng phục hồi, log thao tác và rollback. Lát cắt hiện tại chỉ chạy read-only trên dữ liệu synthetic do testkit tạo.",
+        "Thứ tự ưu tiên không đảo ngược: không mất dữ liệu → đúng → giải thích được → kiểm chứng và phục hồi → hiệu năng → giao diện → tự động hóa.",
       ],
       features: [
-        { name: "Scan read-only", desc: "Không sửa đổi source; snapshot trước / sau để xác nhận nguyên vẹn." },
+        { name: "Scan read-only", desc: "Không sửa đổi source; snapshot trước/sau để xác nhận nguyên vẹn." },
         { name: "Catalog SQLite", desc: "Ghi kết quả vào artifact có schema, tách khỏi dữ liệu người dùng." },
         { name: "Summary JSON", desc: "Kết quả không chứa path dữ liệu thật, tiện chia sẻ và kiểm chứng." },
         { name: "Trạng thái verified", desc: "Chỉ đánh dấu verified khi summary khớp manifest và sandbox đã cleanup." },
@@ -312,9 +299,9 @@ const vi = {
     "sample-fl": {
       title: "MH Sample FL",
       role: "Tìm, nghe và sử dụng",
-      oneLine: "Không gian quản lý sample local-first dành cho producer sử dụng FL Studio.",
+      oneLine: "Duyệt, preview và ghi nhớ sample trong FL Studio — không rời cửa sổ.",
       description: [
-        "Ứng dụng desktop giúp duyệt, preview và ghi nhớ sample đã dùng trong project FL Studio. Mục tiêu: tìm nhanh, nghe trước, ghi nhớ project — sample, giữ nguồn và license, phát hiện file thiếu hoặc trùng mà không phá dữ liệu.",
+        "Desktop app giúp duyệt, preview và ghi nhớ sample đã dùng trong FL Studio. Tìm nhanh, nghe trước, ghi nhớ project–sample, giữ nguồn và license, phát hiện file thiếu hoặc trùng mà không phá dữ liệu.",
         "Phiên bản v0.1.0-alpha — còn nhiều runtime gate chưa nghiệm thu, không phải bản phát hành.",
       ],
       features: [
@@ -362,10 +349,10 @@ const vi = {
     "studio-site": {
       title: "MINH HIEU STUDIO",
       role: "Ghi lại và chia sẻ",
-      oneLine: "Website và nơi kể câu chuyện chung của hệ sinh thái MH.",
+      oneLine: "Trang web ghi lại hành trình. Nhạc, công cụ và trạng thái thật.",
       description: [
-        "Website công khai của studio — nơi lưu lại quá trình làm nhạc, ghi chú workflow và trạng thái các dự án MH.",
-        "Không mặc định là cửa hàng, không mặc định là dịch vụ có cam kết thương mại.",
+        "Website công khai của studio — lưu lại quá trình làm nhạc, ghi chú workflow và trạng thái minh bạch từng dự án MH.",
+        "Không mặc định là cửa hàng. Không mặc định là dịch vụ có cam kết thương mại.",
       ],
       features: [
         { name: "Trang nhạc", desc: "Bản remix mới nhất, poster, ảnh live." },
@@ -382,16 +369,16 @@ const vi = {
     },
   },
 
-
   principles: [
-    { n: "01", title: "Nhu cầu thật trước", body: "Dự án phải bắt đầu từ một vấn đề đang tồn tại trong công việc." },
-    { n: "02", title: "Người dùng quyết định", body: "AI hỗ trợ thực hiện, không tự quyết định mục tiêu sản phẩm." },
-    { n: "03", title: "Local-first khi phù hợp", body: "Ưu tiên dữ liệu ở máy người dùng và quyền kiểm soát rõ ràng." },
-    { n: "04", title: "Không phá dữ liệu", body: "Thao tác rủi ro phải có cảnh báo, xem trước và khả năng kiểm chứng." },
-    { n: "05", title: "Không phóng đại", body: "Không gọi bản build, mockup hoặc demo là sản phẩm hoàn thiện." },
-    { n: "06", title: "Bằng chứng trước tuyên bố", body: "Trạng thái phải dựa trên source, test, log, ảnh hoặc video thật." },
-    { n: "07", title: "Cá nhân trước, cộng đồng sau", body: "Làm cho nhu cầu cá nhân trước; chỉ chia sẻ khi đủ ổn định." },
-    { n: "08", title: "README phải có ích", body: "Nói rõ đây là gì, dùng thế nào, giới hạn ở đâu và bắt đầu từ đâu." },
+    { n: "01", title: "Nhu cầu thật trước", body: "Chỉ xây khi có vấn đề cụ thể đang tồn tại. Không đoán. Không giả định." },
+    { n: "02", title: "Người dùng quyết định", body: "AI thực hiện. Người dùng định hướng mục tiêu sản phẩm. Thứ tự này không đảo." },
+    { n: "03", title: "Local-first khi phù hợp", body: "Dữ liệu ở máy người dùng — không mặc định cloud hay bắt buộc API key." },
+    { n: "04", title: "Không phá dữ liệu", body: "Cảnh báo, xem trước, kiểm chứng. Theo thứ tự đó — không bỏ bước nào." },
+    { n: "05", title: "Không phóng đại", body: "Build, mockup, demo — mỗi thứ có nhãn đúng. Không gọi bản thử nghiệm là sản phẩm." },
+    { n: "06", title: "Bằng chứng trước tuyên bố", body: "Source, test, log, ảnh thật. Trạng thái dự án phải có bằng chứng kiểm chứng được." },
+    { n: "07", title: "Cá nhân trước", body: "Làm cho nhu cầu cá nhân trước. Chỉ chia sẻ khi đủ ổn định và có ích." },
+    { n: "08", title: "README phải có ích", body: "Đây là gì, dùng thế nào, giới hạn ở đâu. Ba câu đó đủ để bắt đầu."
+    },
   ],
 
   statusConvention: [
@@ -418,7 +405,7 @@ const vi = {
     heroTitleA: "Minh Hieu",
     heroTitleB: "Studio.",
     heroBody:
-      "Studio cá nhân của Minh Hiếu tại Sài Gòn — âm nhạc, công cụ và ghi chú workflow, lưu lại theo thứ tự thời gian.",
+      "Một người. Một studio. Sài Gòn. Nhạc Vinahouse được làm từ FL Studio, công cụ được xây từ vấn đề thật — theo thứ tự đúng.",
     ctaListen: "Nghe bản mới nhất",
     ctaProjects: "Xem hệ sinh thái MH",
     facts: [
@@ -428,9 +415,9 @@ const vi = {
       { label: "Phát hành thương mại", value: "0" },
     ],
     manifestoEyebrow: "Nguyên tắc",
-    manifestoTitle: "Bằng chứng trước tuyên bố",
+    manifestoTitle: "Bằng chứng trước tuyên bố.",
     manifestoSubtitle:
-      "Ba câu ngắn định hướng mọi quyết định trong studio — từ cách viết mô tả dự án đến cách công bố một bản remix.",
+      "Ba câu định hướng mọi quyết định trong studio — từ cách viết mô tả dự án đến cách công bố một bản remix.",
     manifesto: [
       {
         n: "01",
@@ -445,27 +432,27 @@ const vi = {
       {
         n: "03",
         t: "Không ép cộng tác",
-        d: "Không có form đăng ký ép buộc, không newsletter tự động. Đăng nhập chỉ khi có việc cần.",
+        d: "Không form đăng ký ép buộc, không newsletter tự động. Liên hệ khi có việc thật.",
       },
     ],
     timelineEyebrow: "Dòng thời gian",
-    timelineTitle: "Những mốc có thật",
+    timelineTitle: "Những mốc có thật.",
     timeline: [
       { year: "2023", title: "Hạt giống MH", desc: "Bắt đầu ghi chép workflow FL Studio và những remix cá nhân đầu tiên." },
       { year: "2024", title: "Công cụ đầu tiên", desc: "Quantum Inspector và Dowsample xuất hiện dưới dạng prototype nội bộ." },
       { year: "2025", title: "Hệ sinh thái MH", desc: "FileOS, Sample FL kết nối lại thành một chuỗi công cụ có logic chung." },
       { year: "2026", title: "Studio Site", desc: "Công khai kênh nghe nhạc, tư liệu và trạng thái dự án tại studiominhhieu.com." },
     ],
-    ctaQuote: "Nếu anh muốn cùng làm việc, gõ email trước. Đăng nhập sau.",
+    ctaQuote: "Nếu anh muốn cùng làm việc, gõ email trước.",
     ctaEmail: "Gửi email",
     ctaSignIn: "Xem cổng đăng nhập",
   },
 
   contact: {
     eyebrow: "Liên hệ",
-    title: "Nói chuyện trực tiếp qua email",
+    title: "Gõ email. Không form.",
     subtitle:
-      "Studio nhận trao đổi về collab âm nhạc, phản hồi công cụ MH và các câu hỏi công khai. Trả lời trong 24–72 giờ làm việc.",
+      "Studio nhận trao đổi về collab âm nhạc và phản hồi công cụ MH. Viết cụ thể — mục tiêu, thời hạn, giới hạn kỹ thuật — nhận phản hồi nhanh hơn. Trả lời trong 24–72h.",
     officialChannel: "Kênh chính thức",
     clickToCopy: "Click để copy",
     sendEmail: "Gửi email",
@@ -478,12 +465,11 @@ const vi = {
     langLabel: "Ngôn ngữ",
     langValue: "Tiếng Việt / English",
     tzLabel: "Múi giờ",
-    tzValue: "UTC+7 · Hà Nội",
+    tzValue: "UTC+7 · Sài Gòn",
     sourcePill: "Dự án",
     sourceTitle: "Hệ sinh thái MH",
-    sourceBody: "Trạng thái, tính năng và bằng chứng của từng dự án MH đã được đưa thẳng lên trang này.",
+    sourceBody: "Trạng thái, tính năng và bằng chứng của từng dự án MH đã có sẵn trên trang này.",
     openProjects: "Xem dự án →",
-
     mainPill: "Kênh chính",
     mainTitle: "studiominhhieu.com",
     mainBody: "Website chính thức — nơi công bố mọi thay đổi trạng thái dự án.",
