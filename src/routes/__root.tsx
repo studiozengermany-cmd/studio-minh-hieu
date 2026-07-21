@@ -112,8 +112,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Source+Serif+4:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@800;900&display=swap",
       },
-
-
     ],
   }),
   shellComponent: RootShell,
@@ -145,6 +143,7 @@ const navItems = [
   { to: "/du-an", key: "projects" },
   { to: "/ghi-chu", key: "notes" },
   { to: "/gioi-thieu", key: "about" },
+  { to: "/lien-he", key: "contact" },
 ] as const;
 
 /* High-End Visual Design: Floating Island Nav Bar */
@@ -183,7 +182,6 @@ const TopNav = memo(function TopNav() {
               {t("common.nav.signIn")}
             </Link>
           </div>
-
         </nav>
       </div>
     </header>
