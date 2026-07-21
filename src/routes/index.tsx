@@ -4,7 +4,7 @@ import { memo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { PillBadge } from "@/components/pill-badge";
-import { Reveal, StaggerGroup, staggerItem, EASE_OUT_EXPO } from "@/components/reveal";
+import { Reveal, EASE_OUT_EXPO } from "@/components/reveal";
 import { Magnetic } from "@/components/magnetic";
 import { SplitText } from "@/components/split-text";
 import i18n from "@/i18n";
@@ -134,7 +134,7 @@ const Hero = memo(function Hero() {
 });
 
 /* ------------------------------------------------------------------ */
-/* ECOSYSTEM — numbered text list, no cards                           */
+/* ECOSYSTEM — numbered list, no cards, no eyebrow                    */
 /* ------------------------------------------------------------------ */
 
 const EcosystemSection = memo(function EcosystemSection() {
@@ -143,11 +143,10 @@ const EcosystemSection = memo(function EcosystemSection() {
     <section className="px-6 py-28 border-t border-white/8">
       <div className="mx-auto max-w-[900px]">
         <Reveal className="mb-16">
-          <span className="text-eyebrow">{t("home.projects.eyebrow")}</span>
-          <h2 className="font-display mt-6 text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
+          <h2 className="font-display text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
             {t("home.projects.title")}
           </h2>
-          <p className="mt-5 max-w-[520px] text-[16px] text-ash-gray leading-relaxed">
+          <p className="mt-5 max-w-[480px] text-[16px] text-ash-gray leading-relaxed">
             {t("home.projects.subtitle")}
           </p>
         </Reveal>
@@ -162,7 +161,7 @@ const EcosystemSection = memo(function EcosystemSection() {
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 >
                   <div className="flex items-baseline gap-6">
-                    <span className="font-mono text-[12px] text-lavender-pulse/50 flex-shrink-0">
+                    <span className="font-mono text-[12px] text-lavender-pulse/50 flex-shrink-0 w-8">
                       {item.step}
                     </span>
                     <span className="text-[20px] md:text-[24px] font-medium text-ghost-white group-hover:text-lavender-pulse transition-colors">
@@ -170,7 +169,7 @@ const EcosystemSection = memo(function EcosystemSection() {
                     </span>
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="hidden md:block text-[13px] text-ash-gray/60">{item.role}</span>
+                    <span className="hidden md:block text-[13px] text-ash-gray/50">{item.role}</span>
                     <span className="text-[14px] text-lavender-pulse/40 group-hover:text-lavender-pulse transition-colors">→</span>
                   </div>
                 </motion.div>
@@ -190,7 +189,7 @@ const EcosystemSection = memo(function EcosystemSection() {
 });
 
 /* ------------------------------------------------------------------ */
-/* PRINCIPLES — editorial numbered list                               */
+/* PRINCIPLES — no eyebrow, heading leads directly                    */
 /* ------------------------------------------------------------------ */
 
 const PrinciplesSection = memo(function PrinciplesSection() {
@@ -204,8 +203,7 @@ const PrinciplesSection = memo(function PrinciplesSection() {
     <section className="px-6 py-28 border-t border-white/8">
       <div className="mx-auto max-w-[900px]">
         <Reveal className="mb-16">
-          <span className="text-eyebrow">{t("home.principles.eyebrow")}</span>
-          <h2 className="font-display mt-6 text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
+          <h2 className="font-display text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
             {t("home.principles.title")}
           </h2>
         </Reveal>
@@ -235,7 +233,7 @@ const PrinciplesSection = memo(function PrinciplesSection() {
 });
 
 /* ------------------------------------------------------------------ */
-/* CLOSING CTA                                                         */
+/* CLOSING CTA — direct, one action, no brand repetition             */
 /* ------------------------------------------------------------------ */
 
 const ClosingCta = memo(function ClosingCta() {
@@ -243,14 +241,10 @@ const ClosingCta = memo(function ClosingCta() {
     <section className="px-6 py-28 border-t border-white/8">
       <div className="mx-auto max-w-[900px]">
         <Reveal>
-          <p className="text-eyebrow mb-6">Studio cá nhân · Sài Gòn</p>
-          <h2 className="font-display text-[48px] md:text-[80px] leading-none tracking-[-0.03em] text-ghost-white">
-            Minh Hieu<br />
-            <span className="text-lavender-pulse italic">Studio.</span>
+          <h2 className="font-display text-[56px] md:text-[88px] leading-none tracking-[-0.03em] text-ghost-white">
+            Bằng chứng<br />
+            <span className="text-lavender-pulse italic">trước tuyên bố.</span>
           </h2>
-          <p className="mt-8 max-w-[520px] text-[17px] text-ash-gray leading-relaxed">
-            Âm nhạc và công cụ làm từ nhu cầu thật. Bằng chứng trước tuyên bố.
-          </p>
           <div className="mt-10 flex gap-5 flex-wrap">
             <Magnetic as="div" strength={12} radius={130}>
               <Button asChild variant="hero">
