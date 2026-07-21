@@ -38,7 +38,7 @@ studio-minh-hieu/
 
 ---
 
-## 4. TÀI SẢN ĐANG KHÓA (không được đụng khi chưa có quyết định mới)
+## 4. TÀI SẢN ĐANG KHÓA
 
 - **Tên thương hiệu:** Studio Minh Hieu
 - **Màu chính:** Đen `#0A0A0A`, Trắng `#F5F5F5`, Accent `#FF4D00`
@@ -60,7 +60,7 @@ studio-minh-hieu/
 ## 6. LIÊN KẾT QUAN TRỌNG
 
 - **Master Memory repo:** https://github.com/studiozengermany-cmd/MH-Master-Memory-AI-Ecosystem
-- **CONTEXT-SNAPSHOT (trạng thái hệ sinh thái):** https://github.com/studiozengermany-cmd/MH-Master-Memory-AI-Ecosystem/blob/main/CONTEXT-SNAPSHOT.md
+- **CONTEXT-SNAPSHOT:** https://github.com/studiozengermany-cmd/MH-Master-Memory-AI-Ecosystem/blob/main/CONTEXT-SNAPSHOT.md
 - **Notion Hub:** Projects → MH Master Memory — Notion AI Hub
 - **Website live:** https://studiominhhieu.com/
 
