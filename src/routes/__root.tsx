@@ -9,7 +9,6 @@ import {
 } from "@tanstack/react-router";
 import { memo, useEffect, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { Magnetic } from "@/components/magnetic";
 
 import appCss from "../styles.css?url";
 import i18n from "../i18n";
@@ -146,7 +145,6 @@ const navItems = [
   { to: "/lien-he", key: "contact" },
 ] as const;
 
-/* High-End Visual Design: Floating Island Nav Bar */
 const TopNav = memo(function TopNav() {
   const { t } = useTranslation();
   return (
@@ -173,14 +171,8 @@ const TopNav = memo(function TopNav() {
               )}
             </Link>
           ))}
-          <div className="ml-1 pl-1 border-l border-white/10 flex items-center gap-1">
+          <div className="ml-1 border-l border-white/10 pl-1">
             <LanguageSwitcher />
-            <Link
-              to="/dang-nhap"
-              className="inline-flex min-h-[38px] items-center justify-center rounded-full bg-lavender-pulse/90 px-4 text-[12px] font-mono font-medium tracking-[0.05em] uppercase text-void-black transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-lavender-pulse hover:-translate-y-[1px] hover:shadow-[0_6px_20px_rgba(153,132,216,0.35)]"
-            >
-              {t("common.nav.signIn")}
-            </Link>
           </div>
         </nav>
       </div>
@@ -201,7 +193,7 @@ const SiteFooter = memo(function SiteFooter() {
                 {t("common.footer.brand")}
               </span>
             </div>
-            <p className="mt-4 max-w-[280px] text-[14px] leading-relaxed text-ash-gray">
+            <p className="mt-4 max-w-[320px] text-[14px] leading-relaxed text-ash-gray">
               {t("common.footer.tagline")}
             </p>
           </div>
@@ -219,9 +211,23 @@ const SiteFooter = memo(function SiteFooter() {
             ))}
           </div>
 
-          <div>
-            <span className="text-eyebrow">{t("common.footer.legalLabel")}</span>
-            <p className="mt-4 text-[13px] text-steel-gray">
+          <div className="flex flex-col gap-3">
+            <span className="text-eyebrow">{t("common.footer.contactLabel")}</span>
+            <a
+              href="mailto:admin@studiominhhieu.com"
+              className="text-[14px] text-ash-gray hover:text-ghost-white"
+            >
+              {t("common.footer.partnerEmailLabel")}<br />
+              <span className="text-[13px] text-steel-gray">admin@studiominhhieu.com</span>
+            </a>
+            <a
+              href="mailto:support@studiominhhieu.com"
+              className="text-[14px] text-ash-gray hover:text-ghost-white"
+            >
+              {t("common.footer.supportEmailLabel")}<br />
+              <span className="text-[13px] text-steel-gray">support@studiominhhieu.com</span>
+            </a>
+            <p className="mt-3 text-[13px] text-steel-gray">
               {t("common.footer.copyright")}
             </p>
           </div>
@@ -235,8 +241,6 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   useEffect(() => {
-    // Notify Telegram on new signups (Google / Phone OTP).
-    // Email signups are notified explicitly in /dang-nhap.
     const notified = new Set<string>();
     const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
       if (event !== "SIGNED_IN" || !session?.user) return;
@@ -247,7 +251,7 @@ function RootComponent() {
       const isNew = created > 0 && Date.now() - created < 60_000;
       if (!isNew) return;
       const provider = (u.app_metadata?.provider ?? "").toLowerCase();
-      if (provider === "email") return; // handled in /dang-nhap
+      if (provider === "email") return;
       const method: "google" | "phone" | "email" =
         provider === "google" ? "google" : u.phone ? "phone" : "email";
       const identifier = u.email ?? u.phone ?? u.id;
