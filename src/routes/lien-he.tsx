@@ -8,7 +8,8 @@ import { MetricCard } from "@/components/metric-card";
 import { toast } from "sonner";
 import i18n from "@/i18n";
 
-const EMAIL = "support@studiominhhieu.com";
+const PARTNER_EMAIL = "admin@studiominhhieu.com";
+const SUPPORT_EMAIL = "support@studiominhhieu.com";
 
 export const Route = createFileRoute("/lien-he")({
   head: () => ({
@@ -24,14 +25,14 @@ export const Route = createFileRoute("/lien-he")({
 
 function Contact() {
   const { t } = useTranslation();
-  const [copied, setCopied] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
 
-  const copyEmail = async () => {
+  const copyEmail = async (email: string) => {
     try {
-      await navigator.clipboard.writeText(EMAIL);
-      setCopied(true);
+      await navigator.clipboard.writeText(email);
+      setCopiedEmail(email);
       toast.success(t("contact.copySuccess"));
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopiedEmail(null), 2000);
     } catch {
       toast.error(t("contact.copyError"));
     }
@@ -49,31 +50,34 @@ function Contact() {
           />
         </div>
 
-        <div className="mx-auto mt-16 max-w-[720px]">
-          <div className="surface-card p-8 md:p-12">
-            <span className="text-eyebrow">{t("contact.officialChannel")}</span>
+        <div className="mx-auto mt-16 max-w-[820px]">
+          <div className="grid gap-4 md:grid-cols-2">
+            <ContactChannel
+              tone="lavender"
+              label={t("contact.partnerLabel")}
+              email={PARTNER_EMAIL}
+              body={t("contact.partnerBody")}
+              copied={copiedEmail === PARTNER_EMAIL}
+              onCopy={() => copyEmail(PARTNER_EMAIL)}
+              sendLabel={t("contact.sendEmail")}
+              copyLabel={t("contact.copyAddress")}
+              copiedLabel={t("contact.copied")}
+            />
+            <ContactChannel
+              tone="mint"
+              label={t("contact.supportLabel")}
+              email={SUPPORT_EMAIL}
+              body={t("contact.supportBody")}
+              copied={copiedEmail === SUPPORT_EMAIL}
+              onCopy={() => copyEmail(SUPPORT_EMAIL)}
+              sendLabel={t("contact.sendEmail")}
+              copyLabel={t("contact.copyAddress")}
+              copiedLabel={t("contact.copied")}
+            />
+          </div>
 
-            <button
-              type="button"
-              onClick={copyEmail}
-              className="mt-6 block w-full text-left font-display text-[28px] leading-tight text-ghost-white transition-colors hover:text-lavender-pulse md:text-[36px]"
-              title={t("contact.clickToCopy")}
-            >
-              {EMAIL}
-            </button>
-
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button asChild variant="hero" size="lg">
-                <a href={`mailto:${EMAIL}`}>{t("contact.sendEmail")}</a>
-              </Button>
-              <Button variant="outline" size="lg" onClick={copyEmail}>
-                {copied ? t("contact.copied") : t("contact.copyAddress")}
-              </Button>
-            </div>
-
-            <div className="mt-10 h-px bg-graphite" />
-
-            <dl className="mt-8 grid gap-5 md:grid-cols-3">
+          <div className="surface-card mt-4 p-7 md:p-8">
+            <dl className="grid gap-5 md:grid-cols-3">
               <MetaItem label={t("contact.replyLabel")} value={t("contact.replyValue")} />
               <MetaItem label={t("contact.langLabel")} value={t("contact.langValue")} />
               <MetaItem label={t("contact.tzLabel")} value={t("contact.tzValue")} />
@@ -91,12 +95,11 @@ function Contact() {
               </p>
               <Link
                 to="/du-an"
-                className="mt-5 inline-block text-[14px] font-medium text-ghost-white hover:underline underline-offset-4"
+                className="mt-5 inline-block text-[14px] font-medium text-ghost-white underline-offset-4 hover:underline"
               >
                 {t("contact.openProjects")}
               </Link>
             </MetricCard>
-
 
             <MetricCard className="p-7">
               <PillBadge tone="mint">{t("contact.mainPill")}</PillBadge>
@@ -110,7 +113,7 @@ function Contact() {
                 href="https://studiominhhieu.com"
                 target="_blank"
                 rel="noreferrer"
-                className="mt-5 inline-block text-[14px] font-medium text-ghost-white hover:underline underline-offset-4"
+                className="mt-5 inline-block text-[14px] font-medium text-ghost-white underline-offset-4 hover:underline"
               >
                 {t("contact.openWebsite")}
               </a>
@@ -118,14 +121,58 @@ function Contact() {
           </div>
 
           <div className="mt-20 text-center">
-            <p className="font-quote mx-auto max-w-[560px] text-[24px] leading-[1.3] text-ghost-white">
+            <p className="font-quote mx-auto max-w-[620px] text-[24px] leading-[1.3] text-ghost-white">
               &ldquo;{t("contact.quote")}&rdquo;
             </p>
-            <p className="mx-auto mt-6 max-w-[560px] text-[14px] leading-relaxed text-ash-gray">
+            <p className="mx-auto mt-6 max-w-[620px] text-[14px] leading-relaxed text-ash-gray">
               {t("contact.quoteBody")}
             </p>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function ContactChannel({
+  tone,
+  label,
+  email,
+  body,
+  copied,
+  onCopy,
+  sendLabel,
+  copyLabel,
+  copiedLabel,
+}: {
+  tone: "lavender" | "mint";
+  label: string;
+  email: string;
+  body: string;
+  copied: boolean;
+  onCopy: () => void;
+  sendLabel: string;
+  copyLabel: string;
+  copiedLabel: string;
+}) {
+  return (
+    <div className="surface-card p-7 md:p-8">
+      <PillBadge tone={tone}>{label}</PillBadge>
+      <button
+        type="button"
+        onClick={onCopy}
+        className="mt-6 block w-full break-all text-left font-display text-[24px] leading-tight text-ghost-white transition-colors hover:text-lavender-pulse md:text-[28px]"
+      >
+        {email}
+      </button>
+      <p className="mt-4 min-h-[72px] text-[14px] leading-relaxed text-ash-gray">{body}</p>
+      <div className="mt-7 flex flex-wrap items-center gap-3">
+        <Button asChild variant="hero">
+          <a href={`mailto:${email}`}>{sendLabel}</a>
+        </Button>
+        <Button variant="outline" onClick={onCopy}>
+          {copied ? copiedLabel : copyLabel}
+        </Button>
       </div>
     </div>
   );
