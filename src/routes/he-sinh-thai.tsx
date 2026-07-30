@@ -1,434 +1,365 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { memo, useRef } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { useTranslation } from "react-i18next";
 import { PillBadge } from "@/components/pill-badge";
-import { Reveal, StaggerGroup, staggerItem, EASE_OUT_EXPO } from "@/components/reveal";
-import { Magnetic } from "@/components/magnetic";
+import { Reveal, EASE_OUT_EXPO } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
+
+const COPY = {
+  vi: {
+    metaTitle: "MH Master Memory — MINH HIEU STUDIO",
+    metaDescription:
+      "Khung quản trị bối cảnh, quyết định, bằng chứng và phạm vi cho workflow đa-AI nội bộ của Studio Minh Hiếu.",
+    eyebrow: "INTERNAL WORKFLOW FRAMEWORK",
+    titleA: "MH Master",
+    titleB: "Memory.",
+    intro:
+      "Khung làm việc nội bộ giúp Studio Minh Hiếu giữ đúng bối cảnh, quyết định, bằng chứng và giới hạn khi nhiều công cụ AI cùng tham gia một dự án.",
+    status: "Internal · Đang hoàn thiện · Không phải sản phẩm độc lập",
+    overviewEyebrow: "MỤC ĐÍCH",
+    overviewTitle: "Giảm việc giải thích lại. Tăng khả năng kiểm chứng.",
+    overviewBody:
+      "MH Master Memory không thay người vận hành ra quyết định. Nó tổ chức thông tin cần thiết để mỗi phiên làm việc biết đang giải quyết vấn đề gì, phần nào đã được kiểm tra và công cụ nào được phép thực hiện hành động nào.",
+    whatIs: "Hiện tại là gì",
+    whatIsItems: [
+      "Bộ quy ước để giữ bối cảnh giữa nhiều phiên làm việc.",
+      "Nơi ghi lại quyết định quan trọng và lý do thay đổi.",
+      "Cách phân biệt Tested, Observed và Untested.",
+      "Khung xác định phạm vi đọc, sửa và đề xuất của từng công cụ.",
+    ],
+    whatNot: "Hiện tại chưa phải gì",
+    whatNotItems: [
+      "Không phải một ứng dụng độc lập đã phát hành.",
+      "Không phải nền tảng SaaS hoặc dịch vụ bán cho doanh nghiệp.",
+      "Không tự cấp quyền cho AI hành động ngoài phạm vi.",
+      "Không thay thế việc kiểm tra source, log, test và dữ liệu thật.",
+    ],
+    layersEyebrow: "CẤU TRÚC",
+    layersTitle: "Bốn lớp quản trị.",
+    layers: [
+      {
+        n: "01",
+        label: "Memory",
+        title: "Giữ bối cảnh xuyên phiên",
+        body: "Lưu mục tiêu, trạng thái, lỗi đã gặp và bước tiếp theo để phiên mới không bắt đầu lại từ đầu.",
+      },
+      {
+        n: "02",
+        label: "Decision",
+        title: "Ghi lại quyết định và lý do",
+        body: "Những thay đổi quan trọng cần có lý do, rủi ro và người phê duyệt trước khi được áp dụng.",
+      },
+      {
+        n: "03",
+        label: "Evidence",
+        title: "Tách tuyên bố khỏi bằng chứng",
+        body: "Phân biệt phần đã kiểm thử, phần mới quan sát và phần chưa xác nhận để tránh báo cáo sai trạng thái.",
+      },
+      {
+        n: "04",
+        label: "Governance",
+        title: "Giới hạn phạm vi hành động",
+        body: "Xác định công cụ nào được đọc, sửa hoặc đề xuất trong từng dự án; người vận hành quyết định cuối cùng.",
+      },
+    ],
+    flowEyebrow: "QUY TRÌNH",
+    flowTitle: "Một vòng làm việc có dấu vết.",
+    flow: [
+      { n: "01", title: "Nhận bối cảnh", body: "Xác định mục tiêu, source hiện tại, giới hạn và việc đang dang dở." },
+      { n: "02", title: "Đề xuất thay đổi", body: "Công cụ phân tích và đưa ra phương án trong đúng phạm vi được giao." },
+      { n: "03", title: "Người vận hành duyệt", body: "Minh Hiếu quyết định phần nào được thực hiện, hoãn lại hoặc loại bỏ." },
+      { n: "04", title: "Kiểm tra bằng chứng", body: "Đối chiếu source, build, test, log, ảnh hoặc video sau khi thay đổi." },
+      { n: "05", title: "Cập nhật trạng thái", body: "Lưu kết quả thật và bước tiếp theo cho phiên làm việc sau." },
+    ],
+    relationEyebrow: "MỐI LIÊN HỆ VỚI SẢN PHẨM",
+    relationTitle: "Khung vận hành đứng phía sau các dự án.",
+    relationBody:
+      "MH Master Memory hỗ trợ quá trình xây dựng MH Quantum Inspector, MH Dowsample Extension, MH FileOS và MH Sample FL. Nội dung và trạng thái của từng công cụ được trình bày riêng tại trang Dự án để tránh trộn framework nội bộ với sản phẩm.",
+    relationCta: "Xem bốn dự án →",
+    contactCta: "Trao đổi hợp tác",
+  },
+  en: {
+    metaTitle: "MH Master Memory — MINH HIEU STUDIO",
+    metaDescription:
+      "An internal framework for managing context, decisions, evidence and scope across Studio Minh Hieu's multi-AI workflow.",
+    eyebrow: "INTERNAL WORKFLOW FRAMEWORK",
+    titleA: "MH Master",
+    titleB: "Memory.",
+    intro:
+      "An internal working framework that helps Studio Minh Hieu preserve context, decisions, evidence and boundaries when multiple AI tools participate in one project.",
+    status: "Internal · In development · Not a standalone product",
+    overviewEyebrow: "PURPOSE",
+    overviewTitle: "Less re-explaining. More verifiable work.",
+    overviewBody:
+      "MH Master Memory does not replace the operator's decisions. It organises the information required for every session to know the current problem, what has been verified and which tools are allowed to take which actions.",
+    whatIs: "What it is today",
+    whatIsItems: [
+      "A convention for preserving context across working sessions.",
+      "A place to record important decisions and reasons for change.",
+      "A method for separating Tested, Observed and Untested states.",
+      "A framework for defining read, edit and proposal scope for each tool.",
+    ],
+    whatNot: "What it is not yet",
+    whatNotItems: [
+      "Not a released standalone application.",
+      "Not a SaaS platform or an enterprise service.",
+      "It does not grant AI tools permission to act outside their scope.",
+      "It does not replace source, log, test and real-data verification.",
+    ],
+    layersEyebrow: "STRUCTURE",
+    layersTitle: "Four governance layers.",
+    layers: [
+      {
+        n: "01",
+        label: "Memory",
+        title: "Preserve cross-session context",
+        body: "Stores goals, current status, known failures and next steps so a new session does not restart from zero.",
+      },
+      {
+        n: "02",
+        label: "Decision",
+        title: "Record decisions and reasons",
+        body: "Important changes require a reason, risk assessment and operator approval before they are applied.",
+      },
+      {
+        n: "03",
+        label: "Evidence",
+        title: "Separate claims from evidence",
+        body: "Distinguishes tested behaviour, observed behaviour and unverified assumptions to prevent false status reporting.",
+      },
+      {
+        n: "04",
+        label: "Governance",
+        title: "Limit the action scope",
+        body: "Defines which tools may read, edit or propose within each project; the operator remains the final decision-maker.",
+      },
+    ],
+    flowEyebrow: "WORKFLOW",
+    flowTitle: "A traceable working loop.",
+    flow: [
+      { n: "01", title: "Receive context", body: "Identify the goal, current source, limits and unfinished work." },
+      { n: "02", title: "Propose a change", body: "A tool analyses and proposes actions within the assigned scope." },
+      { n: "03", title: "Operator approval", body: "Minh Hieu decides what is executed, deferred or rejected." },
+      { n: "04", title: "Verify evidence", body: "Check source, build, tests, logs, images or video after the change." },
+      { n: "05", title: "Update status", body: "Store the real outcome and next step for the following session." },
+    ],
+    relationEyebrow: "RELATION TO THE PRODUCTS",
+    relationTitle: "The operating framework behind the projects.",
+    relationBody:
+      "MH Master Memory supports the development of MH Quantum Inspector, MH Dowsample Extension, MH FileOS and MH Sample FL. Each tool's content and status live on the Projects page so the internal framework is not mixed with the products.",
+    relationCta: "View the four projects →",
+    contactCta: "Discuss a collaboration",
+  },
+} as const;
 
 export const Route = createFileRoute("/he-sinh-thai")({
   head: () => ({
     meta: [
-      { title: "HỆ SINH THÁI MH — MINH HIEU STUDIO" },
-      {
-        name: "description",
-        content:
-          "MH Master Memory là lớp điều hành trí nhớ chung cho toàn bộ hệ sinh thái MH. Từ Dowsample → FileOS → Sample FL → Quantum Inspector.",
-      },
+      { title: COPY.vi.metaTitle },
+      { name: "description", content: COPY.vi.metaDescription },
     ],
   }),
-  component: HeSinhThai,
+  component: MasterMemoryPage,
 });
 
-/* ------------------------------------------------------------------ */
-/* DATA                                                                */
-/* ------------------------------------------------------------------ */
+function MasterMemoryPage() {
+  const { i18n } = useTranslation();
+  const lang = i18n.resolvedLanguage?.startsWith("en") ? "en" : "vi";
+  const copy = COPY[lang];
 
-const LAYERS = [
-  {
-    n: "01",
-    label: "Memory",
-    title: "Bộ nhớ xuyên phiên",
-    body:
-      "Lưu bối cảnh, lỗi và bài học qua từng phiên làm việc. AI nào tham gia cũng bắt đầu từ đúng chỗ — không cần giải thích lại từ đầu.",
-  },
-  {
-    n: "02",
-    label: "Decision",
-    title: "Lưu quyết định và lý do",
-    body:
-      "Mọi quyết định quan trọng đều có lý do, rủi ro và người phê duyệt rõ ràng. Không có quyết định nào chỉ do AI tự làm mà không có dấu vết.",
-  },
-  {
-    n: "03",
-    label: "Evidence",
-    title: "Bằng chứng kiểm thử",
-    body:
-      "Phân biệt rõ Tested và Untested. Mọi tính năng được label trạng thái thật — không gọi demo là sản phẩm xong.",
-  },
-  {
-    n: "04",
-    label: "Governance",
-    title: "Phạm vi và quyền AI",
-    body:
-      "Xác định rõ từng AI được làm gì, trong phạm vi nào, với tài sản nào. Không có vùng xám về quyền truy cập.",
-  },
-];
+  return (
+    <div className="relative px-6 pb-24 pt-28">
+      <AmbientBackground />
+      <main className="relative z-10 mx-auto max-w-[1040px]">
+        <Hero copy={copy} />
+        <Overview copy={copy} />
+        <Layers copy={copy} />
+        <Workflow copy={copy} />
+        <Relation copy={copy} />
+      </main>
+    </div>
+  );
+}
 
-const AGENTS = [
-  { name: "Notion AI", role: "Bộ nhớ trung tâm · điều phối phiên" },
-  { name: "Claude", role: "Phân tích kỹ thuật · code review" },
-  { name: "ChatGPT", role: "Copywriting · brainstorm nội dung" },
-  { name: "AntiGravity", role: "Scope được xác định theo dự án" },
-  { name: "Lovable", role: "UI generation · prototype nhanh" },
-];
-
-const ECOSYSTEM = [
-  {
-    step: "01",
-    name: "MH Quantum Inspector",
-    role: "Quan sát",
-    desc: "Trích xuất DOM/CSS — giúp AI hiểu đúng vị trí vấn đề trên giao diện.",
-    status: "Experiment",
-    lang: "TypeScript",
-    slug: "quantum-inspector",
-  },
-  {
-    step: "02",
-    name: "MH-Dowsampl.Extension",
-    role: "Thu thập",
-    desc: "Dán link → tìm audio công khai → tải về local. Không ghi đè, không mở dịch vụ ra ngoài.",
-    status: "Alpha · v4.1.0",
-    lang: "Python 3.11+",
-    slug: "dowsample-extension",
-  },
-  {
-    step: "03",
-    name: "MH FileOS",
-    role: "Tổ chức",
-    desc: "Chỉ mục file local-first. Không mất dữ liệu là ưu tiên số một.",
-    status: "Experiment · M6",
-    lang: "Rust",
-    slug: "fileos",
-  },
-  {
-    step: "04",
-    name: "MH Sample FL",
-    role: "Sử dụng",
-    desc: "Duyệt, preview và ghi nhớ sample trong FL Studio — không rời cửa sổ.",
-    status: "Alpha · v0.1.0",
-    lang: "TypeScript · Electron",
-    slug: "sample-fl",
-  },
-  {
-    step: "05",
-    name: "MINH HIEU STUDIO",
-    role: "Chia sẻ",
-    desc: "Website công khai — ghi lại hành trình, kiểm chứng và chia sẻ.",
-    status: "Beta",
-    lang: "TypeScript · TanStack",
-    slug: "studio-site",
-  },
-];
-
-/* ------------------------------------------------------------------ */
-/* AMBIENT BACKGROUND                                                  */
-/* ------------------------------------------------------------------ */
-
-const AmbientBackground = memo(function AmbientBackground() {
+function AmbientBackground() {
   const reduce = useReducedMotion();
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-5%,rgba(153,132,216,0.10)_0%,transparent_65%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_45%_at_50%_0%,rgba(153,132,216,0.10)_0%,transparent_70%)]" />
       <motion.div
-        className="absolute left-[10%] top-[15%] h-[500px] w-[500px] rounded-full blur-[120px]"
-        style={{ background: "rgba(153,132,216,0.07)" }}
-        animate={reduce ? {} : { y: [-30, 30, -30], opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute right-[5%] top-[50%] h-[400px] w-[400px] rounded-full blur-[100px]"
-        style={{ background: "rgba(56,189,248,0.05)" }}
-        animate={reduce ? {} : { y: [30, -30, 30], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute left-[12%] top-[22%] h-[420px] w-[420px] rounded-full bg-lavender-pulse/[0.045] blur-[110px]"
+        animate={reduce ? {} : { y: [-20, 20, -20], opacity: [0.45, 0.7, 0.45] }}
+        transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
       />
     </div>
   );
-});
+}
 
-/* ------------------------------------------------------------------ */
-/* HERO                                                                */
-/* ------------------------------------------------------------------ */
+type Copy = (typeof COPY)["vi"] | (typeof COPY)["en"];
 
-const Hero = memo(function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -60]);
-  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, reduce ? 1 : 0]);
-
+function Hero({ copy }: { copy: Copy }) {
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center justify-center px-6 pt-28 pb-20">
+    <section className="flex min-h-[70vh] flex-col items-center justify-center text-center">
       <motion.div
-        className="relative z-10 mx-auto max-w-[860px] flex flex-col items-center text-center"
-        style={{ y, opacity }}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: EASE_OUT_EXPO }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: EASE_OUT_EXPO }}
-        >
-          <PillBadge tone="lavender">HỆ SINH THÁI MH · BỘ NÃO TRUNG TÂM</PillBadge>
-        </motion.div>
-
-        <motion.h1
-          className="font-display mt-8 text-[64px] md:text-[96px] leading-[0.92] tracking-[-0.04em] text-ghost-white"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.15, ease: EASE_OUT_EXPO }}
-        >
-          MH{" "}
-          <span className="text-lavender-pulse italic">Master</span>
-          <br />
-          Memory
-        </motion.h1>
-
-        <motion.p
-          className="mt-10 max-w-[600px] text-[18px] md:text-[20px] leading-[1.6] text-ash-gray"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35, ease: EASE_OUT_EXPO }}
-        >
-          Hệ điều hành trí nhớ, quyết định và điều phối đa-AI cho toàn bộ hệ sinh thái Minh Hiếu.
-          Không phải một ứng dụng — là cấu trúc giúp mọi AI tham gia đúng vai trò trong đúng phạm vi.
-        </motion.p>
-
-        <motion.div
-          className="mt-12 flex flex-wrap gap-4 justify-center"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55, ease: EASE_OUT_EXPO }}
-        >
-          <Magnetic as="div" strength={12} radius={130}>
-            <Button asChild variant="hero">
-              <a href="#ecosystem">Xem hệ sinh thái ↓</a>
-            </Button>
-          </Magnetic>
-          <Button asChild variant="ghost-link">
-            <Link to="/du-an">Xem tất cả dự án →</Link>
-          </Button>
-        </motion.div>
-
-        <motion.div
-          className="mt-16 flex flex-wrap justify-center gap-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-        >
-          {["Memory", "Decision", "Evidence", "Governance"].map((label) => (
-            <span
-              key={label}
-              className="px-4 py-1.5 text-[11px] font-mono tracking-widest text-lavender-pulse/70 uppercase border-b border-lavender-pulse/25"
-            >
-              {label}
-            </span>
-          ))}
-        </motion.div>
+        <PillBadge tone="lavender">{copy.eyebrow}</PillBadge>
       </motion.div>
+      <motion.h1
+        className="font-display mt-8 text-[clamp(62px,10vw,112px)] leading-[0.9] tracking-[-0.045em] text-ghost-white"
+        initial={{ opacity: 0, y: 26 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.72, delay: 0.12, ease: EASE_OUT_EXPO }}
+      >
+        {copy.titleA}<br />
+        <span className="italic text-lavender-pulse">{copy.titleB}</span>
+      </motion.h1>
+      <motion.p
+        className="mt-9 max-w-[720px] text-[17px] leading-[1.75] text-ash-gray md:text-[19px]"
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.62, delay: 0.3, ease: EASE_OUT_EXPO }}
+      >
+        {copy.intro}
+      </motion.p>
+      <motion.p
+        className="mt-7 font-mono text-[10px] uppercase tracking-[0.15em] text-steel-gray"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.48 }}
+      >
+        {copy.status}
+      </motion.p>
     </section>
   );
-});
+}
 
-/* ------------------------------------------------------------------ */
-/* 4 LAYERS — editorial list, no cards                                */
-/* ------------------------------------------------------------------ */
-
-const LayersSection = memo(function LayersSection() {
+function Overview({ copy }: { copy: Copy }) {
   return (
-    <section className="px-6 pt-4 pb-28">
-      <div className="mx-auto max-w-[900px]">
-        <Reveal className="mb-16">
-          <span className="text-eyebrow">Cấu trúc 4 lớp</span>
-          <h2 className="font-display mt-6 text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
-            Bộ não điều hành chung
-          </h2>
-          <p className="mt-5 max-w-[520px] text-[16px] text-ash-gray leading-relaxed">
-            Bốn lớp tạo nên một hệ thống mà bất kỳ AI nào tham gia cũng có thể hiểu bối cảnh và hành động đúng vai trò.
-          </p>
-        </Reveal>
+    <section className="border-t border-white/10 py-24">
+      <Reveal>
+        <span className="font-mono text-[10px] uppercase tracking-[0.17em] text-lavender-pulse/55">
+          {copy.overviewEyebrow}
+        </span>
+        <h2 className="font-display mt-6 max-w-[760px] text-[48px] leading-[1.02] text-ghost-white md:text-[68px]">
+          {copy.overviewTitle}
+        </h2>
+        <p className="mt-7 max-w-[720px] text-[15px] leading-[1.8] text-ash-gray">
+          {copy.overviewBody}
+        </p>
+      </Reveal>
 
-        <div className="border-t border-white/8">
-          {LAYERS.map((layer, idx) => (
-            <Reveal key={layer.n}>
-              <motion.div
-                className="grid grid-cols-[64px_1fr] md:grid-cols-[80px_1fr_280px] gap-x-8 gap-y-3 py-10 border-b border-white/8"
-                whileHover={{ x: 4 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              >
-                <span className="font-mono text-[13px] text-lavender-pulse/60 pt-1">{layer.n}</span>
-                <div>
-                  <span className="text-[11px] font-mono tracking-widest uppercase text-lavender-pulse">
-                    {layer.label}
-                  </span>
-                  <h3 className="mt-2 text-[24px] md:text-[28px] font-medium text-ghost-white leading-tight">
-                    {layer.title}
-                  </h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-ash-gray md:hidden">
-                    {layer.body}
-                  </p>
-                </div>
-                <p className="hidden md:block text-[15px] leading-relaxed text-ash-gray self-center">
-                  {layer.body}
-                </p>
-              </motion.div>
-            </Reveal>
-          ))}
-        </div>
+      <div className="mt-14 grid gap-5 md:grid-cols-2">
+        <Definition title={copy.whatIs} items={copy.whatIsItems} positive />
+        <Definition title={copy.whatNot} items={copy.whatNotItems} />
       </div>
     </section>
   );
-});
+}
 
-/* ------------------------------------------------------------------ */
-/* AGENTS — inline text list, no cards                                */
-/* ------------------------------------------------------------------ */
-
-const AgentsSection = memo(function AgentsSection() {
-  const reduce = useReducedMotion();
+function Definition({ title, items, positive = false }: { title: string; items: readonly string[]; positive?: boolean }) {
   return (
-    <section className="px-6 py-28 border-y border-white/8">
-      <div className="mx-auto max-w-[900px]">
-        <Reveal className="mb-16">
-          <span className="text-eyebrow">Multi-AI Coordination</span>
-          <h2 className="font-display mt-6 text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
-            Mỗi AI đúng vai trò
-          </h2>
-          <p className="mt-5 max-w-[520px] text-[16px] text-ash-gray leading-relaxed">
-            MH Master Memory định nghĩa phạm vi cụ thể cho từng AI Agent. Không có vùng xám, không tự quyết định ngoài scope.
-          </p>
-        </Reveal>
+    <Reveal>
+      <div className="h-full rounded-2xl border border-white/10 bg-white/[0.025] p-7 md:p-8">
+        <h3 className="text-[19px] font-medium text-ghost-white">{title}</h3>
+        <ul className="mt-6 space-y-4">
+          {items.map((item) => (
+            <li key={item} className="flex gap-3 text-[14px] leading-[1.65] text-ash-gray">
+              <span className={positive ? "text-mint-signal" : "text-amber-300"}>{positive ? "●" : "○"}</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Reveal>
+  );
+}
 
-        {/* Central node */}
-        <div className="flex flex-col items-center mb-16">
-          <motion.div
-            className="flex h-20 w-20 items-center justify-center"
-            animate={
-              reduce
-                ? {}
-                : {
-                    textShadow: [
-                      "0 0 20px rgba(153,132,216,0.3)",
-                      "0 0 50px rgba(153,132,216,0.7)",
-                      "0 0 20px rgba(153,132,216,0.3)",
-                    ],
-                  }
-            }
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <span className="font-mono text-[13px] font-bold tracking-widest text-lavender-pulse uppercase text-center leading-snug">
-              MH<br />Memory
-            </span>
-          </motion.div>
-          <div className="w-px h-8 bg-gradient-to-b from-lavender-pulse/40 to-transparent" />
-        </div>
+function Layers({ copy }: { copy: Copy }) {
+  return (
+    <section className="border-t border-white/10 py-24">
+      <Reveal>
+        <span className="font-mono text-[10px] uppercase tracking-[0.17em] text-lavender-pulse/55">
+          {copy.layersEyebrow}
+        </span>
+        <h2 className="font-display mt-6 text-[48px] leading-none text-ghost-white md:text-[68px]">
+          {copy.layersTitle}
+        </h2>
+      </Reveal>
 
-        {/* Agent list */}
-        <div className="border-t border-white/8">
-          {AGENTS.map((agent) => (
-            <Reveal key={agent.name}>
-              <div className="flex items-baseline justify-between py-5 border-b border-white/8">
-                <span className="text-[18px] font-medium text-ghost-white">{agent.name}</span>
-                <span className="text-[13px] text-ash-gray ml-8 text-right">{agent.role}</span>
+      <div className="mt-14 border-t border-white/10">
+        {copy.layers.map((layer) => (
+          <Reveal key={layer.n}>
+            <article className="grid gap-5 border-b border-white/10 py-9 md:grid-cols-[70px_200px_1fr] md:gap-8">
+              <span className="font-display text-[34px] text-white/12">{layer.n}</span>
+              <div>
+                <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-lavender-pulse">
+                  {layer.label}
+                </span>
+                <h3 className="mt-2 text-[20px] font-medium leading-tight text-ghost-white">{layer.title}</h3>
               </div>
-            </Reveal>
-          ))}
-        </div>
+              <p className="text-[14px] leading-[1.75] text-ash-gray">{layer.body}</p>
+            </article>
+          </Reveal>
+        ))}
       </div>
     </section>
   );
-});
+}
 
-/* ------------------------------------------------------------------ */
-/* ECOSYSTEM CHAIN — editorial numbered list                          */
-/* ------------------------------------------------------------------ */
-
-const EcosystemSection = memo(function EcosystemSection() {
+function Workflow({ copy }: { copy: Copy }) {
   return (
-    <section id="ecosystem" className="px-6 py-28">
-      <div className="mx-auto max-w-[900px]">
-        <Reveal className="mb-16">
-          <span className="text-eyebrow">Chuỗi hệ sinh thái</span>
-          <h2 className="font-display mt-6 text-[48px] md:text-[64px] leading-none tracking-[-0.03em] text-ghost-white">
-            Năm công cụ,<br />một quy trình
-          </h2>
-          <p className="mt-5 max-w-[520px] text-[16px] text-ash-gray leading-relaxed">
-            Từng công cụ giải quyết một công đoạn riêng. Kết nối lại thành một pipeline hoàn chỉnh — hoặc dùng độc lập tùy nào cần.
-          </p>
-        </Reveal>
+    <section className="border-t border-white/10 py-24">
+      <Reveal>
+        <span className="font-mono text-[10px] uppercase tracking-[0.17em] text-lavender-pulse/55">
+          {copy.flowEyebrow}
+        </span>
+        <h2 className="font-display mt-6 text-[48px] leading-none text-ghost-white md:text-[68px]">
+          {copy.flowTitle}
+        </h2>
+      </Reveal>
 
-        <div className="border-t border-white/8">
-          {ECOSYSTEM.map((item) => (
-            <Reveal key={item.step}>
-              <Link to="/du-an/$slug" params={{ slug: item.slug }}>
-                <motion.div
-                  className="group grid grid-cols-[48px_1fr] md:grid-cols-[48px_1fr_auto] gap-x-8 gap-y-2 py-9 border-b border-white/8 cursor-pointer"
-                  whileHover={{ x: 6 }}
-                  transition={{ type: "spring", stiffness: 280, damping: 28 }}
-                >
-                  <span className="font-mono text-[13px] text-lavender-pulse/50 pt-1">{item.step}</span>
-                  <div>
-                    <div className="flex flex-wrap items-baseline gap-3">
-                      <h3 className="text-[22px] md:text-[26px] font-medium text-ghost-white group-hover:text-lavender-pulse transition-colors">
-                        {item.name}
-                      </h3>
-                      <span className="text-[12px] font-mono uppercase text-ash-gray/50">
-                        {item.role}
-                      </span>
-                    </div>
-                    <p className="mt-2 text-[15px] leading-relaxed text-ash-gray">{item.desc}</p>
-                  </div>
-                  <div className="hidden md:flex flex-col gap-1.5 items-end self-center">
-                    <span className="text-[11px] font-mono text-ash-gray/60">{item.status}</span>
-                    <span className="text-[11px] font-mono text-lavender-pulse/50">{item.lang}</span>
-                    <span className="text-[12px] text-lavender-pulse/40 group-hover:text-lavender-pulse transition-colors">→</span>
-                  </div>
-                </motion.div>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
+      <div className="mt-14 grid gap-4 md:grid-cols-5">
+        {copy.flow.map((step) => (
+          <Reveal key={step.n}>
+            <article className="h-full rounded-xl border border-white/10 bg-white/[0.02] p-5">
+              <span className="font-mono text-[10px] text-lavender-pulse/55">{step.n}</span>
+              <h3 className="mt-5 text-[15px] font-medium text-ghost-white">{step.title}</h3>
+              <p className="mt-3 text-[12px] leading-[1.65] text-ash-gray/75">{step.body}</p>
+            </article>
+          </Reveal>
+        ))}
       </div>
     </section>
   );
-});
+}
 
-/* ------------------------------------------------------------------ */
-/* CLOSING CTA                                                         */
-/* ------------------------------------------------------------------ */
-
-const ClosingCta = memo(function ClosingCta() {
+function Relation({ copy }: { copy: Copy }) {
   return (
-    <section className="px-6 py-28 border-t border-white/8">
-      <div className="mx-auto max-w-[900px]">
-        <Reveal>
-          <p className="text-eyebrow mb-6">Bằng chứng trước tuyên bố</p>
-          <h2 className="font-display text-[48px] md:text-[72px] leading-none tracking-[-0.03em] text-ghost-white">
-            Xem dự án thật
+    <section className="border-t border-white/10 py-24">
+      <Reveal>
+        <div className="rounded-2xl border border-lavender-pulse/20 bg-lavender-pulse/[0.035] p-8 md:p-12">
+          <span className="font-mono text-[10px] uppercase tracking-[0.17em] text-lavender-pulse/60">
+            {copy.relationEyebrow}
+          </span>
+          <h2 className="font-display mt-6 max-w-[720px] text-[42px] leading-[1.04] text-ghost-white md:text-[58px]">
+            {copy.relationTitle}
           </h2>
-          <p className="mt-8 max-w-[520px] text-[17px] text-ash-gray leading-relaxed">
-            Tất cả công cụ đều có trạng thái công khai, rõ ràng và có bằng chứng. Không hứa những gì chưa có.
+          <p className="mt-7 max-w-[730px] text-[15px] leading-[1.8] text-ash-gray">
+            {copy.relationBody}
           </p>
-          <div className="mt-10 flex gap-5 flex-wrap">
-            <Magnetic as="div" strength={12} radius={130}>
-              <Button asChild variant="hero">
-                <Link to="/du-an">Xem hệ sinh thái MH →</Link>
-              </Button>
-            </Magnetic>
-            <Button asChild variant="ghost-link">
-              <Link to="/lien-he">Liên hệ collab</Link>
+          <div className="mt-9 flex flex-wrap gap-4">
+            <Button asChild variant="hero" size="lg">
+              <Link to="/du-an">{copy.relationCta}</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/lien-he">{copy.contactCta}</Link>
             </Button>
           </div>
-        </Reveal>
-      </div>
+        </div>
+      </Reveal>
     </section>
-  );
-});
-
-/* ------------------------------------------------------------------ */
-/* PAGE                                                                */
-/* ------------------------------------------------------------------ */
-
-function HeSinhThai() {
-  return (
-    <div className="relative">
-      <AmbientBackground />
-      <div className="relative z-10">
-        <Hero />
-        <LayersSection />
-        <AgentsSection />
-        <EcosystemSection />
-        <ClosingCta />
-      </div>
-    </div>
   );
 }
