@@ -4,6 +4,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import vi from "./vi";
 import en from "./en";
 import partnerReadyOverrides from "./partner-ready-overrides";
+import projectDetailOverrides from "./project-detail-overrides";
 
 export type AppLanguage = "vi" | "en";
 
@@ -30,8 +31,22 @@ function mergeDeep<T extends Dictionary>(base: T, override: Dictionary): T {
   return output as T;
 }
 
-const viResource = mergeDeep(vi as unknown as Dictionary, partnerReadyOverrides.vi as unknown as Dictionary);
-const enResource = mergeDeep(en as unknown as Dictionary, partnerReadyOverrides.en as unknown as Dictionary);
+const viWithBrand = mergeDeep(
+  vi as unknown as Dictionary,
+  partnerReadyOverrides.vi as unknown as Dictionary,
+);
+const enWithBrand = mergeDeep(
+  en as unknown as Dictionary,
+  partnerReadyOverrides.en as unknown as Dictionary,
+);
+const viResource = mergeDeep(
+  viWithBrand,
+  projectDetailOverrides.vi as unknown as Dictionary,
+);
+const enResource = mergeDeep(
+  enWithBrand,
+  projectDetailOverrides.en as unknown as Dictionary,
+);
 
 if (!i18n.isInitialized) {
   const chain = i18n.use(initReactI18next);
