@@ -1,6 +1,9 @@
 name: Partner content build check
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - fix/partner-ready-content
