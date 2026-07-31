@@ -4,7 +4,7 @@ import { memo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { PillBadge } from "@/components/pill-badge";
-import { Reveal, EASE_OUT_EXPO } from "@/components/reveal";
+import { EASE_OUT_EXPO } from "@/components/reveal";
 import { Magnetic } from "@/components/magnetic";
 import { SplitText } from "@/components/split-text";
 import i18n from "@/i18n";
@@ -141,57 +141,6 @@ const Hero = memo(function Hero() {
   );
 });
 
-const CapabilitySection = memo(function CapabilitySection() {
-  const { t } = useTranslation();
-  const items = t("home.capabilities.items", { returnObjects: true }) as Array<{
-    n: string;
-    title: string;
-    body: string;
-  }>;
-
-  return (
-    <section className="border-t border-white/8 px-6 py-28">
-      <div className="mx-auto max-w-[900px]">
-        <Reveal className="mb-8">
-          <h2 className="font-display text-[52px] leading-none tracking-[-0.025em] text-ghost-white md:text-[72px]">
-            {t("home.capabilities.title")}
-          </h2>
-          <p className="mt-6 max-w-[650px] text-[15px] leading-relaxed text-ash-gray/70">
-            {t("home.capabilities.subtitle")}
-          </p>
-        </Reveal>
-
-        <div className="mt-14 border-t border-white/8">
-          {items.map((item) => (
-            <Reveal key={item.n}>
-              <motion.div
-                className="grid grid-cols-[36px_1fr] gap-x-8 gap-y-2 border-b border-white/8 py-8 md:grid-cols-[36px_1fr_360px]"
-                whileHover={{ x: 4 }}
-                transition={{ type: "spring", stiffness: 260, damping: 28 }}
-              >
-                <span className="pt-1 font-mono text-[11px] text-lavender-pulse/40">
-                  {item.n}
-                </span>
-                <h3 className="text-[18px] font-medium text-ghost-white md:text-[20px]">
-                  {item.title}
-                </h3>
-                <p className="col-start-2 text-[13px] leading-relaxed text-ash-gray/70 md:col-start-3 md:row-start-1">
-                  {item.body}
-                </p>
-              </motion.div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-});
-
 function Home() {
-  return (
-    <>
-      <Hero />
-      <CapabilitySection />
-    </>
-  );
+  return <Hero />;
 }
