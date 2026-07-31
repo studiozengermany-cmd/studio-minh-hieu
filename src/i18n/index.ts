@@ -5,6 +5,7 @@ import vi from "./vi";
 import en from "./en";
 import partnerReadyOverrides from "./partner-ready-overrides";
 import projectDetailOverrides from "./project-detail-overrides";
+import publicSiteProjectOverrides from "./public-site-project-overrides";
 
 export type AppLanguage = "vi" | "en";
 
@@ -39,13 +40,21 @@ const enWithBrand = mergeDeep(
   en as unknown as Dictionary,
   partnerReadyOverrides.en as unknown as Dictionary,
 );
-const viResource = mergeDeep(
+const viWithProjectDetails = mergeDeep(
   viWithBrand,
   projectDetailOverrides.vi as unknown as Dictionary,
 );
-const enResource = mergeDeep(
+const enWithProjectDetails = mergeDeep(
   enWithBrand,
   projectDetailOverrides.en as unknown as Dictionary,
+);
+const viResource = mergeDeep(
+  viWithProjectDetails,
+  publicSiteProjectOverrides.vi as unknown as Dictionary,
+);
+const enResource = mergeDeep(
+  enWithProjectDetails,
+  publicSiteProjectOverrides.en as unknown as Dictionary,
 );
 
 if (!i18n.isInitialized) {
