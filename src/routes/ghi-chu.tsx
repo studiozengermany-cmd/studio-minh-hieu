@@ -22,15 +22,10 @@ function Notes() {
     title: string;
     body: string;
   }>;
-  const statusConvention = t("statusConvention", { returnObjects: true }) as Array<{
-    status: string;
-    when: string;
-  }>;
 
   return (
     <div className="px-6 pt-24 pb-24">
       <div className="mx-auto max-w-[1080px]">
-        {/* Hero */}
         <div className="anim-in" style={{ animationDelay: "40ms" }}>
           <SectionHeader
             as="h1"
@@ -40,7 +35,6 @@ function Notes() {
           />
         </div>
 
-        {/* Principles — card grid */}
         <section className="mt-24">
           <div className="mb-8 flex items-center gap-2.5">
             <span className="h-1.5 w-1.5 rounded-full bg-lavender-pulse shadow-[0_0_6px_rgba(153,132,216,0.9)]" />
@@ -63,45 +57,7 @@ function Notes() {
             ))}
           </div>
         </section>
-
-        {/* Status convention — table */}
-        <section className="mt-24">
-          <div className="mb-8 flex items-center gap-2.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-mint-signal shadow-[0_0_6px_rgba(63,203,127,0.7)]" />
-            <h2 className="text-eyebrow">{t("notes.statusHeading")}</h2>
-          </div>
-          <div className="surface-card overflow-hidden rounded-xl border border-graphite">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-graphite bg-[#08090b]">
-                  <th className="w-[220px] px-5 py-3.5 text-[11px] font-mono font-medium uppercase tracking-[0.14em] text-steel-gray">
-                    {t("notes.tableStatus")}
-                  </th>
-                  <th className="px-5 py-3.5 text-[11px] font-mono font-medium uppercase tracking-[0.14em] text-steel-gray">
-                    {t("notes.tableWhen")}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {statusConvention.map((row, i) => (
-                  <tr
-                    key={row.status}
-                    className={i < statusConvention.length - 1 ? "border-b border-graphite" : ""}
-                  >
-                    <td className="px-5 py-4 text-[13.5px] font-semibold text-ghost-white">
-                      {row.status}
-                    </td>
-                    <td className="px-5 py-4 text-[13.5px] leading-relaxed text-ash-gray">
-                      {row.when}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
       </div>
     </div>
   );
 }
-
