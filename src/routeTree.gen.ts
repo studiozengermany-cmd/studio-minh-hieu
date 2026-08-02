@@ -15,11 +15,13 @@ import { Route as DangNhapRouteImport } from './routes/dang-nhap'
 import { Route as DuAnRouteImport } from './routes/du-an'
 import { Route as GhiChuRouteImport } from './routes/ghi-chu'
 import { Route as GioiThieuRouteImport } from './routes/gioi-thieu'
+import { Route as HeSinhThaiRouteImport } from './routes/he-sinh-thai'
 import { Route as LienHeRouteImport } from './routes/lien-he'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TuLieuRouteImport } from './routes/tu-lieu'
-import { Route as DuAnIndexRouteImport } from './routes/du-an.index'
+import { Route as DuAnIndexRouteImport } from './routes/du-an/index'
 import { Route as DuAnSlugRouteImport } from './routes/du-an.$slug'
+import { Route as DuAnDowsampleExtensionRouteImport } from './routes/du-an.dowsample-extension'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -51,6 +53,11 @@ const GioiThieuRoute = GioiThieuRouteImport.update({
   path: '/gioi-thieu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HeSinhThaiRoute = HeSinhThaiRouteImport.update({
+  id: '/he-sinh-thai',
+  path: '/he-sinh-thai',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LienHeRoute = LienHeRouteImport.update({
   id: '/lien-he',
   path: '/lien-he',
@@ -76,6 +83,11 @@ const DuAnSlugRoute = DuAnSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => DuAnRoute,
 } as any)
+const DuAnDowsampleExtensionRoute = DuAnDowsampleExtensionRouteImport.update({
+  id: '/dowsample-extension',
+  path: '/dowsample-extension',
+  getParentRoute: () => DuAnRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -84,10 +96,12 @@ export interface FileRoutesByFullPath {
   '/du-an': typeof DuAnRouteWithChildren
   '/ghi-chu': typeof GhiChuRoute
   '/gioi-thieu': typeof GioiThieuRoute
+  '/he-sinh-thai': typeof HeSinhThaiRoute
   '/lien-he': typeof LienHeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tu-lieu': typeof TuLieuRoute
   '/du-an/$slug': typeof DuAnSlugRoute
+  '/du-an/dowsample-extension': typeof DuAnDowsampleExtensionRoute
   '/du-an/': typeof DuAnIndexRoute
 }
 export interface FileRoutesByTo {
@@ -96,10 +110,12 @@ export interface FileRoutesByTo {
   '/dang-nhap': typeof DangNhapRoute
   '/ghi-chu': typeof GhiChuRoute
   '/gioi-thieu': typeof GioiThieuRoute
+  '/he-sinh-thai': typeof HeSinhThaiRoute
   '/lien-he': typeof LienHeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tu-lieu': typeof TuLieuRoute
   '/du-an/$slug': typeof DuAnSlugRoute
+  '/du-an/dowsample-extension': typeof DuAnDowsampleExtensionRoute
   '/du-an': typeof DuAnIndexRoute
 }
 export interface FileRoutesById {
@@ -110,10 +126,12 @@ export interface FileRoutesById {
   '/du-an': typeof DuAnRouteWithChildren
   '/ghi-chu': typeof GhiChuRoute
   '/gioi-thieu': typeof GioiThieuRoute
+  '/he-sinh-thai': typeof HeSinhThaiRoute
   '/lien-he': typeof LienHeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tu-lieu': typeof TuLieuRoute
   '/du-an/$slug': typeof DuAnSlugRoute
+  '/du-an/dowsample-extension': typeof DuAnDowsampleExtensionRoute
   '/du-an/': typeof DuAnIndexRoute
 }
 export interface FileRouteTypes {
@@ -125,10 +143,12 @@ export interface FileRouteTypes {
     | '/du-an'
     | '/ghi-chu'
     | '/gioi-thieu'
+    | '/he-sinh-thai'
     | '/lien-he'
     | '/sitemap.xml'
     | '/tu-lieu'
     | '/du-an/$slug'
+    | '/du-an/dowsample-extension'
     | '/du-an/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -137,10 +157,12 @@ export interface FileRouteTypes {
     | '/dang-nhap'
     | '/ghi-chu'
     | '/gioi-thieu'
+    | '/he-sinh-thai'
     | '/lien-he'
     | '/sitemap.xml'
     | '/tu-lieu'
     | '/du-an/$slug'
+    | '/du-an/dowsample-extension'
     | '/du-an'
   id:
     | '__root__'
@@ -150,10 +172,12 @@ export interface FileRouteTypes {
     | '/du-an'
     | '/ghi-chu'
     | '/gioi-thieu'
+    | '/he-sinh-thai'
     | '/lien-he'
     | '/sitemap.xml'
     | '/tu-lieu'
     | '/du-an/$slug'
+    | '/du-an/dowsample-extension'
     | '/du-an/'
   fileRoutesById: FileRoutesById
 }
@@ -164,6 +188,7 @@ export interface RootRouteChildren {
   DuAnRoute: typeof DuAnRouteWithChildren
   GhiChuRoute: typeof GhiChuRoute
   GioiThieuRoute: typeof GioiThieuRoute
+  HeSinhThaiRoute: typeof HeSinhThaiRoute
   LienHeRoute: typeof LienHeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TuLieuRoute: typeof TuLieuRoute
@@ -213,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GioiThieuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/he-sinh-thai': {
+      id: '/he-sinh-thai'
+      path: '/he-sinh-thai'
+      fullPath: '/he-sinh-thai'
+      preLoaderRoute: typeof HeSinhThaiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lien-he': {
       id: '/lien-he'
       path: '/lien-he'
@@ -248,16 +280,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DuAnSlugRouteImport
       parentRoute: typeof DuAnRoute
     }
+    '/du-an/dowsample-extension': {
+      id: '/du-an/dowsample-extension'
+      path: '/dowsample-extension'
+      fullPath: '/du-an/dowsample-extension'
+      preLoaderRoute: typeof DuAnDowsampleExtensionRouteImport
+      parentRoute: typeof DuAnRoute
+    }
   }
 }
 
 interface DuAnRouteChildren {
   DuAnSlugRoute: typeof DuAnSlugRoute
+  DuAnDowsampleExtensionRoute: typeof DuAnDowsampleExtensionRoute
   DuAnIndexRoute: typeof DuAnIndexRoute
 }
 
 const DuAnRouteChildren: DuAnRouteChildren = {
   DuAnSlugRoute: DuAnSlugRoute,
+  DuAnDowsampleExtensionRoute: DuAnDowsampleExtensionRoute,
   DuAnIndexRoute: DuAnIndexRoute,
 }
 
@@ -270,6 +311,7 @@ const rootRouteChildren: RootRouteChildren = {
   DuAnRoute: DuAnRouteWithChildren,
   GhiChuRoute: GhiChuRoute,
   GioiThieuRoute: GioiThieuRoute,
+  HeSinhThaiRoute: HeSinhThaiRoute,
   LienHeRoute: LienHeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TuLieuRoute: TuLieuRoute,
