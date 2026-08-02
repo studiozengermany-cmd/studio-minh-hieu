@@ -1,5 +1,6 @@
 const en = {
   common: {
+    skipToMain: "Skip to main content",
     nav: {
       home: "Home",
       music: "Music",

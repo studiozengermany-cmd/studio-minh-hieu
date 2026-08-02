@@ -249,6 +249,7 @@ const SiteFooter = memo(function SiteFooter() {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const notified = new Set<string>();
@@ -272,15 +273,23 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-0 focus:top-0 focus:z-[999] focus:bg-lavender-pulse focus:text-void-black focus:px-4 focus:py-2 focus:font-medium"
+      >
+        {t("common.skipToMain")}
+      </a>
       <SafeBoundary name="SiteBackground"><SiteBackground /></SafeBoundary>
       <SafeBoundary name="ScrollProgress"><ScrollProgress /></SafeBoundary>
       <SafeBoundary name="IntroLoader"><IntroLoader /></SafeBoundary>
       <TopNav />
-      <SafeBoundary name="PageTransition" fallback={<Outlet />}>
-        <PageTransition>
-          <Outlet />
-        </PageTransition>
-      </SafeBoundary>
+      <main id="main-content">
+        <SafeBoundary name="PageTransition" fallback={<Outlet />}>
+          <PageTransition>
+            <Outlet />
+          </PageTransition>
+        </SafeBoundary>
+      </main>
       <SiteFooter />
       <Toaster position="bottom-right" />
       <SafeBoundary name="ChatBubble"><ChatBubble /></SafeBoundary>

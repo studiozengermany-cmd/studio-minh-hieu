@@ -1,5 +1,6 @@
 const vi = {
   common: {
+    skipToMain: "Bỏ qua đến nội dung chính",
     nav: {
       home: "Trang chủ",
       music: "Âm nhạc",
@@ -319,7 +320,7 @@ const vi = {
       ],
       features: [
         { name: "Tìm kiếm", desc: "Quét folder, giữ cấu trúc cha–con, SQLite FTS5, filter và sort." },
-        { name: "Preview", desc: "Nghe audio, xem waveform và metadata; không sửa file nguồn." },
+        { name: "Preview", desc: "Nghe audio, xem waveform và metadata; không sửa file ngu��n." },
         { name: "Ghi nhớ", desc: "Project Workspace, Project Memory, tag, note và xác nhận sample đã dùng." },
         { name: "Bảo vệ", desc: "SHA-256, báo cáo trùng chính xác, phát hiện file thiếu; chỉ đọc hoặc mô phỏng trước." },
         { name: "Nguồn gốc", desc: "Source, license và tài liệu chứng minh do người dùng bổ sung." },
