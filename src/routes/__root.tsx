@@ -6,6 +6,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 import { memo, useEffect, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
@@ -27,6 +28,15 @@ import { notifySignup } from "@/lib/notify-signup.functions";
 
 function NotFoundComponent() {
   const { t } = useTranslation();
+  
+  // Set HTTP 404 status code on server
+  if (typeof window === "undefined") {
+    const context = globalThis.__NITRO_CONTEXT__ || {};
+    if (context.event?.node?.res) {
+      context.event.node.res.statusCode = 404;
+    }
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-void-black px-4">
       <div className="max-w-md text-center">
@@ -149,13 +159,13 @@ const TopNav = memo(function TopNav() {
   const { t } = useTranslation();
   return (
     <header className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-auto max-w-[calc(100%-2rem)]">
-      <div className="flex items-center justify-center rounded-full border border-white/10 bg-[#030304]/80 px-2 py-1.5 backdrop-blur-2xl shadow-[0_20px_80px_rgba(0,0,0,0.4)]">
-        <nav className="flex items-center gap-1">
+      <div className="flex items-center justify-center rounded-full border border-white/10 bg-[#030304]/80 px-2 py-1.5 backdrop-blur-2xl shadow-[0_20px_80px_rgba(0,0,0,0.4)] overflow-x-auto">
+        <nav className="flex items-center gap-1 whitespace-nowrap">
           {navItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="inline-flex min-h-[38px] items-center justify-center rounded-full px-4 text-[12px] font-mono font-medium tracking-[0.05em] uppercase text-ash-gray/80 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-white/10 hover:text-white"
+              className="inline-flex min-h-[38px] items-center justify-center rounded-full px-2 sm:px-3 md:px-4 text-[10px] sm:text-[11px] md:text-[12px] font-mono font-medium tracking-[0.05em] uppercase text-ash-gray/80 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-white/10 hover:text-white"
               activeProps={{
                 className: "bg-white/15 text-ghost-white font-medium border border-white/20 shadow-[0_2px_10px_rgba(255,255,255,0.1)] -translate-y-[1px]",
               }}
@@ -166,7 +176,7 @@ const TopNav = memo(function TopNav() {
                   {isActive && (
                     <span className="h-1.5 w-1.5 rounded-full bg-lavender-pulse shadow-[0_0_8px_rgba(153,132,216,0.9)]" />
                   )}
-                  {t(`common.nav.${item.key}`)}
+                  <span className="line-clamp-1">{t(`common.nav.${item.key}`)}</span>
                 </span>
               )}
             </Link>

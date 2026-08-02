@@ -13,8 +13,11 @@ import { EASE_OUT_EXPO } from "@/components/reveal";
  * GPU-only (transform / opacity / filter) → 60fps.
  */
 export const PageTransition = memo(function PageTransition({ children }: { children: ReactNode }) {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const location = useRouterState({ select: (s) => s.location });
   const reduce = useReducedMotion();
+  
+  // Use full URL including search params to detect route changes including dynamic params
+  const routeKey = `${location.pathname}${location.search}`;
 
   useEffect(() => {
     if (reduce) return;
@@ -24,14 +27,14 @@ export const PageTransition = memo(function PageTransition({ children }: { child
       window.scrollTo({ top: 0, behavior: "smooth" });
     }, 120);
     return () => window.clearTimeout(t);
-  }, [pathname, reduce]);
+  }, [routeKey, reduce]);
 
   if (reduce) return <>{children}</>;
 
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
-        key={pathname}
+        key={routeKey}
         initial={{ opacity: 0, y: 24, scale: 0.985, filter: "blur(8px)" }}
         animate={{
           opacity: 1,
@@ -54,7 +57,7 @@ export const PageTransition = memo(function PageTransition({ children }: { child
 
       {/* Lavender curtain sweep at the swap point. */}
       <motion.div
-        key={`curtain-${pathname}`}
+        key={`curtain-${routeKey}`}
         aria-hidden
         className="pointer-events-none fixed inset-0 z-[150]"
         initial={{ y: "100%" }}
